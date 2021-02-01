@@ -1,20 +1,28 @@
 package sg.edu.iss.jinder.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="jobs")
 public class Job {
 
 	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;	
+	@Column(name="companyName")
 	private String companyName;
+	@Column(name="jobTitle")
 	private String jobTitle;
+	@Column(name="jobDesc")
 	private String jobDesc;
-	private String jobSkills;	
+	@Column(name="jobSkills")
+	private String jobSkills;
+	@Column(name="jobAppUrl")
 	private String jobAppUrl;
 	
 	public Job() {
