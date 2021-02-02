@@ -1,6 +1,5 @@
 package sg.edu.iss.jinder.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="jobs")
+@Table(name = "job")
 public class Job {
 
 	@Id 
@@ -21,10 +20,6 @@ public class Job {
 	@Column(columnDefinition = "TEXT")
 	private String jobSkills;
 	private String jobAppUrl;
-	
-	public Job() {
-		super();
-	}
 
 	public Job(String jobTitle, String companyName, String jobDesc, String jobSkills, String jobAppUrl) {
 		super();
@@ -34,55 +29,42 @@ public class Job {
 		this.jobSkills = jobSkills;
 		this.jobAppUrl = jobAppUrl;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getCompanyName() {
 		return companyName;
 	}
-
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-
-	public String getJobTitle() {
-		return jobTitle;
+	public String getSkills() {
+		return skills;
 	}
-
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setSkills(String skills) {
+		this.skills = skills;
 	}
-
-	public String getJobDesc() {
-		return jobDesc;
+	public String getUrl() {
+		return url;
 	}
-
-	public void setJobDesc(String jobDesc) {
-		this.jobDesc = jobDesc;
+	public void setUrl(String url) {
+		this.url = url;
 	}
-
-	public String getJobSkills() {
-		return jobSkills;
-	}
-
-	public void setJobSkills(String jobSkills) {
-		this.jobSkills = jobSkills;
-	}
-
-	public String getJobAppUrl() {
-		return jobAppUrl;
-	}
-
-	public void setJobAppUrl(String jobAppUrl) {
-		this.jobAppUrl = jobAppUrl;
-	}
-
 	@Override
 	public String toString() {
 		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDesc=" + jobDesc
