@@ -9,7 +9,7 @@ import sg.edu.iss.jinder.model.Job;
 
 public interface JobService {
 	
-	 public Job findJobbyId(Integer id);
+	 public Job findJobById(Integer id);
 	 public List<Job> listAll(String keyword);
 	 public Page<Job> findPaginated(List<Job> jobs, Pageable pageable);
 }

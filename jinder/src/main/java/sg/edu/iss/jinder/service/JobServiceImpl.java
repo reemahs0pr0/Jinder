@@ -1,6 +1,5 @@
 package sg.edu.iss.jinder.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class JobServiceImpl implements JobService {
 	JobRepository jrepo;
 
 	@Override
-	public Job findJobbyId(Integer id) {
+	public Job findJobById(Integer id) {
 		return jrepo.findById(id).get();
 	}
 
@@ -33,6 +32,7 @@ public class JobServiceImpl implements JobService {
 		return jrepo.findAll();
 	}
 	
+	@Override
 	public Page<Job> findPaginated(List<Job> jobs, Pageable pageable) {
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();

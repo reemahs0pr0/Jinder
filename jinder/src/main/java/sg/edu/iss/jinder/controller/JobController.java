@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
 
 @Controller
 @RequestMapping("/job")
 public class JobController {
+	
 	@Autowired
 	private JobService jobservice;
     
@@ -34,12 +35,12 @@ public class JobController {
 	public String catalog(Model model, @Param("keyword") String keyword, @RequestParam("page") Optional<Integer> page, 
 			@RequestParam("size") Optional<Integer> size) {
 		
-		List<sg.edu.iss.jinder.model.Job> jobs = jobservice.listAll(keyword);
+		List<Job> jobs = jobservice.listAll(keyword);
 		
 		int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<sg.edu.iss.jinder.model.Job> jobPage = jobservice.findPaginated(jobs, PageRequest.of(currentPage - 1, pageSize));
+        Page<Job> jobPage = jobservice.findPaginated(jobs, PageRequest.of(currentPage - 1, pageSize));
 
         int totalPages = jobPage.getTotalPages();
         if (totalPages > 0) {
@@ -56,7 +57,7 @@ public class JobController {
 
 	@RequestMapping(value = "/detail/{id}")
 	public String showJob(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("job", jobservice.findJobbyId(id));
+		model.addAttribute("job", jobservice.findJobById(id));
 		return "jobdetail";	
 	}
 }

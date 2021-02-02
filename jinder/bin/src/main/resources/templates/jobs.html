@@ -47,11 +47,9 @@
 	<!-- Jobs List view -->
 	<table class="table table-striped table-hover" th:if="${not #lists.isEmpty(jobs)}" >
 		<tr th:each="job: ${jobs}" class="table-row">
-			<td th:text=${job.id+1}>Id</td>
-			<td th:text=${job.jobTitle}>Job Title</td>
-			<td th:text=${job.companyName}>Company Name</td>
-			<td th:text="${job.jobDesc.substring(0, 50) + '...'}">Description</td>
-			<td><a href="jobdetail.html" class="btn btn-success" th:href="@{/job/detail/}+${job.id}">Click for more details</a></td>
+			<td th:text=${job.title}>Job Title</td>
+			<td><a href="jobdetail.html" class="btn btn-success"
+				th:href="@{/job/detail/}+${job.id}">Click for more details</a></td>
 		</tr>
 	</table>
 	<div th:if="${jobs.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">

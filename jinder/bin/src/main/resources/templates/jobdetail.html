@@ -12,12 +12,12 @@
 
 	<table class="table1 table-striped table-hover">
 	<thead>
-		<tr><th th:text="${job.jobTitle}">Job Title</th></tr>
+		<tr><th th:text="${job.title}">Job Title</th></tr>
 	</thead>
-		<tr><td>Job Description</td><td th:text=${job.jobDesc}>Description</td></tr>
+		<tr><td>Job Description</td><td th:text=${job.description}>Description</td></tr>
 		<tr><td>Company Name</td><td th:text=${job.companyName}>Company Name</td></tr>
-		<tr><td>Skill(s) Required</td><td th:text=${job.jobSkills}>Skills</td></tr>
-		<tr><td><a th:href=${job.jobAppUrl}>Apply Here</a></td></tr>
+		<tr><td>Skill(s) Required</td><td th:text=${job.skills}>Skills</td></tr>
+		<tr><td><a th:href=${job.url}>Apply Here</a></td></tr>
 	</table>
 
 	<p>
