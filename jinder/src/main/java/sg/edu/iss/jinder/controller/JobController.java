@@ -26,20 +26,18 @@ import sg.edu.iss.jinder.service.UserServiceImpl;
 public class JobController {
 	
 	@Autowired
-	private JobService jobservice;
+	private JobService jobService;
     
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
-	private void setJobService(JobServiceImpl jobServiceImpl)
-	{
+	private void setJobService(JobServiceImpl jobServiceImpl) {
 		this.jobService=jobServiceImpl;
 	}
 	
 	@Autowired
-	private void setUserService(UserServiceImpl userServiceImpl)
-	{
+	private void setUserService(UserServiceImpl userServiceImpl) {
 		this.userService=userServiceImpl;
 	}
 	
@@ -50,10 +48,10 @@ public class JobController {
 		List<Job> jobs;
 		int id = 1; //get from session
 		if(userService.resumeUploaded(id)) {
-			jobs= jobService.listresult(keyword, id);
+			jobs= jobService.listResult(keyword, id);
 		}
 		else {
-			jobs= jobService.listall(keyword);
+			jobs= jobService.listAll(keyword);
 		}
 		int currentPage= page.orElse(1);
 		int pageSize=size.orElse(10);
@@ -77,7 +75,7 @@ public class JobController {
 
 	@RequestMapping(value = "/detail/{id}")
 	public String showJob(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("job", jobservice.findJobById(id));
+		model.addAttribute("job", jobService.findJobById(id));
     
 		return "jobdetail";	
 	}

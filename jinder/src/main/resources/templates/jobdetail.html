@@ -11,17 +11,20 @@
 	<div th:replace="fragments/general.html :: menu"></div>
 
 	<table class="table1 table-striped table-hover">
-	<thead>
-		<tr><th th:text="${job.jobTitle}">Job Title</th></tr>
-	</thead>
-		<tr><td>Job Description</td><td th:text=${job.jobDesc}>Description</td></tr>
+		<thead>
+			<tr><th th:text="${job.jobTitle}">Job Title</th></tr>
+		</thead>
+		<tr><td>Job Description</td><td th:text=${job.jobDescription}>Description</td></tr>
 		<tr><td>Company Name</td><td th:text=${job.companyName}>Company Name</td></tr>
-		<tr><td>Skill(s) Required</td><td th:text=${job.jobSkills}>Skills</td></tr>
+		<tr><td>Skill(s) Required</td><td th:text=${job.skills}>Skills</td></tr>
 		<tr><td><a th:href=${job.jobAppUrl}>Apply Here</a></td></tr>
 	</table>
 
 	<p>
-	<a href="Home" class="btn btn-info" th:text="@{/job/list}">Back to Job Listings</a>
+	<input type="button" value="Back to Jobs Listing"
+			onclick="window.location.href='/job/list'; return false"
+			class="btn btn-info" />
+	</p>
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>

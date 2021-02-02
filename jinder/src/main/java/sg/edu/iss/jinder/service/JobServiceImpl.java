@@ -23,9 +23,9 @@ public class JobServiceImpl implements JobService {
 	
 	@Autowired
 	JobRepository jrepo;
-
+	
 	@Override
-	public List<Job> listall(String keyword)
+	public List<Job> listAll(String keyword)
 	{
 		if(keyword !=null && keyword != "")
 		{
@@ -54,7 +54,7 @@ public class JobServiceImpl implements JobService {
 		          }
 		          List<Job> sortedJobs = new ArrayList<Job>();
 		          for(Integer sortedId : sortedIds) {
-		        	  sortedJobs.add(jobrepo.findById(sortedId).get());
+		        	  sortedJobs.add(jrepo.findById(sortedId).get());
 		          }
 		          return sortedJobs;
 		          
@@ -64,12 +64,12 @@ public class JobServiceImpl implements JobService {
 			return null;
 		}
 		else {
-			return jobrepo.findAll();
+			return jrepo.findAll();
 		}
 	}
 	
 	@Override
-	public List<Job> listresult(String keyword, int id)
+	public List<Job> listResult(String keyword, int id)
 	{
 		if(keyword !=null) {
 			try {
@@ -97,7 +97,7 @@ public class JobServiceImpl implements JobService {
 		          }
 		          List<Job> sortedJobs = new ArrayList<Job>();
 		          for(Integer sortedId : sortedIds) {
-		        	  sortedJobs.add(jobrepo.findById(sortedId).get());
+		        	  sortedJobs.add(jrepo.findById(sortedId).get());
 		          }
 		          return sortedJobs;
 			} catch (Exception e) {
@@ -130,7 +130,7 @@ public class JobServiceImpl implements JobService {
 		          }
 		          List<Job> sortedJobs = new ArrayList<Job>();
 		          for(Integer sortedId : sortedIds) {
-		        	  sortedJobs.add(jobrepo.findById(sortedId).get());
+		        	  sortedJobs.add(jrepo.findById(sortedId).get());
 		          }
 		          return sortedJobs;
 			} catch (Exception e) {
@@ -167,14 +167,14 @@ public class JobServiceImpl implements JobService {
 	public Job findJobById(Integer id) {
 		return jrepo.findById(id).get();
 	}
-
-	@Override
-	public List<Job> listAll(String keyword) {
-		if (keyword != null) {
-			return (List<Job>)jrepo.search(keyword);
-		}		
-		return jrepo.findAll();
-
-	}
+	
+//	@Override
+//	public List<Job> listAll(String keyword) {
+//		if (keyword != null) {
+//			return (List<Job>)jrepo.search(keyword);
+//		}		
+//		return jrepo.findAll();
+//
+//	}
 	
 }

@@ -18,21 +18,21 @@ public class Job {
 	private String jobTitle;
 	private String companyName;
 	@Column(columnDefinition = "TEXT")
-	private String jobDesc;
+	private String jobDescription;
 	@Column(columnDefinition = "TEXT")
-	private String jobSkills;
+	private String skills;
 	private String jobAppUrl;
 
 	public Job() {
 		super();
 	}
 
-	public Job(String jobTitle, String companyName, String jobDesc, String jobSkills, String jobAppUrl) {
+	public Job(String jobTitle, String companyName, String jobDescription, String skills, String jobAppUrl) {
 		super();
 		this.jobTitle = jobTitle;
 		this.companyName = companyName;
-		this.jobDesc = jobDesc;
-		this.jobSkills = jobSkills;
+		this.jobDescription = jobDescription;
+		this.skills = skills;
 		this.jobAppUrl = jobAppUrl;
 	}
 	public int getId() {
@@ -57,20 +57,20 @@ public class Job {
 		this.companyName = companyName;
 	}
 
-	public String getJobDesc() {
-		return jobDesc;
+	public String getJobDescription() {
+		return jobDescription;
   }
   
-	public void setJobDesc(String jobDesc) {
-		this.jobDesc = jobDesc;
+	public void setJobDescription(String jobDescription) {
+		this.jobDescription = jobDescription;
 	}
   
-	public String getJobSkills() {
-		return jobSkills;
+	public String getSkills() {
+		return skills;
 	}
   
-	public void setJobSkills(String jobSkills) {
-		this.jobSkills = jobSkills;
+	public void setSkills(String skills) {
+		this.skills = skills;
 	}
   
 	public String getJobAppUrl() {
@@ -83,8 +83,8 @@ public class Job {
   
 	@Override
 	public String toString() {
-		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDesc=" + jobDesc
-				+ ", jobSkills=" + jobSkills + ", jobAppUrl=" + jobAppUrl + "]";
+		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDescription=" + jobDescription
+				+ ", skills=" + skills + ", jobAppUrl=" + jobAppUrl + "]";
 	}
 
 }

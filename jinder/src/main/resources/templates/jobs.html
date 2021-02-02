@@ -46,24 +46,22 @@
     }
 	</script>
 
-<table class="table table-striped table-hover" th:if="${not #lists.isEmpty(jobs)}" >
+	<!-- Jobs List view -->
+	<table class="table table-striped table-hover" th:if="${not #lists.isEmpty(jobs)}" >
 		<thead>
 			<tr >
 				<th>Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th>Job Description</th>
-	
+				<th></th>
 			</tr>
 		</thead>
-	
-	<!-- Jobs List view -->
-	<table class="table table-striped table-hover" th:if="${not #lists.isEmpty(jobs)}" >
 		<tr th:each="job: ${jobs}" class="table-row">
 			<td th:text=${job.id+1}>Id</td>
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
-			<td th:text="${job.jobDesc.substring(0, 50) + '...'}">Description</td>
+			<td th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
 			<td><a href="jobdetail.html" class="btn btn-success" th:href="@{/job/detail/}+${job.id}">Click for more details</a></td>
 		</tr>
 	</table>
