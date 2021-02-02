@@ -1,6 +1,6 @@
 package sg.edu.iss.jinder.model;
-
-import javax.persistence.Column;
+ 
+import javax.persistence.Column; 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +13,7 @@ public class Job {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private int id;	
 	private String jobTitle;
 	private String companyName;
@@ -34,11 +35,9 @@ public class Job {
 		this.jobSkills = jobSkills;
 		this.jobAppUrl = jobAppUrl;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -46,7 +45,6 @@ public class Job {
 	public String getJobTitle() {
 		return jobTitle;
 	}
-
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
@@ -61,31 +59,32 @@ public class Job {
 
 	public String getJobDesc() {
 		return jobDesc;
-	}
-
+  }
+  
 	public void setJobDesc(String jobDesc) {
 		this.jobDesc = jobDesc;
 	}
-
+  
 	public String getJobSkills() {
 		return jobSkills;
 	}
-
+  
 	public void setJobSkills(String jobSkills) {
 		this.jobSkills = jobSkills;
 	}
-
+  
 	public String getJobAppUrl() {
 		return jobAppUrl;
 	}
-
+  
 	public void setJobAppUrl(String jobAppUrl) {
 		this.jobAppUrl = jobAppUrl;
 	}
-
+  
 	@Override
 	public String toString() {
 		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDesc=" + jobDesc
 				+ ", jobSkills=" + jobSkills + ", jobAppUrl=" + jobAppUrl + "]";
 	}
+
 }

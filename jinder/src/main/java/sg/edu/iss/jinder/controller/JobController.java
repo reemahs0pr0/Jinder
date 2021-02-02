@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
+import sg.edu.iss.jinder.service.UserService;
+import sg.edu.iss.jinder.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/job")
@@ -27,28 +29,46 @@ public class JobController {
 	private JobService jobservice;
     
 	@Autowired
-	public void setJobService(JobServiceImpl jobServiceImpl) {
-		this.jobservice = jobServiceImpl;
+	private UserService userService;
+	
+	@Autowired
+	private void setJobService(JobServiceImpl jobServiceImpl)
+	{
+		this.jobService=jobServiceImpl;
 	}
 	
-	@RequestMapping(value = "/list") 
-	public String catalog(Model model, @Param("keyword") String keyword, @RequestParam("page") Optional<Integer> page, 
-			@RequestParam("size") Optional<Integer> size) {
-		
-		List<Job> jobs = jobservice.listAll(keyword);
-		
-		int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        Page<Job> jobPage = jobservice.findPaginated(jobs, PageRequest.of(currentPage - 1, pageSize));
-
-        int totalPages = jobPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                .boxed()
-                .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+	@Autowired
+	private void setUserService(UserServiceImpl userServiceImpl)
+	{
+		this.userService=userServiceImpl;
+	}
+	
+	@RequestMapping(value="/list")
+	public String jobListings(Model model,@Param("keyword")String keyword, @RequestParam("page") Optional<Integer> page, 
+			@RequestParam("size") Optional<Integer> size)
+	{
+		List<Job> jobs;
+		int id = 1; //get from session
+		if(userService.resumeUploaded(id)) {
+			jobs= jobService.listresult(keyword, id);
+		}
+		else {
+			jobs= jobService.listall(keyword);
+		}
+		int currentPage= page.orElse(1);
+		int pageSize=size.orElse(10);
+	
+		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
+	
+		int totalPages= jobPage.getTotalPages();
+		if(totalPages>0)
+		{
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+	                .boxed()
+	                .collect(Collectors.toList());
+	            model.addAttribute("pageNumbers", pageNumbers);
+			
+		}
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("keyword", keyword);
 		
@@ -58,6 +78,7 @@ public class JobController {
 	@RequestMapping(value = "/detail/{id}")
 	public String showJob(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("job", jobservice.findJobById(id));
+    
 		return "jobdetail";	
 	}
 }

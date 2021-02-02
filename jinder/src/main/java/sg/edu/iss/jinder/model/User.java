@@ -1,7 +1,5 @@
 package sg.edu.iss.jinder.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,16 +25,12 @@ public class User {
 		super();
 	}
 
-	public User(String fullName, String userName, String password, String emailAddress, String address, int phoneNo,
-			LocalDate registrationDate) {
+	public User(String fullname, String username, String password, String email) {
 		super();
 		this.fullName = fullName;
 		this.userName = userName;
 		this.password = password;
-		this.emailAddress = emailAddress;
-		this.address = address;
-		this.phoneNo = phoneNo;
-		this.registrationDate = registrationDate;
+		this.email = email;
 	}
 
 	public int getId() {
@@ -121,8 +115,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", fullName=" + fullName + ", userName=" + userName + ", password=" + password
-				+ ", emailAddress=" + emailAddress + ", address=" + address + ", phoneNo=" + phoneNo + ", pictureUrl="
-				+ pictureUrl + ", resumeUrl=" + resumeUrl + "]";
-	} 
+		return "User [id=" + id + ", fullname=" + fullname + ", username=" + username + ", password=" + password
+				+ ", resumeUrl=" + resumeUrl + "]";
+	}
+
 }
