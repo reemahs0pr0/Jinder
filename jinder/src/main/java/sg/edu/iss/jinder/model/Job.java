@@ -9,25 +9,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "job")
 public class Job {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String title;
-	private String description;
+
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;	
+	private String jobTitle;
 	private String companyName;
-	private String skills;
-	private String url;
-	public Job() {
+	@Column(columnDefinition = "TEXT")
+	private String jobDesc;
+	@Column(columnDefinition = "TEXT")
+	private String jobSkills;
+	private String jobAppUrl;
+
+	public Job(String jobTitle, String companyName, String jobDesc, String jobSkills, String jobAppUrl) {
 		super();
-	}
-	public Job(String title, String description, String companyName, String skills, String url) {
-		super();
-		this.title = title;
-		this.description = description;
+		this.jobTitle = jobTitle;
 		this.companyName = companyName;
-		this.skills = skills;
-		this.url = url;
+		this.jobDesc = jobDesc;
+		this.jobSkills = jobSkills;
+		this.jobAppUrl = jobAppUrl;
 	}
 	public int getId() {
 		return id;
@@ -67,8 +67,7 @@ public class Job {
 	}
 	@Override
 	public String toString() {
-		return "Job [id=" + id + ", title=" + title + ", description=" + description + ", companyName=" + companyName
-				+ ", skills=" + skills + ", url=" + url + "]";
+		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDesc=" + jobDesc
+				+ ", jobSkills=" + jobSkills + ", jobAppUrl=" + jobAppUrl + "]";
 	}
-	
 }
