@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+	<meta charset="UTF-8" />
+	<title>Selected Job</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" media="all" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<header th:insert="fragments/general.html :: header"></header>
+	<div th:replace="fragments/general.html :: menu"></div>
+
+	<table class="table1 table-striped table-hover">
+	<thead>
+		<tr><th th:text="${job.jobTitle}">Job Title</th></tr>
+	</thead>
+		<tr><td>Job Description</td><td th:text=${job.jobDesc}>Description</td></tr>
+		<tr><td>Company Name</td><td th:text=${job.companyName}>Company Name</td></tr>
+		<tr><td>Skill(s) Required</td><td th:text=${job.jobSkills}>Skills</td></tr>
+		<tr><td><a th:href=${job.jobAppUrl}>Apply Here</a></td></tr>
+	</table>
+
+	<p>
+	<a href="Home" class="btn btn-info" th:text="@{/job/list}">Back to Job Listings</a>
+	<br>
+	<div th:replace="fragments/general.html :: footer"></div>
+</body>
+</html>

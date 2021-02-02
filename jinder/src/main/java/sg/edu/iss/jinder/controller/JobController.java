@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,15 +21,13 @@ import sg.edu.iss.jinder.service.JobServiceImpl;
 import sg.edu.iss.jinder.service.UserService;
 import sg.edu.iss.jinder.service.UserServiceImpl;
 
-
 @Controller
 @RequestMapping("/job")
-public class JobController
-{
+public class JobController {
 	
 	@Autowired
-	private JobService jobService;
-	
+	private JobService jobservice;
+    
 	@Autowired
 	private UserService userService;
 	
@@ -70,12 +69,16 @@ public class JobController
 	            model.addAttribute("pageNumbers", pageNumbers);
 			
 		}
-		
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("keyword", keyword);
 		
 		return "jobs";
-		
 	}
 
+	@RequestMapping(value = "/detail/{id}")
+	public String showJob(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("job", jobservice.findJobById(id));
+    
+		return "jobdetail";	
+	}
 }

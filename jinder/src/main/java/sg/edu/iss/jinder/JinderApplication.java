@@ -1,6 +1,7 @@
 package sg.edu.iss.jinder;
 
 import org.springframework.beans.factory.annotation.Autowired; 
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,5 +27,4 @@ public class JinderApplication {
 			urepo.save(new User("Jane Tan", "jane123", "password", "jane123@u.nus.edu"));
 		};
 	}
-
 }

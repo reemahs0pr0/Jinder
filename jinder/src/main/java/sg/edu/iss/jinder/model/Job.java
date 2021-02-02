@@ -8,29 +8,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="jobs")
+@Table(name = "jobs")
 public class Job {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+
+	private int id;	
 	private String jobTitle;
 	private String companyName;
 	@Column(columnDefinition = "TEXT")
-	private String jobDescription;
+	private String jobDesc;
 	@Column(columnDefinition = "TEXT")
-	private String skills;
-	private String jobLink;
+	private String jobSkills;
+	private String jobAppUrl;
+
 	public Job() {
 		super();
 	}
-	public Job(String jobTitle, String companyName, String jobDescription, String skills, String jobLink) {
+
+	public Job(String jobTitle, String companyName, String jobDesc, String jobSkills, String jobAppUrl) {
 		super();
 		this.jobTitle = jobTitle;
 		this.companyName = companyName;
-		this.jobDescription = jobDescription;
-		this.skills = skills;
-		this.jobLink = jobLink;
+		this.jobDesc = jobDesc;
+		this.jobSkills = jobSkills;
+		this.jobAppUrl = jobAppUrl;
 	}
 	public int getId() {
 		return id;
@@ -38,40 +41,50 @@ public class Job {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getJobTitle() {
 		return jobTitle;
 	}
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public String getJobDescription() {
-		return jobDescription;
+
+	public String getJobDesc() {
+		return jobDesc;
+  }
+  
+	public void setJobDesc(String jobDesc) {
+		this.jobDesc = jobDesc;
 	}
-	public void setJobDescription(String jobDescription) {
-		this.jobDescription = jobDescription;
+  
+	public String getJobSkills() {
+		return jobSkills;
 	}
-	public String getSkills() {
-		return skills;
+  
+	public void setJobSkills(String jobSkills) {
+		this.jobSkills = jobSkills;
 	}
-	public void setSkills(String skills) {
-		this.skills = skills;
+  
+	public String getJobAppUrl() {
+		return jobAppUrl;
 	}
-	public String getJobLink() {
-		return jobLink;
+  
+	public void setJobAppUrl(String jobAppUrl) {
+		this.jobAppUrl = jobAppUrl;
 	}
-	public void setJobLink(String jobLink) {
-		this.jobLink = jobLink;
-	}
+  
 	@Override
 	public String toString() {
-		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDescription="
-				+ jobDescription + ", skills=" + skills + ", jobLink=" + jobLink + "]";
+		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDesc=" + jobDesc
+				+ ", jobSkills=" + jobSkills + ", jobAppUrl=" + jobAppUrl + "]";
 	}
-		
+
 }

@@ -19,12 +19,11 @@ import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.repo.JobRepository;
 
 @Service
-public class JobServiceImpl implements JobService 
-{
-
-	@Autowired
-	JobRepository jobrepo;
+public class JobServiceImpl implements JobService {
 	
+	@Autowired
+	JobRepository jrepo;
+
 	@Override
 	public List<Job> listall(String keyword)
 	{
@@ -67,7 +66,6 @@ public class JobServiceImpl implements JobService
 		else {
 			return jobrepo.findAll();
 		}
-		
 	}
 	
 	@Override
@@ -164,6 +162,19 @@ public class JobServiceImpl implements JobService
 		 Page<Job> jobPage= new PageImpl<Job>(list, PageRequest.of(currentPage, pageSize), jobs.size());
 		
 		 return jobPage;
+  }
+
+	public Job findJobById(Integer id) {
+		return jrepo.findById(id).get();
 	}
 
+	@Override
+	public List<Job> listAll(String keyword) {
+		if (keyword != null) {
+			return (List<Job>)jrepo.search(keyword);
+		}		
+		return jrepo.findAll();
+
+	}
+	
 }

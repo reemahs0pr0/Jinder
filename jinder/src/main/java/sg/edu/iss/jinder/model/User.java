@@ -8,15 +8,18 @@ import javax.persistence.Id;
 @Entity
 public class User {
 	
-	@Id 
+	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	private String fullname;
-	private String username;
-	private String password;
-	private String email;
+	private int id; 
+	private String fullName; 
+	private String userName; 
+	private String password; 
+	private String emailAddress;
+	private String address; 
+	private int phoneNo; 
+	private String pictureUrl; 
+	private LocalDate registrationDate; 
 	private String resumeUrl;
-	
 	
 	public User() {
 		super();
@@ -24,43 +27,82 @@ public class User {
 
 	public User(String fullname, String username, String password, String email) {
 		super();
-		this.fullname = fullname;
-		this.username = username;
+		this.fullName = fullName;
+		this.userName = userName;
 		this.password = password;
 		this.email = email;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFullname() {
-		return fullname;
+
+	public String getFullName() {
+		return fullName;
 	}
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getUsername() {
-		return username;
+
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(int phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+	public LocalDate getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(LocalDate registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	public String getResumeUrl() {
@@ -76,5 +118,5 @@ public class User {
 		return "User [id=" + id + ", fullname=" + fullname + ", username=" + username + ", password=" + password
 				+ ", resumeUrl=" + resumeUrl + "]";
 	}
-	
+
 }
