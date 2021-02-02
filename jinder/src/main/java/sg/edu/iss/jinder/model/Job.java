@@ -1,6 +1,5 @@
 package sg.edu.iss.jinder.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,89 +7,68 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="jobs")
+@Table(name = "job")
 public class Job {
-
-	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;	
-	@Column(name="companyName")
-	private String companyName;
-	@Column(name="jobTitle")
-	private String jobTitle;
-	@Column(name="jobDesc")
-	private String jobDesc;
-	@Column(name="jobSkills")
-	private String jobSkills;
-	@Column(name="jobAppUrl")
-	private String jobAppUrl;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String title;
+	private String description;
+	private String companyName;
+	private String skills;
+	private String url;
 	public Job() {
 		super();
 	}
-
-	public Job(String companyName, String jobTitle, String jobDesc, String jobSkills, String jobAppUrl) {
+	public Job(String title, String description, String companyName, String skills, String url) {
 		super();
+		this.title = title;
+		this.description = description;
 		this.companyName = companyName;
-		this.jobTitle = jobTitle;
-		this.jobDesc = jobDesc;
-		this.jobSkills = jobSkills;
-		this.jobAppUrl = jobAppUrl;
+		this.skills = skills;
+		this.url = url;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getCompanyName() {
 		return companyName;
 	}
-
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-
-	public String getJobTitle() {
-		return jobTitle;
+	public String getSkills() {
+		return skills;
 	}
-
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setSkills(String skills) {
+		this.skills = skills;
 	}
-
-	public String getJobDesc() {
-		return jobDesc;
+	public String getUrl() {
+		return url;
 	}
-
-	public void setJobDesc(String jobDesc) {
-		this.jobDesc = jobDesc;
+	public void setUrl(String url) {
+		this.url = url;
 	}
-
-	public String getJobSkills() {
-		return jobSkills;
-	}
-
-	public void setJobSkills(String jobSkills) {
-		this.jobSkills = jobSkills;
-	}
-
-	public String getJobAppUrl() {
-		return jobAppUrl;
-	}
-
-	public void setJobAppUrl(String jobAppUrl) {
-		this.jobAppUrl = jobAppUrl;
-	}
-
 	@Override
 	public String toString() {
-		return "Job [id=" + id + ", companyName=" + companyName + ", jobTitle=" + jobTitle + ", jobDesc=" + jobDesc
-				+ ", jobSkills=" + jobSkills + ", jobAppUrl=" + jobAppUrl + "]";
+		return "Job [id=" + id + ", title=" + title + ", description=" + description + ", companyName=" + companyName
+				+ ", skills=" + skills + ", url=" + url + "]";
 	}
-	
 	
 }
