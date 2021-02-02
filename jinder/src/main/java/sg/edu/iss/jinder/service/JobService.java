@@ -12,6 +12,8 @@ public interface JobService {
 	
 	public List<Job> listall(String keyword);
 	
+	public List<Job> listresult(String keyword, int id);
+	
 	public Page<Job> findPaginated(List<Job> jobs,Pageable pageable);
 
 }

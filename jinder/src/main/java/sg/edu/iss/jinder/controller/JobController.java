@@ -1,5 +1,6 @@
 package sg.edu.iss.jinder.controller;
 
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,16 +18,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
+import sg.edu.iss.jinder.service.UserService;
+import sg.edu.iss.jinder.service.UserServiceImpl;
 
 
 @Controller
 @RequestMapping("/job")
 public class JobController
-
 {
 	
 	@Autowired
 	private JobService jobService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private void setJobService(JobServiceImpl jobServiceImpl)
@@ -34,18 +39,30 @@ public class JobController
 		this.jobService=jobServiceImpl;
 	}
 	
+	@Autowired
+	private void setUserService(UserServiceImpl userServiceImpl)
+	{
+		this.userService=userServiceImpl;
+	}
+	
 	@RequestMapping(value="/list")
 	public String jobListings(Model model,@Param("keyword")String keyword, @RequestParam("page") Optional<Integer> page, 
 			@RequestParam("size") Optional<Integer> size)
 	{
-		List<Job> jobs= jobService.listall(keyword);
+		List<Job> jobs;
+		int id = 1; //get from session
+		if(userService.resumeUploaded(id)) {
+			jobs= jobService.listresult(keyword, id);
+		}
+		else {
+			jobs= jobService.listall(keyword);
+		}
 		int currentPage= page.orElse(1);
-		int pageSize=size.orElse(12);
+		int pageSize=size.orElse(10);
 	
 		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
 	
 		int totalPages= jobPage.getTotalPages();
-		System.out.print("Total page:"+totalPages);
 		if(totalPages>0)
 		{
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -54,7 +71,6 @@ public class JobController
 	            model.addAttribute("pageNumbers", pageNumbers);
 			
 		}
-		
 		
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("keyword", keyword);

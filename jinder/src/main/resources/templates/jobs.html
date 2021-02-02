@@ -26,16 +26,16 @@
 	    <input class="btn btn-danger"  type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
 	    Records per page:
 	    <select name="size" onchange="this.form.submit()">
-	        <option th:unless="${jobs.size == 1}" value="1">1</option>
-	        <option th:if="${jobs.size == 1}" value="1" selected>1</option>
-	        <option th:unless="${jobs.size == 3}" value="3">3</option>
-	        <option th:if="${jobs.size == 3}" value="3" selected>3</option>
 	        <option th:unless="${jobs.size == 5}" value="5">5</option>
 	        <option th:if="${jobs.size == 5}" value="5" selected>5</option>
 	        <option th:unless="${jobs.size == 10}" value="10">10</option>
 	        <option th:if="${jobs.size == 10}" value="10" selected>10</option>
 	        <option th:unless="${jobs.size == 15}" value="15">15</option>
 	        <option th:if="${jobs.size == 15}" value="15" selected>15</option>
+	        <option th:unless="${jobs.size == 20}" value="20">20</option>
+	        <option th:if="${jobs.size == 20}" value="20" selected>20</option>
+	        <option th:unless="${jobs.size == 25}" value="25">25</option>
+	        <option th:if="${jobs.size == 25}" value="25" selected>25</option>
 	    </select>
 	</form>
 	<!-- Clear fields -->
@@ -52,8 +52,6 @@
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th>Job Description</th>
-				<th>Job Skills</th>
-				<th>Job Details</th>
 	
 			</tr>
 		</thead>
@@ -63,9 +61,7 @@
 			<td th:text=${job.id+1}>Id</td>
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
-			<td th:text=${job.jobDesc}>Description</td>
-			<td th:text=${job.jobSkills}>Skills</td>
-			<td ><a th:href="@{${job.jobAppUrl}}">Link</a></td>
+			<td th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
 		</tr>
 	</table>
 	<div th:if="${jobs.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
