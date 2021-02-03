@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+	<meta charset="UTF-8" />
+	<title>Upload Resume</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" media="all" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<header th:insert="fragments/general.html :: header"> </header>
+	<div th:replace="fragments/general.html :: menu"></div>
+	
+	<h2>Upload Resume</h2>
+	<form method="post" action="uploadServlet" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>Resume: </td>
+				<td><input type="file" name="resume" size="50" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Save"></td>
+			</tr>
+		</table>
+	</form>
+	
+	<div th:replace="fragments/general.html :: footer"></div>
+</body>
+</html>

@@ -8,16 +8,19 @@
 	<div th:fragment="header" id="header">
 		<table>
 			<tr>
-				<td width="15%" ><img th:src="@{/image/inventory.png}" width="100" height="100" /></td>
-				<td><h1>Welcome!</h1></td>
+				<td width="15%" ><img th:src="@{/image/j_image.jpg}" width="100" height="100" /></td>
 			</tr>
 		</table>
 
 	</div>
 	<div th:fragment="menu" id="menu">
-		
+	
 	</div>
+
 	<footer th:fragment="footer">
+		<a href="Home" th:href="@{/}">Back to Home</a> <br /> <small>Now
+			is: <b th:text="${execInfo.now.time}"></b>
+		</small> <br /> <small> (c) Jinder, ISS, NUS 2021</small>
 	</footer>
 </body>
 </html>

@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.jinder.model.Job;
+import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
 import sg.edu.iss.jinder.service.UserService;
@@ -41,12 +44,14 @@ public class JobController {
 		this.userService=userServiceImpl;
 	}
 	
+//....................JOB LISTING PAGE....................
 	@RequestMapping(value="/list")
 	public String jobListings(Model model,@Param("keyword")String keyword, @RequestParam("page") Optional<Integer> page, 
-			@RequestParam("size") Optional<Integer> size)
+			@RequestParam("size") Optional<Integer> size, HttpSession session)
 	{
 		List<Job> jobs;
-		int id = 1; //get from session
+		User user = (User) session.getAttribute("usession");
+		int id = user.getId();
 		if(userService.resumeUploaded(id)) {
 			jobs= jobService.listResult(keyword, id);
 		}
@@ -73,6 +78,7 @@ public class JobController {
 		return "jobs";
 	}
 
+//....................VIEW JOB DETAILS PAGE....................
 	@RequestMapping(value = "/detail/{id}")
 	public String showJob(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("job", jobService.findJobById(id));

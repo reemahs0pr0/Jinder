@@ -1,44 +1,55 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
-	<meta charset="UTF-8" />
-	<title>Jobs Listing</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" media="all" type="text/css" th:href="@{/css/style.css}" />
+<meta charset="UTF-8" />
+<title>Jobs Listing</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" media="all" type="text/css"
+	th:href="@{/css/style.css}" />
 </head>
 <body>
 	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
+	<br>
+	<div align="center">
+		<input type="button" value="Edit User"
+			onclick="window.location.href='/user/userdetails'; return false"
+			class="btn btn-info btn-lg" /> 
+		<input type="button" value="Log Out"
+			onclick="window.location.href='/user/logout'; return false"
+			class="btn btn-info btn-lg" /> 
+	</div>
+	<br>
 	<table width="100%" class="center">
 		<tr align="center">
 			<td width="30%"></td>
-			<td align="center" width="40%"><h1 th:if="${not #lists.isEmpty(jobs)}">Jobs Listing</h1></td>
-			<td  width="30%"></td>
+			<td align="center" width="40%"><h1
+					th:if="${not #lists.isEmpty(jobs)}">Jobs Listing</h1></td>
+			<td width="30%"></td>
 		</tr>
 	</table>
-	
+
 	<!-- search bar -->
 	<form th:action="@{/job/list}">
-	    Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
-	    &nbsp;
-	    <input type="submit" value="Search"/>
-	    &nbsp;
-	    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()"/>
-	    Records per page:
-	    <select name="size" onchange="this.form.submit()">
-	        <option th:unless="${jobs.size == 5}" value="5">5</option>
-	        <option th:if="${jobs.size == 5}" value="5" selected>5</option>
-	        <option th:unless="${jobs.size == 10}" value="10">10</option>
-	        <option th:if="${jobs.size == 10}" value="10" selected>10</option>
-	        <option th:unless="${jobs.size == 15}" value="15">15</option>
-	        <option th:if="${jobs.size == 15}" value="15" selected>15</option>
-	        <option th:unless="${jobs.size == 20}" value="20">20</option>
-	        <option th:if="${jobs.size == 20}" value="20" selected>20</option>
-	        <option th:unless="${jobs.size == 25}" value="25">25</option>
-	        <option th:if="${jobs.size == 25}" value="25" selected>25</option>
-	    </select>
+		Filter: <input type="text" name="keyword" id="keyword" size="50"
+			th:value="${keyword}" required /> &nbsp; <input type="submit"
+			value="Search" /> &nbsp; <input type="button" value="Clear"
+			id="btnClear" onclick="clearSearch()" /> Records per page: <select
+			name="size" onchange="this.form.submit()">
+			<option th:unless="${jobs.size == 5}" value="5">5</option>
+			<option th:if="${jobs.size == 5}" value="5" selected>5</option>
+			<option th:unless="${jobs.size == 10}" value="10">10</option>
+			<option th:if="${jobs.size == 10}" value="10" selected>10</option>
+			<option th:unless="${jobs.size == 15}" value="15">15</option>
+			<option th:if="${jobs.size == 15}" value="15" selected>15</option>
+			<option th:unless="${jobs.size == 20}" value="20">20</option>
+			<option th:if="${jobs.size == 20}" value="20" selected>20</option>
+			<option th:unless="${jobs.size == 25}" value="25">25</option>
+			<option th:if="${jobs.size == 25}" value="25" selected>25</option>
+		</select>
 	</form>
-	
+
 	<!-- Clear fields -->
 	<script type="text/javascript">
     function clearSearch() {
@@ -47,9 +58,10 @@
 	</script>
 
 	<!-- Jobs List view -->
-	<table class="table table-striped table-hover" th:if="${not #lists.isEmpty(jobs)}" >
+	<table class="table table-striped table-hover"
+		th:if="${not #lists.isEmpty(jobs)}">
 		<thead>
-			<tr >
+			<tr>
 				<th>Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
@@ -62,14 +74,18 @@
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
 			<td th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
-			<td><a href="jobdetail.html" class="btn btn-success" th:href="@{/job/detail/}+${job.id}">Click for more details</a></td>
+			<td><a href="jobdetail.html" class="btn btn-success"
+				th:href="@{/job/detail/}+${job.id}">Click for more details</a></td>
 		</tr>
 	</table>
-	<div th:if="${jobs.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
-	    <a th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}" th:text=${pageNumber}
-	        th:class="${pageNumber==jobs.number + 1} ? active"></a>
+	<div th:if="${jobs.totalPages > 0}" class="pagination"
+		th:each="pageNumber : ${pageNumbers}">
+		<a
+			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
+			th:text=${pageNumber}
+			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 	</div>
-    <br>
+	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>
 </html>

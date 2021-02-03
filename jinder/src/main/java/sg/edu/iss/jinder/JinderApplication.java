@@ -23,8 +23,8 @@ public class JinderApplication {
 	@Bean
 	CommandLineRunner runner() {
 		return args -> {
-			urepo.save(new User("John Tan", "john123", "password", "john123@u.nus.edu"));
-			urepo.save(new User("Jane Tan", "jane123", "password", "jane123@u.nus.edu"));
+			urepo.save(new User("John Tan", "john123", "password", "john123@u.nus.edu", "Tampines West", 123456));
+			urepo.save(new User("Jane Tan", "jane123", "password", "jane123@u.nus.edu", "Tampines East", 234567));
 		};
 	}
 }
