@@ -1,7 +1,5 @@
 package sg.edu.iss.jinder.service;
 
-import java.util.ArrayList;
-
 import sg.edu.iss.jinder.model.User;
 
 public interface UserService {
@@ -10,9 +8,9 @@ public interface UserService {
 
 	public boolean saveUser(User user);
 	
-	public ArrayList<User> findAllUsers();
-	
-	public void deleteUser(User user);
+//	public ArrayList<User> findAllUsers();
+//	
+//	public void deleteUser(User user);
 	
 	public User findUserbyId(Integer id);
 	

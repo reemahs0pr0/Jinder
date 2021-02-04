@@ -1,10 +1,7 @@
 package sg.edu.iss.jinder.service;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.repo.UserRepository;
@@ -24,18 +21,18 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	// may not need this
-	@Override
-	public ArrayList<User> findAllUsers() {
-		return (ArrayList<User>) urepo.findAll();
-	}
-	
-	// may not need
-	@Transactional
-	@Override
-	public void deleteUser(User user) {
-		urepo.delete(user);
-	}
+//	// may not need 
+//	@Override
+//	public ArrayList<User> findAllUsers() {
+//		return (ArrayList<User>) urepo.findAll();
+//	}
+//	
+//	// may not need
+//	@Transactional
+//	@Override
+//	public void deleteUser(User user) {
+//		urepo.delete(user);
+//	}
 	
 	@Override
 	public User findUserbyId(Integer id) {
