@@ -1,28 +1,51 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
-	<meta charset="UTF-8" />
-	<title>Upload Resume</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" media="all" type="text/css" th:href="@{/css/style.css}" />
+<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<property name="maxUploadSize" value="104857600" /> <property
+	name="maxInMemorySize" value="4096" /> <property
+	name="defaultEncoding" value="UTF-8"></property> </bean>
+<meta charset="UTF-8" />
+<title>Upload Resume</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" media="all" type="text/css"
+	th:href="@{/css/style.css}" />
 </head>
 <body>
 	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
-	
-	<h2>Upload Resume</h2>
-	<form method="post" action="uploadServlet" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>Resume: </td>
-				<td><input type="file" name="resume" size="50" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="Save"></td>
-			</tr>
-		</table>
-	</form>
-	
-	<div th:replace="fragments/general.html :: footer"></div>
+	<div align="center">
+		<input type="button" value="Log Out"
+			onclick="window.location.href='/user/logout'; return false"
+			class="btn btn-info btn-lg" /> 
+		<input type="button" value="Jobs Listing"
+			onclick="window.location.href='/job/list'; return false"
+			class="btn btn-info btn-lg" /> 
+	</div>
+	<table width="100%" class="center">
+		<tr align="center">
+			<td width="30%"></td>
+			<td align="center" width="40%"><h1>Upload Resume</h1></td>
+			<td width="30%"></td>
+		</tr>
+	</table>
+	<table th:object="${user}">
+		<tr>
+			<td>User Name</td>
+			<td th:text=${user.userName}>userName</td>
+		</tr>
+	</table>
+		<div id="haha">
+			<form name="Form2" th:action="@{/user/springUpload}" method="post"
+				enctype="multipart/form-data">
+
+				CV<input type="file" name="file"> <input type="submit"
+					value="upload" />
+			</form>
+		</div>
+		<br>
+		<div th:replace="fragments/general.html :: footer"></div>
 </body>
 </html>

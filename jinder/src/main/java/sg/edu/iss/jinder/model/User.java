@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -48,11 +47,6 @@ public class User {
 	private LocalDate registrationDate; 
 	private String resumeUrl;
 
-	private String resumeName;
-	private String resumeType;
-	@Lob
-	private byte[] resumeData; 
-
 	public User() {
 		super();
 	}
@@ -66,8 +60,6 @@ public class User {
 		this.address = address;
 		this.phoneNo = phoneNo;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -149,35 +141,10 @@ public class User {
 		this.resumeUrl = resumeUrl;
 	}
 
-	public String getResumeName() {
-		return resumeName;
-	}
-
-	public void setResumeName(String resumeName) {
-		this.resumeName = resumeName;
-	}
-
-	public String getResumeType() {
-		return resumeType;
-	}
-
-	public void setResumeType(String resumeType) {
-		this.resumeType = resumeType;
-	}
-
-	public byte[] getResumeData() {
-		return resumeData;
-	}
-
-	public void setResumeData(byte[] resumeData) {
-		this.resumeData = resumeData;
-	}
-
 	@Override
 	public String toString() {
-		return "User [fullName=" + fullName + ", userName=" + userName + ", password=" + password + ", emailAddress="
-				+ emailAddress + ", address=" + address + ", phoneNo=" + phoneNo + ", resumeName=" + resumeName
-				+ ", resumeType=" + resumeType + "]";
+		return "User [id=" + id + ", fullName=" + fullName + ", userName=" + userName + ", password=" + password
+				+ ", emailAddress=" + emailAddress + ", address=" + address + ", phoneNo=" + phoneNo + "]";
 	}
 
 }

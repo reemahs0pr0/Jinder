@@ -1,13 +1,10 @@
 package sg.edu.iss.jinder.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.repo.UserRepository;
@@ -41,7 +38,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	@Transactional
 	public User findUserbyId(Integer id) {
 		return urepo.findById(id).get();
 	}
@@ -71,26 +67,8 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-//	@Override
-//	public User store(MultipartFile file, Integer id) {
-//		User user = findUserById(id);
-//		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//		user.setResumeName(fileName);
-//		user.setResumeType(file.getContentType());
-//		try {
-//			user.setResumeData(file.getBytes());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			// TODO see what can be done if there is an exception caught
-//		}
-//
-//	    return urepo.save(user);
-//	}
-//
-//	@Override
-//	public User findUserById(Integer id) {
-//
-//		return urepo.findById(id).get();
-//	}
-
+	@Override
+	public void uploadResume(String resumeUrl, User user) {
+		urepo.updateUserResume(resumeUrl, user.getId());
+	}
 }

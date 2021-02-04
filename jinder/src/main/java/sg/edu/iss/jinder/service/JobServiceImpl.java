@@ -136,9 +136,9 @@ public class JobServiceImpl implements JobService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -165,16 +165,8 @@ public class JobServiceImpl implements JobService {
   }
 
 	public Job findJobById(Integer id) {
+		
 		return jrepo.findById(id).get();
 	}
-	
-//	@Override
-//	public List<Job> listAll(String keyword) {
-//		if (keyword != null) {
-//			return (List<Job>)jrepo.search(keyword);
-//		}		
-//		return jrepo.findAll();
-//
-//	}
 	
 }

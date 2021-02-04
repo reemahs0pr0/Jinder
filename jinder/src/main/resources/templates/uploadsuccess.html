@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
 <meta charset="UTF-8" />
-<title>User Details</title>
+<title>Upload Success</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" media="all" type="text/css"
@@ -15,9 +15,6 @@
 		<input type="button" value="Log Out"
 			onclick="window.location.href='/user/logout'; return false"
 			class="btn btn-info btn-lg" /> 
-		<input type="button" value="Upload File"
-			onclick="window.location.href='/user/uploadfile'; return false"
-			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
@@ -25,38 +22,10 @@
 	<table width="100%" class="center">
 		<tr align="center">
 			<td width="30%"></td>
-			<td align="center" width="40%"><h1>User Account</h1></td>
+			<td align="center" width="40%"><h1>File uploaded successfully</h1></td>
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table th:object="${user}">
-		<tr>
-			<td>Full Name</td>
-			<td th:text=${user.fullName}>fullName</td>
-		</tr>
-		<tr>
-			<td>User Name</td>
-			<td th:text=${user.userName}>userName</td>
-		</tr>
-		<tr>
-			<td>Password</td>
-			<td th:text=${user.password}>Password</td>
-		</tr>
-		<tr>
-			<td>Email Address</td>
-			<td th:text=${user.emailAddress}>emailAddress</td>
-		</tr>
-		<tr>
-			<td>PhoneNo</td>
-			<td th:text=${user.phoneNo}>phoneNo</td>
-		</tr>
-		<tr>
-			<td><a href="edituser.html" class="btn btn-success"
-				th:href="@{/user/edit}">Edit User</a></td>
-		</tr>
-	</table>
-
-
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>

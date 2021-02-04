@@ -2,8 +2,6 @@ package sg.edu.iss.jinder.service;
 
 import java.util.ArrayList;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import sg.edu.iss.jinder.model.User;
 
 public interface UserService {
@@ -23,9 +21,7 @@ public interface UserService {
 	public User findUserbyEmailAddress (String emailAddress);
 	
 	public User login(String username,String password);
-
-	//	public User store(MultipartFile file, Integer id);
-	//	
-	//	public User findUserById(Integer id);
+	
+	public void uploadResume(String resumeUrl, User user);
 
 }
