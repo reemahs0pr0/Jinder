@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -47,6 +48,10 @@ public class User {
 	private LocalDate registrationDate; 
 	private String resumeUrl;
 
+	@OneToOne(mappedBy = "user")
+	private User_Preference uPreference;
+	
+	
 	public User() {
 		super();
 	}
@@ -140,6 +145,15 @@ public class User {
 	public void setResumeUrl(String resumeUrl) {
 		this.resumeUrl = resumeUrl;
 	}
+	
+	public User_Preference getuPreference() {
+		return uPreference;
+	}
+
+	public void setuPreference(User_Preference uPreference) {
+		this.uPreference = uPreference;
+	}
+
 
 	@Override
 	public String toString() {

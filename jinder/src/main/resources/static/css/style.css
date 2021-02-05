@@ -180,5 +180,12 @@ label {
     margin: .4rem 0;
 }
 
+error-list
+{
+	font-size : 10pt;
+	color: red;
+	
+	
+}
 
 

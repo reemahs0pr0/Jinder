@@ -3,6 +3,7 @@ package sg.edu.iss.jinder.service;
 import java.util.ArrayList;
 
 import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Preference;
 
 public interface UserService {
 
@@ -23,5 +24,13 @@ public interface UserService {
 	public User login(String username,String password);
 	
 	public void uploadResume(String resumeUrl, User user);
+	
+	public void saveUserPref(User_Preference upref);
+	
+	public Boolean findUserPrefByUserId (int id);
+	
+	public User_Preference getUserPrefByUserId (int id);
+	
+	public void deleteUserPreference (User_Preference upref);
 
 }

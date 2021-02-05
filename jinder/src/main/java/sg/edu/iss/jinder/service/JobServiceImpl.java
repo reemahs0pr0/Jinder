@@ -48,6 +48,7 @@ public class JobServiceImpl implements JobService {
 		          conn.disconnect();
 		          
 		          String[] arr = sb.toString().split(",");
+		          System.out.print(arr);
 		          List<Integer> sortedIds = new ArrayList<>();
 		          for (int i = 0; i < arr.length-1; i++) {
 		        	  sortedIds.add(Integer.parseInt(arr[i]));

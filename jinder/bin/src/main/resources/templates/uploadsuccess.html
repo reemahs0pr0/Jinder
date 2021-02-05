@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+<meta charset="UTF-8" />
+<title>Upload Success</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" media="all" type="text/css"
+	th:href="@{/css/style.css}" />
+</head>
+<body>
+	<header th:insert="fragments/general.html :: header"> </header>
+	<div th:replace="fragments/general.html :: menu"></div>
+	<div align="center">
+		<input type="button" value="Log Out"
+			onclick="window.location.href='/user/logout'; return false"
+			class="btn btn-info btn-lg" /> 
+		<input type="button" value="Jobs Listing"
+			onclick="window.location.href='/job/list'; return false"
+			class="btn btn-info btn-lg" /> 
+	</div>
+	<table width="100%" class="center">
+		<tr align="center">
+			<td width="30%"></td>
+			<td align="center" width="40%"><h1>File uploaded successfully</h1></td>
+			<td width="30%"></td>
+		</tr>
+	</table>
+	<br>
+	<div th:replace="fragments/general.html :: footer"></div>
+</body>
+</html>

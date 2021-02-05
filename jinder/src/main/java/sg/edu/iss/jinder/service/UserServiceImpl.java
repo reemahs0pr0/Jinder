@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Preference;
+import sg.edu.iss.jinder.repo.UserPreferenceRepository;
 import sg.edu.iss.jinder.repo.UserRepository;
 
 @Service
@@ -14,6 +16,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository urepo;
+	
+	@Autowired
+	UserPreferenceRepository uprefrepo;
 	
 	@Override
 	public boolean saveUser(User user) {
@@ -70,5 +75,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void uploadResume(String resumeUrl, User user) {
 		urepo.updateUserResume(resumeUrl, user.getId());
+	}
+
+	@Override
+	public void saveUserPref(User_Preference upref) {
+		uprefrepo.save(upref);
+		
+	}
+
+	@Override
+	public Boolean findUserPrefByUserId(int id) {
+		if(uprefrepo.finduserprefByUserId(id)==null )
+		{return false;}
+		else {
+			return true;
+		}
+	}
+
+	@Override
+	public User_Preference getUserPrefByUserId(int id) {
+		return uprefrepo.finduserprefByUserId(id);
+	}
+
+	@Override
+	public void deleteUserPreference(User_Preference upref) {
+		uprefrepo.delete(upref);
+		
 	}
 }
