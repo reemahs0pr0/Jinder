@@ -24,12 +24,12 @@ public class User_Preference {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate surveyDate;
 	
-	@Size(min=1,max=2,message = "Maximum 2 selections only")
 	@ElementCollection
+	@Size(min=1,max=2,message = "Maximum 2 selections only")
 	private List <String> preferredJobRole;
 	
-	@Size(min=1,max=2,message = "Maximum 2 selections only")
 	@ElementCollection
+	@Size(min=1,max=2,message = "Maximum 2 selections only")
 	private List <String> preferredJobTitle;
 	private String preferredTechnologies;
 	

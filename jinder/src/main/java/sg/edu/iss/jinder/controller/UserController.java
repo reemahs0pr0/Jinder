@@ -253,7 +253,7 @@ public class UserController {
 			    model.addAttribute("selectableTitles",selectableTitles);
 				model.addAttribute("upref", upref1);
 			    
-			    
+				model.addAttribute("error","");
 			    return "survey";
 		   }
 				
@@ -290,7 +290,9 @@ public class UserController {
 			    model.addAttribute("selectableRoles",selectableRoles);
 			    model.addAttribute("selectableTitles",selectableTitles);
 				model.addAttribute("upref",upref1);
-				System.out.print(result.toString());
+
+				model.addAttribute("error","Minium must be 1 and Maximum must be 2 only");
+				
 				return "survey";
 			}
 			else {
@@ -348,7 +350,7 @@ public class UserController {
 					    model.addAttribute("selectableRoles",selectableRoles);
 					    model.addAttribute("selectableTitles",selectableTitles);
 						model.addAttribute("upref", upref1);
-					    
+						model.addAttribute("error","");
 					    
 					    return "survey";
 					  

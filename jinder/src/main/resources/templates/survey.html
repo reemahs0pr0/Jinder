@@ -37,8 +37,6 @@
   	 <label th:text="${role}"></label>
   	</div>
   	</td>
-  	<td class="error-list" th:if="${#fields.hasErrors('preferredJobRole')}" th:errors="*{preferredJobRole}">
-  	</td>
   </tr>
   </table>
     
@@ -55,13 +53,11 @@
         <label th:text="${title}"></label>
   	</div>
   	</td>
-  	<td class="error-list" th:if="${#fields.hasErrors('preferredJobTitle')}" th:errors="*{preferredJobTitle}">
-  	</td>
   </tr>
   </table>
   
   <br><br>
-  
+  <p style="color:red;font-size:30px;" th:text="${error}"></p>
   
    <h3>Preferred Technologies</h3>
   <input type="text" th:field="*{preferredTechnologies}" size=100 placeholder="Example: Java, Android, Spring Boot">
@@ -69,7 +65,8 @@
   <br><br>
   <input type="submit" value="Submit">
 </form>
-    <h2>* are must filled</h2>
+	
+    <p>* are compulsory</p>
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>
