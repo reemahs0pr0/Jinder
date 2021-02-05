@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.iss.jinder.model.Job_Clicked;
 import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.model.User_Preference;
+import sg.edu.iss.jinder.repo.Job_ClickedRepository;
 import sg.edu.iss.jinder.repo.UserPreferenceRepository;
 import sg.edu.iss.jinder.repo.UserRepository;
 
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserPreferenceRepository uprefrepo;
+	
+	@Autowired
+	Job_ClickedRepository job_clickedrepo;
 	
 	@Override
 	public boolean saveUser(User user) {
@@ -100,6 +105,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUserPreference(User_Preference upref) {
 		uprefrepo.delete(upref);
+		
+	}
+
+	@Override
+	public void saveJob_Clicked(Job_Clicked job_Clicked) {
+		job_clickedrepo.save(job_Clicked);
 		
 	}
 }

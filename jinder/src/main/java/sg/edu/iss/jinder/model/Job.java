@@ -1,10 +1,14 @@
 package sg.edu.iss.jinder.model;
  
+import java.util.List;
+
 import javax.persistence.Column; 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +27,9 @@ public class Job {
 	private String skills;
 	private String jobAppUrl;
 
+	@OneToMany(mappedBy="job")
+	private List<Job_Clicked> job_Clickeds;
+	
 	public Job() {
 		super();
 	}
@@ -80,7 +87,17 @@ public class Job {
 	public void setJobAppUrl(String jobAppUrl) {
 		this.jobAppUrl = jobAppUrl;
 	}
+	
+	
   
+	public List<Job_Clicked> getJob_Clickeds() {
+		return job_Clickeds;
+	}
+
+	public void setJob_Clickeds(List<Job_Clicked> job_Clickeds) {
+		this.job_Clickeds = job_Clickeds;
+	}
+
 	@Override
 	public String toString() {
 		return "Job [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", jobDescription=" + jobDescription
