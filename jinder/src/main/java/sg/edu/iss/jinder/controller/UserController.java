@@ -3,10 +3,7 @@ package sg.edu.iss.jinder.controller;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -265,7 +262,7 @@ public class UserController {
 	
 	    //for saving  survey
 		@RequestMapping(value="/savesurvey",method=RequestMethod.POST)
-		public String savePref(@ModelAttribute("upref") @Valid User_Preference upref,HttpSession session,BindingResult result,Model model)
+		public String savePref(@ModelAttribute("upref") @Valid User_Preference upref,BindingResult result,Model model,HttpSession session)
 		{
 			if (result.hasErrors()) 
 			
@@ -288,11 +285,12 @@ public class UserController {
 			    selectableTitles.add("Intern");
 			    selectableTitles.add("Junior");
 			    selectableTitles.add("Executive");
-			    selectableTitles.add("Leader, Senior and Manager");
+			    selectableTitles.add("Lead, Senior and Manager");
 			    
 			    model.addAttribute("selectableRoles",selectableRoles);
 			    model.addAttribute("selectableTitles",selectableTitles);
 				model.addAttribute("upref",upref1);
+				System.out.print(result.toString());
 				return "survey";
 			}
 			else {
@@ -345,7 +343,7 @@ public class UserController {
 					    selectableTitles.add("Intern");
 					    selectableTitles.add("Junior");
 					    selectableTitles.add("Executive");
-					    selectableTitles.add("Leader, Senior and Manager");
+					    selectableTitles.add("Lead, Senior and Manager");
 					    
 					    model.addAttribute("selectableRoles",selectableRoles);
 					    model.addAttribute("selectableTitles",selectableTitles);

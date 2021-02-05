@@ -28,28 +28,38 @@
 	 <form action="#" th:object="${upref}" th:action="@{/user/savesurvey}" method="post">
   
   
-  <h3>Preferred Roles (max 2)</h3>
-  <ul>
-  <li th:each="role:${selectableRoles}">
+  <h3>Preferred Roles*(min 1,max 2)</h3>
+  <table>
+  <tr>
+  <td th:each="role:${selectableRoles}">
   	<div class="preferredRoles">
   		<input type="checkbox" th:field="*{preferredJobRole}" th:value="${role}">
   	 <label th:text="${role}"></label>
-  	 <p class="error-list" th:if="${#fields.hasErrors('preferredJobRole')}" th:errors="*{preferredJobRole}">Maximum 2 selections only</p>
   	</div>
-  	</li>
-  </ul>
-
+  	</td>
+  	<td class="error-list" th:if="${#fields.hasErrors('preferredJobRole')}" th:errors="*{preferredJobRole}">
+  	</td>
+  </tr>
+  </table>
+    
+  
+  
   <br><br>
-  <h3>Preferred Titles (max 2)</h3>
-  <ul>
-  <li th:each="title:${selectableTitles}">
+  
+  <h3>Preferred Titles*(min 1,max 2)</h3>
+  <table>
+  <tr>
+  <td th:each="title:${selectableTitles}">
   	<div class="preferredRoles">
   		<input type="checkbox" th:field="*{preferredJobTitle}" th:value="${title}">
         <label th:text="${title}"></label>
-        <p class="error-list" th:if="${#fields.hasErrors('preferredJobTitle')}" th:errors="*{preferredJobTitle}"> Maximum 2 selections only</p>
   	</div>
-  	</li>
-  </ul>
+  	</td>
+  	<td class="error-list" th:if="${#fields.hasErrors('preferredJobTitle')}" th:errors="*{preferredJobTitle}">
+  	</td>
+  </tr>
+  </table>
+  
   <br><br>
   
   
@@ -59,6 +69,7 @@
   <br><br>
   <input type="submit" value="Submit">
 </form>
+    <h2>* are must filled</h2>
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>
