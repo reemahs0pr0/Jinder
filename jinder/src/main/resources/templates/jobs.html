@@ -84,22 +84,31 @@
 			th:href="@{/job/list(size=${jobs.size}, page=1, keyword=${keyword})}"
 			th:text="First"></a>
 		<a
+			th:if="${jobs.totalPages < 5}"
+			th:each="pageNumber : ${pageNumbers}"
+			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
+			th:text="' | ' + ${pageNumber} + ' | '"
+			th:class="${pageNumber==jobs.number + 1} ? active"></a>
+		<a
 			th:if="${jobs.number < 2}"
+			th:unless="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${#numbers.sequence(1, 5)}"
 			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
-			th:text="' | ' + ${pageNumber}"
+			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
-			th:if="${jobs.number >= 2 && jobs.number <= jobs.totalPages-2}"
+			th:if="${jobs.number >= 2 && jobs.number <= jobs.totalPages-3}"
+			th:unless="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${#numbers.sequence(jobs.number-1, jobs.number+3)}"
 			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
-			th:text="' | ' + ${pageNumber}"
+			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
-			th:if="${jobs.number > jobs.totalPages-2}"
+			th:if="${jobs.number > jobs.totalPages-3}"
+			th:unless="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${#numbers.sequence(jobs.totalPages-4, jobs.totalPages)}"
 			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
-			th:text="' | ' + ${pageNumber}"
+			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
 			th:href="@{/job/list(size=${jobs.size}, page=${jobs.totalPages}, keyword=${keyword})}"
