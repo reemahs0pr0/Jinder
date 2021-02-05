@@ -247,7 +247,7 @@ public class UserController {
 			    selectableTitles.add("Intern");
 			    selectableTitles.add("Junior");
 			    selectableTitles.add("Executive");
-			    selectableTitles.add("Leader, Senior and Manager");
+			    selectableTitles.add("Lead, Senior and Manager");
 			    
 			    model.addAttribute("selectableRoles",selectableRoles);
 			    model.addAttribute("selectableTitles",selectableTitles);
