@@ -201,7 +201,7 @@ public class UserController {
             while(iter.hasNext()) {
                 MultipartFile file = multiRequest.getFile(iter.next().toString());
                 if(file != null) {
-                    String path="C:\\AD Project\\Discussion\\Jinder Prototype" + file.getOriginalFilename();
+                    String path="DIRECTORY " + file.getOriginalFilename();
                     file.transferTo(new File(path));
                     userService.uploadResume(path, user);
                 }

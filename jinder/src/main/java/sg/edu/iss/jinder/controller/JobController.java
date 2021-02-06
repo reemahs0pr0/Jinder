@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.jinder.model.Job;
+import sg.edu.iss.jinder.model.ProgLang;
 import sg.edu.iss.jinder.model.Job_Clicked;
+
 import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
@@ -129,5 +131,33 @@ public class JobController {
 		model.addAttribute("job", jobService.findJobById(id));
     
 		return "jobdetail";	
+	}
+	
+//....................VIEW FILTERED JOBS LISTING PAGE....................
+	@RequestMapping(value = "/filterby")
+	public String filterJobByProgLang(@RequestParam("progLang") String progLang, Model model, @RequestParam("page") Optional<Integer> page, 
+			@RequestParam("size") Optional<Integer> size) {
+		List<Job> jobs = null; 
+		if (progLang != " ") {
+			jobs = jobService.listAllByProgLang(progLang);
+		}
+		int currentPage= page.orElse(1);
+		int pageSize=size.orElse(10);
+	
+		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
+	
+		int totalPages= jobPage.getTotalPages();
+		if(totalPages>0)
+		{
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+	                .boxed()
+	                .collect(Collectors.toList());
+	            model.addAttribute("pageNumbers", pageNumbers);
+			
+		}
+		model.addAttribute("jobs", jobPage);
+		model.addAttribute("lastSelected", progLang);
+		
+		return "jobs"; 
 	}
 }

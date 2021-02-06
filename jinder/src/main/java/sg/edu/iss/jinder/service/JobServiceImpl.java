@@ -250,4 +250,9 @@ public class JobServiceImpl implements JobService {
 		
 
 	
+	public List<Job> listAllByProgLang(String progLang) {
+		
+		return jrepo.filterByProgLang(progLang);
+	}
+	
 }

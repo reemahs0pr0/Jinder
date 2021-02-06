@@ -18,5 +18,8 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
 	@Query("SELECT j FROM Job j WHERE CONCAT(j.jobTitle, ' ',j.jobDescription, ' ', "
 			+ "j.companyName, ' ', j.skills, ' ', j.jobAppUrl) LIKE %?1%")
 	public List<Job> search(String keyword);
+	
+	@Query("SELECT j FROM Job j WHERE CONCAT(j.jobDescription, ' ', j.skills) LIKE %?1%")
+	public List<Job> filterByProgLang(String keyword); 
 
 }
