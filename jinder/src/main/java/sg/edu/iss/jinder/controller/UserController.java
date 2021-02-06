@@ -99,12 +99,12 @@ public class UserController {
 			return "signup";
 		}
 		if (userService.findUserbyUserName(user.getUserName()) != null) {   
-			model.addAttribute("duplicate", "The username already exists");
+			model.addAttribute("duplicateUserName", "The username already exists");
 
 			return "signup";
 		}
 		if (userService.findUserbyEmailAddress(user.getEmailAddress()) != null) {
-			model.addAttribute("duplicate", "The email already exists");
+			model.addAttribute("duplicateEmailAddress", "The email already exists");
 
 			return "signup";
 		}
@@ -134,7 +134,7 @@ public class UserController {
 		}
 		if (!previousUser.getEmailAddress().equalsIgnoreCase(newUser.getEmailAddress())) {
 			if (userService.findUserbyEmailAddress(user.getEmailAddress())!=null) {
-				model.addAttribute("duplicate", "The email address already exists");
+				model.addAttribute("duplicateEmailAddress", "The email address already exists");
 
 				return "edituser";
 			}
@@ -147,7 +147,7 @@ public class UserController {
 		}
 		if (!previousUser.getUserName().equalsIgnoreCase(newUser.getUserName())) {
 			if (userService.findUserbyUserName(user.getUserName())!=null) {
-				model.addAttribute("duplicate", "The username already exists");
+				model.addAttribute("duplicateUserName", "The username already exists");
 
 				return "edituser";
 			}
@@ -184,6 +184,7 @@ public class UserController {
 		return "uploadresume";
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/springUpload", method = RequestMethod.POST)
     public String springUpload(HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		User user = (User) session.getAttribute("usession");

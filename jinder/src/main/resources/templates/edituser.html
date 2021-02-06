@@ -41,7 +41,7 @@
 			User Name: <input type="text" th:field="*{userName}">
 			<p class="error-list" th:if="${#fields.hasErrors('userName')}"
 				th:errors="*{userName}"></p>
-			<p th:text="${duplicate}"></p>
+			<p th:text="${duplicateUsername}"></p>
 		</fieldset>
 		<fieldset>
 			Password: <input type="password" th:field="*{password}">
@@ -51,7 +51,7 @@
 			Email Address: <input type="text" th:field="*{emailAddress}">
 			<p th:if="${#fields.hasErrors('emailAddress')}"
 				th:errors="*{emailAddress}"></p>
-			<p th:text="${duplicate}"></p>
+			<p th:text="${duplicateEmailAddress}"></p>
 		</fieldset>
 		<fieldset>
 			Address: <input type="text" th:field="*{address}">
