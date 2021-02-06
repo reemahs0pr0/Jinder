@@ -3,7 +3,11 @@ package sg.edu.iss.jinder.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jinder.model.Job_Clicked;
 import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Preference;
+import sg.edu.iss.jinder.repo.Job_ClickedRepository;
+import sg.edu.iss.jinder.repo.UserPreferenceRepository;
 import sg.edu.iss.jinder.repo.UserRepository;
 
 @Service
@@ -11,6 +15,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository urepo;
+	
+	@Autowired
+	UserPreferenceRepository uprefrepo;
+	
+	@Autowired
+	Job_ClickedRepository job_clickedrepo;
 	
 	@Override
 	public boolean saveUser(User user) {
@@ -67,5 +77,37 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void uploadResume(String resumeUrl, User user) {
 		urepo.updateUserResume(resumeUrl, user.getId());
+	}
+
+	@Override
+	public void saveUserPref(User_Preference upref) {
+		uprefrepo.save(upref);
+		
+	}
+
+	@Override
+	public Boolean findUserPrefByUserId(int id) {
+		if(uprefrepo.finduserprefByUserId(id)==null )
+		{return false;}
+		else {
+			return true;
+		}
+	}
+
+	@Override
+	public User_Preference getUserPrefByUserId(int id) {
+		return uprefrepo.finduserprefByUserId(id);
+	}
+
+	@Override
+	public void deleteUserPreference(User_Preference upref) {
+		uprefrepo.delete(upref);
+		
+	}
+
+	@Override
+	public void saveJob_Clicked(Job_Clicked job_Clicked) {
+		job_clickedrepo.save(job_Clicked);
+		
 	}
 }

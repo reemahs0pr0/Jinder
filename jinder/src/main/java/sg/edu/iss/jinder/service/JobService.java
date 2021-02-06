@@ -7,6 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.model.ProgLang;
+import sg.edu.iss.jinder.model.Job_Clicked;
+import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Preference;
 
 public interface JobService {
 	
@@ -18,6 +21,13 @@ public interface JobService {
   
 	public Page<Job> findPaginated(List<Job> jobs, Pageable pageable);
 	
+
 	public List<Job> listAllByProgLang(String progLang);
+
+	public List<Job_Clicked> findJob_ClickedsbyUserId(int id);
+	
+	public List<Job_Clicked> findJob_ClickedsbyJobId(int id);
+	
+	public List<Job> listRecommendedJobs (User user);
 
 }
