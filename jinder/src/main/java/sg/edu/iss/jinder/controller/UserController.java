@@ -197,7 +197,7 @@ public class UserController {
             while(iter.hasNext()) {
                 MultipartFile file = multiRequest.getFile(iter.next().toString());
                 if(file != null) {
-                    String path="DIRECTORY" + file.getOriginalFilename();
+                    String path="DIRECTORY " + file.getOriginalFilename();
                     file.transferTo(new File(path));
                     userService.uploadResume(path, user);
                 }

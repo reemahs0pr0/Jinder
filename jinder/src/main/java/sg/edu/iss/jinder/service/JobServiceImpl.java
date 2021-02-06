@@ -169,4 +169,9 @@ public class JobServiceImpl implements JobService {
 		return jrepo.findById(id).get();
 	}
 	
+	public List<Job> listAllByProgLang(String progLang) {
+		
+		return jrepo.filterByProgLang(progLang);
+	}
+	
 }

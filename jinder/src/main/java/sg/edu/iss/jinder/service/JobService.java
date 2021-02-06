@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import sg.edu.iss.jinder.model.Job;
+import sg.edu.iss.jinder.model.ProgLang;
 
 public interface JobService {
 	
@@ -16,5 +17,7 @@ public interface JobService {
 	public Job findJobById(Integer id);
   
 	public Page<Job> findPaginated(List<Job> jobs, Pageable pageable);
+	
+	public List<Job> listAllByProgLang(String progLang);
 
 }
