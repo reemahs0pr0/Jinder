@@ -73,19 +73,46 @@
 			<td th:text=${job.id+1}>Id</td>
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
-			<td th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
+			<td th:if="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
+			<td th:unless="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription}">Description</td>
 			<td><a href="jobdetail.html" class="btn btn-success"
 				th:href="@{/job/detail/}+${job.id}">Click for more details</a></td>
 		</tr>
 	</table>
-	<div th:if="${jobs.totalPages > 0}" class="pagination"
-		th:each="pageNumber : ${pageNumbers}">
+	<div th:if="${jobs.totalPages > 0}" class="pagination">
 		<a
+			th:href="@{/job/list(size=${jobs.size}, page=1, keyword=${keyword})}"
+			th:text="First"></a>
+		<a
+			th:if="${jobs.totalPages < 5}"
+			th:each="pageNumber : ${pageNumbers}"
 			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
-			th:text=${pageNumber}
+			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
+		<a
+			th:if="${jobs.number < 2}"
+			th:unless="${jobs.totalPages < 5}"
+			th:each="pageNumber : ${#numbers.sequence(1, 5)}"
+			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
+			th:text="' | ' + ${pageNumber} + ' | '"
+			th:class="${pageNumber==jobs.number + 1} ? active"></a>
+		<a
+			th:if="${jobs.number >= 2 && jobs.number <= jobs.totalPages-3}"
+			th:unless="${jobs.totalPages < 5}"
+			th:each="pageNumber : ${#numbers.sequence(jobs.number-1, jobs.number+3)}"
+			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
+			th:text="' | ' + ${pageNumber} + ' | '"
+			th:class="${pageNumber==jobs.number + 1} ? active"></a>
+		<a
+			th:if="${jobs.number > jobs.totalPages-3}"
+			th:unless="${jobs.totalPages < 5}"
+			th:each="pageNumber : ${#numbers.sequence(jobs.totalPages-4, jobs.totalPages)}"
+			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword})}"
+			th:text="' | ' + ${pageNumber} + ' | '"
+			th:class="${pageNumber==jobs.number + 1} ? active"></a>
+		<a
+			th:href="@{/job/list(size=${jobs.size}, page=${jobs.totalPages}, keyword=${keyword})}"
+			th:text="Last"></a>
 	</div>
-	<br>
-	<div th:replace="fragments/general.html :: footer"></div>
 </body>
 </html>
