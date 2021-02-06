@@ -16,13 +16,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jinder.model.Job;
+import sg.edu.iss.jinder.model.Job_Clicked;
+import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.repo.JobRepository;
+import sg.edu.iss.jinder.repo.Job_ClickedRepository;
 
 @Service
 public class JobServiceImpl implements JobService {
 	
 	@Autowired
 	JobRepository jrepo;
+	
+	@Autowired
+	Job_ClickedRepository job_clickedrepo;
 	
 	@Override
 	public List<Job> listAll(String keyword)
@@ -48,6 +54,7 @@ public class JobServiceImpl implements JobService {
 		          conn.disconnect();
 		          
 		          String[] arr = sb.toString().split(",");
+		          System.out.print(arr);
 		          List<Integer> sortedIds = new ArrayList<>();
 		          for (int i = 0; i < arr.length-1; i++) {
 		        	  sortedIds.add(Integer.parseInt(arr[i]));
@@ -168,5 +175,79 @@ public class JobServiceImpl implements JobService {
 		
 		return jrepo.findById(id).get();
 	}
+
+	
+	@Override
+	public List<Job_Clicked> findJob_ClickedsbyUserId(int id)
+	{
+		if(job_clickedrepo.findJob_ClickedsbyUserId(id)!=null)
+		{
+			return job_clickedrepo.findJob_ClickedsbyUserId(id);
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Job_Clicked> findJob_ClickedsbyJobId(int id) 
+	{
+		if(job_clickedrepo.findJob_ClickedsbyJobId(id)!=null)
+		{
+			return job_clickedrepo.findJob_ClickedsbyUserId(id);
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+		
+	@Override
+	public List<Job> listRecommendedJobs(User user) 
+	{
+		
+		List<Job_Clicked> job_ClickedsbyUserClickeds=findJob_ClickedsbyUserId(user.getId());
+		try {
+			  String jobid_1 = String.valueOf(job_ClickedsbyUserClickeds.get(job_ClickedsbyUserClickeds.size()-1).getJob().getId()).replace(" ", "+");
+			  URL url = new URL("http://127.0.0.1:5000/similarjobs/?jobid=" + jobid_1); 
+			  
+			  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			  
+			  conn.setRequestMethod("GET");
+		      conn.connect();
+		      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		      StringBuilder sb = new StringBuilder();
+		      String line = null;
+	          while ((line = rd.readLine()) != null)
+	          {
+	              sb.append(line + '\n');
+	          }
+	          rd.close();
+	          conn.disconnect();
+	          
+	          String[] arr = sb.toString().split(",");
+	          List<Integer> sortedIds = new ArrayList<>();
+	          
+	          for (int i = 0; i < arr.length-1; i++) {
+	        	  sortedIds.add(Integer.parseInt(arr[i]));
+	          }
+	          List<Job> sortedJobs = new ArrayList<Job>();
+	          for(Integer sortedId : sortedIds) {
+	        	  sortedJobs.add(jrepo.findById(sortedId).get());
+	          }
+	          return sortedJobs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+			
+			
+	}
+		
+		
+
 	
 }

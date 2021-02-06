@@ -1,11 +1,15 @@
 package sg.edu.iss.jinder.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -47,6 +51,14 @@ public class User {
 	private LocalDate registrationDate; 
 	private String resumeUrl;
 
+	@OneToOne(mappedBy = "user")
+	private User_Preference uPreference;
+	
+
+    @OneToMany(mappedBy = "user")
+	private List<Job_Clicked> job_Clickeds;
+	
+	
 	public User() {
 		super();
 	}
@@ -139,6 +151,24 @@ public class User {
 
 	public void setResumeUrl(String resumeUrl) {
 		this.resumeUrl = resumeUrl;
+	}
+	
+	public User_Preference getuPreference() {
+		return uPreference;
+	}
+
+	public void setuPreference(User_Preference uPreference) {
+		this.uPreference = uPreference;
+	}
+	
+
+	
+	public List<Job_Clicked> getJob_Clickeds() {
+		return job_Clickeds;
+	}
+
+	public void setJob_Clickeds(List<Job_Clicked> job_Clickeds) {
+		this.job_Clickeds = job_Clickeds;
 	}
 
 	@Override

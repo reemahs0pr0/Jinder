@@ -3,7 +3,9 @@ package sg.edu.iss.jinder.controller;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,11 +18,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Preference;
 import sg.edu.iss.jinder.service.UserService;
 import sg.edu.iss.jinder.service.UserServiceImpl;
 
@@ -197,7 +201,7 @@ public class UserController {
             while(iter.hasNext()) {
                 MultipartFile file = multiRequest.getFile(iter.next().toString());
                 if(file != null) {
-                    String path="DIRECTORY" + file.getOriginalFilename();
+                    String path="C:\\AD Project\\Discussion\\Jinder Prototype" + file.getOriginalFilename();
                     file.transferTo(new File(path));
                     userService.uploadResume(path, user);
                 }
@@ -208,4 +212,156 @@ public class UserController {
         
     return "uploadsuccess"; 
     }
+	
+
+	
+//-----USER PREFRENCE SURVEY----
+	//for new surveys
+	@RequestMapping(value="/survey")
+	public String save(Model model,HttpSession session)
+			
+	{     
+		   User user = (User) session.getAttribute("usession");
+		   System.out.print(userService.findUserPrefByUserId(user.getId()));
+		   if(userService.findUserPrefByUserId(user.getId())==true)
+		   {
+			  
+			   return "surveyconfirmation";
+		   }
+		
+		   else {
+			
+				User_Preference upref1= new User_Preference();
+				List<String> selectableRoles =new ArrayList<String>();
+			    selectableRoles.add("Developer");
+			    selectableRoles.add("Analyst");
+			    selectableRoles.add("Project Manager");
+			    selectableRoles.add("Project Owner/Manager");
+			    selectableRoles.add("Sales");
+			    selectableRoles.add("Consultant");
+			    selectableRoles.add("Architect");
+			    selectableRoles.add("Data Scientist");
+			    selectableRoles.add("Designer");
+			    selectableRoles.add("Database Admin");
+			    
+			    List<String>selectableTitles = new ArrayList<String>();
+			    selectableTitles.add("Intern");
+			    selectableTitles.add("Junior");
+			    selectableTitles.add("Executive");
+			    selectableTitles.add("Lead, Senior and Manager");
+			    
+			    model.addAttribute("selectableRoles",selectableRoles);
+			    model.addAttribute("selectableTitles",selectableTitles);
+				model.addAttribute("upref", upref1);
+			    
+				model.addAttribute("error","");
+			    return "survey";
+		   }
+				
+
+	}
+	
+	    //for saving  survey
+		@RequestMapping(value="/savesurvey",method=RequestMethod.POST)
+		public String savePref(@ModelAttribute("upref") @Valid User_Preference upref,BindingResult result,Model model,HttpSession session)
+		{
+			if (result.hasErrors()) 
+			
+			{	
+				User_Preference upref1= new User_Preference();
+			   
+				List<String> selectableRoles =new ArrayList<String>();
+			    selectableRoles.add("Developer");
+			    selectableRoles.add("Analyst");
+			    selectableRoles.add("Project Manager");
+			    selectableRoles.add("Project Owner/Manager");
+			    selectableRoles.add("Sales");
+			    selectableRoles.add("Consultant");
+			    selectableRoles.add("Architect");
+			    selectableRoles.add("Data Scientist");
+			    selectableRoles.add("Designer");
+			    selectableRoles.add("Database Admin");
+			    
+			    List<String>selectableTitles = new ArrayList<String>();
+			    selectableTitles.add("Intern");
+			    selectableTitles.add("Junior");
+			    selectableTitles.add("Executive");
+			    selectableTitles.add("Lead, Senior and Manager");
+			    
+			    model.addAttribute("selectableRoles",selectableRoles);
+			    model.addAttribute("selectableTitles",selectableTitles);
+				model.addAttribute("upref",upref1);
+
+				model.addAttribute("error","Minium must be 1 and Maximum must be 2 only");
+				
+				return "survey";
+			}
+			else {
+				
+				User_Preference userPrefToSave= new User_Preference(upref.getPreferredJobRole(), upref.getPreferredJobTitle(), upref.getPreferredTechnologies());
+				 
+				LocalDate now=LocalDate.now();
+				userPrefToSave.setSurveyDate(now);  
+				
+				User user = (User) session.getAttribute("usession");
+				userPrefToSave.setUser(user);
+				
+				userService.saveUserPref(userPrefToSave);
+
+				return "forward:/user/userdetails";
+			}
+			
+		}
+		
+		
+		//for old survey
+		@RequestMapping(value="/surveyagain")
+		public String saveagain(Model model,HttpSession session,@RequestParam("yes_no") String yes_or_no)
+				
+		{     
+			   User user = (User) session.getAttribute("usession");
+			   
+			   if(userService.findUserPrefByUserId(user.getId())==true)
+			   {
+				  if (yes_or_no.contains("Yes"))
+				  {
+                        User_Preference uPreference=userService.getUserPrefByUserId(user.getId());
+                        userService.deleteUserPreference(uPreference);
+						
+                        
+                        User_Preference upref1= new User_Preference();
+						List<String> selectableRoles =new ArrayList<String>();
+					    selectableRoles.add("Developer");
+					    selectableRoles.add("Analyst");
+					    selectableRoles.add("Project Manager");
+					    selectableRoles.add("Project Owner/Manager");
+					    selectableRoles.add("Sales");
+					    selectableRoles.add("Consultant");
+					    selectableRoles.add("Architect");
+					    selectableRoles.add("Data Scientist");
+					    selectableRoles.add("Designer");
+					    selectableRoles.add("Database Admin");
+					    
+					    List<String>selectableTitles = new ArrayList<String>();
+					    selectableTitles.add("Intern");
+					    selectableTitles.add("Junior");
+					    selectableTitles.add("Executive");
+					    selectableTitles.add("Lead, Senior and Manager");
+					    
+					    model.addAttribute("selectableRoles",selectableRoles);
+					    model.addAttribute("selectableTitles",selectableTitles);
+						model.addAttribute("upref", upref1);
+						model.addAttribute("error","");
+					    
+					    return "survey";
+					  
+				  }
+			   }
+			 
+				   return "forward:/user/userdetails";	
+
+		}
+
+	
+	
 }
