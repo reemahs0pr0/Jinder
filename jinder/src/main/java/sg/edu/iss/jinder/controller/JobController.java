@@ -1,5 +1,6 @@
 package sg.edu.iss.jinder.controller;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,81 +53,43 @@ public class JobController {
 //....................JOB LISTING PAGE....................
 	@RequestMapping(value="/list")
 	public String jobListings(Model model,@Param("keyword")String keyword, @RequestParam("page") Optional<Integer> page, 
-			@RequestParam("size") Optional<Integer> size, HttpSession session)
-	{
+			@RequestParam("size") Optional<Integer> size, HttpSession session) {
 		List<Job> jobs;
 		User user = (User) session.getAttribute("usession");
 		int id = user.getId();
 		if(userService.resumeUploaded(id)) {
 			jobs= jobService.listResult(keyword, id);
-			
-			
 		}
 		else {
 			jobs= jobService.listAll(keyword);
-			
 		}
-		
-
-		//------added addtional recommneded job----
-		
-		
-		if( !jobService.findJob_ClickedsbyUserId(user.getId()).isEmpty())
-		{
-			List<Job_Clicked>jobs_clickedByUser=jobService.findJob_ClickedsbyJobId(user.getId());
-			String lastJobClicked = jobs_clickedByUser.get(jobs_clickedByUser.size()-1).getJob().getJobTitle();
-			model.addAttribute("recommend","Since you last clicked on "+lastJobClicked+", below are recommended jobs:");
-			model.addAttribute("recommendedjobs",jobService.listRecommendedJobs(user));
-			for(Job j:jobService.listRecommendedJobs(user))
-			{
-				System.out.println(j.getJobTitle());
-			}
-		}
-		else
-		{
-			List<Job> emptyJobs= new ArrayList<Job>();
-			System.out.println("Empty:"+emptyJobs.isEmpty());
-			model.addAttribute("recommend","");
-			model.addAttribute("recommendedjobs",emptyJobs);
-		}
-		
-		//----------------------------------------------
 		int currentPage= page.orElse(1);
 		int pageSize=size.orElse(10);
 	
 		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
 	
 		int totalPages= jobPage.getTotalPages();
-		if(totalPages>0)
-		{
+		if(totalPages>0) {
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
 	                .boxed()
 	                .collect(Collectors.toList());
 	            model.addAttribute("pageNumbers", pageNumbers);
-			
 		}
-		
-		
-		
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("keyword", keyword);
-		
 		
 		return "jobs";
 	}
 
 //....................VIEW JOB DETAILS PAGE....................
 	@RequestMapping(value = "/detail/{id}")
-	public String showJob(@PathVariable("id") Integer id, Model model,HttpSession session) 
-	{
-		//---- to add user clicks -------------------------
-		
+	public String showJob(@PathVariable("id") Integer id, Model model,HttpSession session) {
 		User user = (User) session.getAttribute("usession");
+		//---- to add user click history -------------------------
 		Job_Clicked job_ClickedToSave= new Job_Clicked();
 		job_ClickedToSave.setUser(user);
 		job_ClickedToSave.setJob(jobService.findJobById(id));
 		userService.saveJob_Clicked(job_ClickedToSave);
-		//---------------------------------------------------
 		
 		model.addAttribute("job", jobService.findJobById(id));
     
@@ -147,17 +110,60 @@ public class JobController {
 		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
 	
 		int totalPages= jobPage.getTotalPages();
-		if(totalPages>0)
-		{
+		if(totalPages>0) {
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
 	                .boxed()
 	                .collect(Collectors.toList());
 	            model.addAttribute("pageNumbers", pageNumbers);
-			
 		}
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("lastSelected", progLang);
 		
 		return "jobs"; 
 	}
+	
+//....................VIEW RECOMMENDATION PAGE....................
+	@RequestMapping(value = "/recommendedjobs")
+	public String recommendationJobs (Model model, HttpSession session) {
+		User user = (User) session.getAttribute("usession");
+		//----- list jobs based on User Preference Survey -----
+		if (userService.findUserPrefByUserId(user.getId())) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			String lastSurveySubmittedDate = userService.getUserPrefByUserId(user.getId()).getSurveyDate().format(formatter);
+			
+			model.addAttribute("recommendBySurveyText", "Based on your Job Preference Survey submitted on " + lastSurveySubmittedDate + ", below are recommended jobs:");
+			model.addAttribute("recommendedJobsBySurvey", jobService.listRecommendedJobsBySurvey(user));
+			for (Job j:jobService.listRecommendedJobsBySurvey(user)) {
+				System.out.println(j.getJobTitle());
+			}
+		}
+		else {
+			List<Job> emptyJobs= new ArrayList<Job>();
+			System.out.println("Empty:" + emptyJobs.isEmpty());
+			
+			model.addAttribute("recommendBySurveyText", "No Job Preference Survey submitted");
+			model.addAttribute("recommendedJobsBySurvey", emptyJobs);
+		}
+		//----- list jobs based on click history -----
+		if( !jobService.findJob_ClickedsbyUserId(user.getId()).isEmpty()) {
+			List<Job_Clicked> jobs_clickedByUser = jobService.findJob_ClickedsbyJobId(user.getId());
+			String lastJobClicked = jobs_clickedByUser.get(jobs_clickedByUser.size() - 1).getJob().getJobTitle();
+			
+			model.addAttribute("recommendByClickHistoryText", "Since you last clicked on " + lastJobClicked + ", below are recommended jobs:");
+			model.addAttribute("recommendedJobsByClickHistory", jobService.listRecommendedJobsByClickHistory(user));
+			for (Job j:jobService.listRecommendedJobsByClickHistory(user)) {
+				System.out.println(j.getJobTitle());
+			}
+		}
+		else {
+			List<Job> emptyJobs= new ArrayList<Job>();
+			System.out.println("Empty:" + emptyJobs.isEmpty());
+			
+			model.addAttribute("recommendByClickHistoryText", "No click history present");
+			model.addAttribute("recommendedJobsByClickHistory", emptyJobs);
+		}
+		
+		return "recommendation";
+	}
+	
 }

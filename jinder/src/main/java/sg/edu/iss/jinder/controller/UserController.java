@@ -57,7 +57,7 @@ public class UserController {
 			if (au_username.equals(user.getUserName()) && au_password.equals(user.getPassword())) {
 				session.setAttribute("usession", authUser);
 
-				return "forward:/job/list";
+				return "forward:/job/recommendedjobs";
 			}
 			else {
 				model.addAttribute("error","Please enter correct username and password");
