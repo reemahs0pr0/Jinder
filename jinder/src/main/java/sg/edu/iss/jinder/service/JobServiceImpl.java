@@ -20,6 +20,7 @@ import sg.edu.iss.jinder.model.Job_Clicked;
 import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.repo.JobRepository;
 import sg.edu.iss.jinder.repo.Job_ClickedRepository;
+import sg.edu.iss.jinder.repo.UserPreferenceRepository;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -30,11 +31,12 @@ public class JobServiceImpl implements JobService {
 	@Autowired
 	Job_ClickedRepository job_clickedrepo;
 	
+	@Autowired
+	UserPreferenceRepository uPrefrepo;
+	
 	@Override
-	public List<Job> listAll(String keyword)
-	{
-		if(keyword !=null && keyword != "")
-		{
+	public List<Job> listAll(String keyword) {
+		if(keyword !=null && keyword != "") {
 			try {
 				  String keywordParam = keyword.replace(" ", "+");
 				  URL url = new URL("http://127.0.0.1:5000/search/?query=" + keywordParam); 
@@ -46,8 +48,7 @@ public class JobServiceImpl implements JobService {
 			      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			      StringBuilder sb = new StringBuilder();
 			      String line = null;
-		          while ((line = rd.readLine()) != null)
-		          {
+		          while ((line = rd.readLine()) != null) {
 		              sb.append(line + '\n');
 		          }
 		          rd.close();
@@ -60,7 +61,7 @@ public class JobServiceImpl implements JobService {
 		        	  sortedIds.add(Integer.parseInt(arr[i]));
 		          }
 		          List<Job> sortedJobs = new ArrayList<Job>();
-		          for(Integer sortedId : sortedIds) {
+		          for (Integer sortedId : sortedIds) {
 		        	  sortedJobs.add(jrepo.findById(sortedId).get());
 		          }
 		          return sortedJobs;
@@ -76,8 +77,7 @@ public class JobServiceImpl implements JobService {
 	}
 	
 	@Override
-	public List<Job> listResult(String keyword, int id)
-	{
+	public List<Job> listResult(String keyword, int id) {
 		if(keyword !=null) {
 			try {
 				  String keywordParam = keyword.replace(" ", "+");
@@ -90,8 +90,7 @@ public class JobServiceImpl implements JobService {
 			      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			      StringBuilder sb = new StringBuilder();
 			      String line = null;
-		          while ((line = rd.readLine()) != null)
-		          {
+		          while ((line = rd.readLine()) != null) {
 		              sb.append(line + '\n');
 		          }
 		          rd.close();
@@ -123,8 +122,7 @@ public class JobServiceImpl implements JobService {
 			      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			      StringBuilder sb = new StringBuilder();
 			      String line = null;
-		          while ((line = rd.readLine()) != null)
-		          {
+		          while ((line = rd.readLine()) != null) {
 		              sb.append(line + '\n');
 		          }
 		          rd.close();
@@ -149,67 +147,56 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public Page<Job> findPaginated(List<Job> jobs, Pageable pageable) 
-	{
-		
+	public Page<Job> findPaginated(List<Job> jobs, Pageable pageable) {
 		int pageSize= pageable.getPageSize();
 		int currentPage= pageable.getPageNumber();
 		int startItem=currentPage*pageSize;
 		List<Job> list;
-		 if (jobs.size() < startItem)
-		 {
-	            list = Collections.emptyList();
+		 if (jobs.size() < startItem) {
+			 list = Collections.emptyList();
 	     }
-		 else 
-		{
+		 else {
 			 int toIndex=Math.min(startItem +pageSize, jobs.size());
 			 list=jobs.subList(startItem, toIndex);
 		}
-		 
 		 Page<Job> jobPage= new PageImpl<Job>(list, PageRequest.of(currentPage, pageSize), jobs.size());
 		
 		 return jobPage;
-  }
+	}
 
+	@Override
 	public Job findJobById(Integer id) {
 		
 		return jrepo.findById(id).get();
 	}
 
-	
 	@Override
-	public List<Job_Clicked> findJob_ClickedsbyUserId(int id)
-	{
-		if(job_clickedrepo.findJob_ClickedsbyUserId(id)!=null)
-		{
+	public List<Job_Clicked> findJob_ClickedsbyUserId(int id) {
+		if(job_clickedrepo.findJob_ClickedsbyUserId(id)!=null) {
+			
 			return job_clickedrepo.findJob_ClickedsbyUserId(id);
 		}
-		else
-		{
+		else {
+			
 			return null;
 		}
-		
 	}
 
 	@Override
-	public List<Job_Clicked> findJob_ClickedsbyJobId(int id) 
-	{
-		if(job_clickedrepo.findJob_ClickedsbyJobId(id)!=null)
-		{
+	public List<Job_Clicked> findJob_ClickedsbyJobId(int id) {
+		if(job_clickedrepo.findJob_ClickedsbyJobId(id) != null) {
+			
 			return job_clickedrepo.findJob_ClickedsbyUserId(id);
 		}
-		else
-		{
+		else {
+			
 			return null;
 		}
-		
 	}
 		
 	@Override
-	public List<Job> listRecommendedJobs(User user) 
-	{
-		
-		List<Job_Clicked> job_ClickedsbyUserClickeds=findJob_ClickedsbyUserId(user.getId());
+	public List<Job> listRecommendedJobsByClickHistory(User user) {
+		List<Job_Clicked> job_ClickedsbyUserClickeds = findJob_ClickedsbyUserId(user.getId());
 		try {
 			  String jobid_1 = String.valueOf(job_ClickedsbyUserClickeds.get(job_ClickedsbyUserClickeds.size()-1).getJob().getId()).replace(" ", "+");
 			  URL url = new URL("http://127.0.0.1:5000/similarjobs/?jobid=" + jobid_1); 
@@ -221,8 +208,7 @@ public class JobServiceImpl implements JobService {
 		      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		      StringBuilder sb = new StringBuilder();
 		      String line = null;
-	          while ((line = rd.readLine()) != null)
-	          {
+	          while ((line = rd.readLine()) != null) {
 	              sb.append(line + '\n');
 	          }
 	          rd.close();
@@ -238,21 +224,57 @@ public class JobServiceImpl implements JobService {
 	          for(Integer sortedId : sortedIds) {
 	        	  sortedJobs.add(jrepo.findById(sortedId).get());
 	          }
+	          
 	          return sortedJobs;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return null;
-			
-			
 	}
-		
-		
 
-	
+	@Override
 	public List<Job> listAllByProgLang(String progLang) {
 		
 		return jrepo.filterByProgLang(progLang);
+	}
+	
+	@Override
+	public List<Job> listRecommendedJobsBySurvey(User user) {
+		try {
+			String userId = String.valueOf(user.getId());
+			URL url = new URL("http://127.0.0.1:5000/prefsurvey/?id=" + userId); 
+			
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			  
+			conn.setRequestMethod("GET");
+		    conn.connect();
+		    BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		    StringBuilder sb = new StringBuilder();
+		    String line = null;
+	        while ((line = rd.readLine()) != null) {
+	            sb.append(line + '\n');
+	        }
+	        rd.close();
+	        conn.disconnect();
+	        
+	        String[] arr = sb.toString().split(",");
+	        List<Integer> sortedIds = new ArrayList<>();
+	          
+	        for (int i = 0; i < arr.length-1; i++) {
+	        	sortedIds.add(Integer.parseInt(arr[i]));
+	        }
+	        List<Job> sortedJobs = new ArrayList<Job>();
+	        for(Integer sortedId : sortedIds) {
+	        	sortedJobs.add(jrepo.findById(sortedId).get());
+	        }
+	          
+	          return sortedJobs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 }
