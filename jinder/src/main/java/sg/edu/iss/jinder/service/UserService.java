@@ -35,5 +35,9 @@ public interface UserService {
 	public void saveJob_Clicked (Job_Clicked job_Clicked);
 	
 	public List<User_Graph> findAllGraphs();
+	
+	public boolean forgetPassword(String emailAddress);
+	
+	public String generateRandomAlphanumericString();
 
 }

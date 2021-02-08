@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,8 +86,6 @@ public class UserController {
 //....................SIGN UP PAGE....................
 	@RequestMapping(value = "/signup")
 	public String addUser(Model model) {
-		User user = new User(); 
-		user.setRegistrationDate(LocalDate.now());
 		model.addAttribute("user", new User());
 		
 		return "signup";
@@ -110,6 +109,7 @@ public class UserController {
 			return "signup";
 		}
 		else {
+			user.setRegistrationDate(LocalDate.now());
 			userService.saveUser(user);
 
 			return "forward:/user/login";
@@ -370,6 +370,27 @@ public class UserController {
 		model.addAttribute("glist", glist);
 		
 		return "dashboard";
-}	
+	}	
+	
+//....................PASSWORD RESET PAGE....................
+	@RequestMapping(value = "/forgetpassword")
+	public String forgetPassword() {
+		
+		return "passwordreset";
+	}
+	
+	@RequestMapping(value = "/resetpassword")
+	public String passwordReset(@Param("emailAddress") String emailAddress, Model model) {
+		if (userService.forgetPassword(emailAddress)) {
+			model.addAttribute("emailaddress", emailAddress);
+			
+			return "approvedresetpw"; 
+		}
+		else {
+			model.addAttribute("invalidemail", "The entered email address " + emailAddress + " is invalid. Please enter a correct email address.");
+			
+			return "passwordreset";
+		}
+	}
 	
 }
