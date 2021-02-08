@@ -1,8 +1,11 @@
 package sg.edu.iss.jinder.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jinder.model.Job_Clicked;
@@ -28,6 +31,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserGraphRepository ugraphrepo;
+	
+	@Autowired
+	private JavaMailSender emailSender;
 	
 	@Override
 	public boolean saveUser(User user) {
@@ -108,5 +114,59 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User_Graph> findAllGraphs() {
 		return ugraphrepo.findAll();
+	}
+	
+	@Override
+	public boolean forgetPassword(String emailAddress) {
+		boolean isValidReq = false;
+		List<User> userList = urepo.findAll();
+		for(User user: userList) {
+			if(user.getEmailAddress().equalsIgnoreCase(emailAddress)) {
+				// generating a random alphanumeric password 
+				String newPassword = generateRandomAlphanumericString();
+				
+				System.out.println(newPassword); // for debugging
+				
+				// retrieving user object and setting generated password to it
+				User forgetfulUser = findUserbyEmailAddress(emailAddress);
+				forgetfulUser.setPassword(newPassword);
+				urepo.flush();
+				// sending email to user 
+				SimpleMailMessage message = new SimpleMailMessage(); 
+				message.setTo(emailAddress);
+				message.setSubject("Jinder - Forget Password");
+				message.setText(" Dear " + forgetfulUser.getFullName() + 
+								",\n\n Your password reset request for Jinder account " + forgetfulUser.getUserName() + " has been approved." +
+								"\n Your new temporary password is: " + 
+								"\n" + newPassword + 
+								"\n Please login to Jinder immediately and change your password. " + 
+								"\n\n Thank you " + 
+								"\n\n Cheers, " + 
+								"\n The Jinder Team");
+				emailSender.send(message);
+				
+				System.out.println("Email sent"); // for debugging
+				
+				isValidReq = true;
+				break;
+			}
+		}
+		
+		return isValidReq;
+	}
+	
+	@Override
+	public String generateRandomAlphanumericString() {
+		int leftLimit = 48; //numeric '0' 
+		int rightLimit = 122; // alphabet 'z' 
+		int strLength = 6; 
+		Random random = new Random(); 
+		
+		String generatedStr = random.ints(leftLimit, rightLimit + 1)
+								.filter(i -> (i <= 57 || i>= 65) && (i <= 90 || i >= 97))
+								.limit(strLength).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+								.toString();
+		
+		return generatedStr;
 	}
 }
