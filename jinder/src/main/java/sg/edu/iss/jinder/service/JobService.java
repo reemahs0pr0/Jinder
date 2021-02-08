@@ -6,10 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import sg.edu.iss.jinder.model.Job;
-import sg.edu.iss.jinder.model.ProgLang;
 import sg.edu.iss.jinder.model.Job_Clicked;
 import sg.edu.iss.jinder.model.User;
-import sg.edu.iss.jinder.model.User_Preference;
 
 public interface JobService {
 	
