@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.SysexMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.jinder.model.Job;
-import sg.edu.iss.jinder.model.ProgLang;
 import sg.edu.iss.jinder.model.Job_Clicked;
 
 import sg.edu.iss.jinder.model.User;

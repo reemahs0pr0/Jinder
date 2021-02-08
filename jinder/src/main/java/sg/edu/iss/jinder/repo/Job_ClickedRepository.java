@@ -9,8 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import sg.edu.iss.jinder.model.Job_Clicked;
-import sg.edu.iss.jinder.model.User;
-import sg.edu.iss.jinder.model.User_Preference;
 
 @Repository
 public interface Job_ClickedRepository extends JpaRepository<Job_Clicked,Integer>{

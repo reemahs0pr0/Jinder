@@ -33,16 +33,21 @@
 	</table>
 	<table th:object="${user}">
 		<tr>
-			<td>User Name</td>
+			<td>User Name: </td>
 			<td th:text=${user.userName}>userName</td>
+		</tr>
+		<tr>
+			<td>Uploaded Resume: </td>
+			<td th:if="${user.resumeUrl != null}">YES</td>
+			<td th:if="${user.resumeUrl == null}">NO</td>
 		</tr>
 	</table>
 		<div id="haha">
 			<form name="Form2" th:action="@{/user/springUpload}" method="post"
 				enctype="multipart/form-data">
 
-				CV<input type="file" name="file"> <input type="submit"
-					value="upload" />
+				Resume<input type="file" name="file"> <input type="submit"
+					value="Upload" />
 			</form>
 		</div>
 		<br>
