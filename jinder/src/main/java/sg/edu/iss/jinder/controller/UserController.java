@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Graph;
 import sg.edu.iss.jinder.model.User_Preference;
 import sg.edu.iss.jinder.service.UserService;
 import sg.edu.iss.jinder.service.UserServiceImpl;
@@ -362,6 +363,13 @@ public class UserController {
 
 		}
 
-	
+//....................DASHBOARD PAGE....................
+	@RequestMapping(value = "/data")
+	public String viewDashboard(Model model) {
+		List<User_Graph> glist = userService.findAllGraphs();
+		model.addAttribute("glist", glist);
+		
+		return "dashboard";
+}	
 	
 }

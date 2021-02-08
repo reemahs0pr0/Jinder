@@ -1,9 +1,12 @@
 package sg.edu.iss.jinder.service;
 
+import java.util.List;
+
 import sg.edu.iss.jinder.model.Job_Clicked;
 
 import sg.edu.iss.jinder.model.User;
 import sg.edu.iss.jinder.model.User_Preference;
+import sg.edu.iss.jinder.model.User_Graph;
 
 public interface UserService {
 
@@ -30,5 +33,7 @@ public interface UserService {
 	public void deleteUserPreference (User_Preference upref);
 	
 	public void saveJob_Clicked (Job_Clicked job_Clicked);
+	
+	public List<User_Graph> findAllGraphs();
 
 }

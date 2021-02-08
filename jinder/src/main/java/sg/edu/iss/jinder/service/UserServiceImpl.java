@@ -1,12 +1,16 @@
 package sg.edu.iss.jinder.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jinder.model.Job_Clicked;
 import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.User_Graph;
 import sg.edu.iss.jinder.model.User_Preference;
 import sg.edu.iss.jinder.repo.Job_ClickedRepository;
+import sg.edu.iss.jinder.repo.UserGraphRepository;
 import sg.edu.iss.jinder.repo.UserPreferenceRepository;
 import sg.edu.iss.jinder.repo.UserRepository;
 
@@ -21,6 +25,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	Job_ClickedRepository job_clickedrepo;
+	
+	@Autowired
+	UserGraphRepository ugraphrepo;
 	
 	@Override
 	public boolean saveUser(User user) {
@@ -96,5 +103,10 @@ public class UserServiceImpl implements UserService {
 	public void saveJob_Clicked(Job_Clicked job_Clicked) {
 		job_clickedrepo.save(job_Clicked);
 		
+	}
+
+	@Override
+	public List<User_Graph> findAllGraphs() {
+		return ugraphrepo.findAll();
 	}
 }

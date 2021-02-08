@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+<meta charset="UTF-8" />
+<title>My Dashboard</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" media="all" type="text/css"
+	th:href="@{/css/style.css}" />
+</head>
+<body>
+	<table width="100%" class="center">
+		<tr align="center">
+			<td width="30%"></td>
+			<td align="center" width="40%"><h1>My Dashboard</h1></td>
+			<td width="30%"></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td th:each="graph: ${glist}">
+				<img width="500" height="500" 
+					th:src="@{'data:image/png;base64,'+${graph.code}}" />
+			</td>
+		</tr>
+	</table>
+</body>
+</html>	
