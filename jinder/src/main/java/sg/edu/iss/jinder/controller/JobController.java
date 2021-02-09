@@ -3,6 +3,7 @@ package sg.edu.iss.jinder.controller;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -50,19 +51,34 @@ public class JobController {
 	
 //....................JOB LISTING PAGE....................
 	@RequestMapping(value="/list")
-	public String jobListings(Model model,@Param("keyword")String keyword, @RequestParam("page") Optional<Integer> page, 
+	public String jobListings(Model model,@Param("keyword")String keyword, 
+			@RequestParam("progLang") Optional<String> progLang, @RequestParam("page") Optional<Integer> page, 
 			@RequestParam("size") Optional<Integer> size, HttpSession session) {
 		List<Job> jobs;
 		User user = (User) session.getAttribute("usession");
 		int id = user.getId();
 		if(userService.resumeUploaded(id)) {
-			jobs= jobService.listResult(keyword, id);
+			jobs = jobService.listResult(keyword, id);
 		}
 		else {
-			jobs= jobService.listAll(keyword);
+			jobs = jobService.listAll(keyword);
 		}
-		int currentPage= page.orElse(1);
-		int pageSize=size.orElse(10);
+		
+		if(progLang.isPresent()) {
+			ListIterator<Job> iter = jobs.listIterator();
+			while(iter.hasNext()){
+			    if(!iter.next().toString().contains(progLang.get())){
+			        iter.remove();
+			    }
+			}
+			model.addAttribute("lastSelected", progLang.get());
+		}
+		else {
+			model.addAttribute("lastSelected", "");
+		}
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(10);
 	
 		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
 	
@@ -75,7 +91,7 @@ public class JobController {
 		}
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("keyword", keyword);
-		
+	
 		return "jobs";
 	}
 
@@ -92,32 +108,6 @@ public class JobController {
 		model.addAttribute("job", jobService.findJobById(id));
     
 		return "jobdetail";	
-	}
-	
-//....................VIEW FILTERED JOBS LISTING PAGE....................
-	@RequestMapping(value = "/filterby")
-	public String filterJobByProgLang(@RequestParam("progLang") String progLang, Model model, @RequestParam("page") Optional<Integer> page, 
-			@RequestParam("size") Optional<Integer> size) {
-		List<Job> jobs = null; 
-		if (progLang != " ") {
-			jobs = jobService.listAllByProgLang(progLang);
-		}
-		int currentPage= page.orElse(1);
-		int pageSize=size.orElse(10);
-	
-		Page<Job> jobPage=jobService.findPaginated(jobs, PageRequest.of(currentPage-1, pageSize));
-	
-		int totalPages= jobPage.getTotalPages();
-		if(totalPages>0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-	                .boxed()
-	                .collect(Collectors.toList());
-	            model.addAttribute("pageNumbers", pageNumbers);
-		}
-		model.addAttribute("jobs", jobPage);
-		model.addAttribute("lastSelected", progLang);
-		
-		return "jobs"; 
 	}
 	
 //....................VIEW RECOMMENDATION PAGE....................
