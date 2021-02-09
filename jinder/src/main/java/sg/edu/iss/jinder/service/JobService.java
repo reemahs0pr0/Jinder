@@ -19,8 +19,6 @@ public interface JobService {
   
 	public Page<Job> findPaginated(List<Job> jobs, Pageable pageable);
 
-	public List<Job> listAllByProgLang(String progLang);
-
 	public List<Job_Clicked> findJob_ClickedsbyUserId(int id);
 	
 	public List<Job_Clicked> findJob_ClickedsbyJobId(int id);

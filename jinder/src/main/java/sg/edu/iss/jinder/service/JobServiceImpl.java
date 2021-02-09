@@ -232,12 +232,6 @@ public class JobServiceImpl implements JobService {
 		
 		return null;
 	}
-
-	@Override
-	public List<Job> listAllByProgLang(String progLang) {
-		
-		return jrepo.filterByProgLang(progLang);
-	}
 	
 	@Override
 	public List<Job> listRecommendedJobsBySurvey(User user) {
