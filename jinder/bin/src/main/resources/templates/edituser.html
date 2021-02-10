@@ -48,7 +48,7 @@
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 		</fieldset>
 		<fieldset>
-			Email Address: <input type="text" th:field="*{emailAddress}">
+			Email Address: <input type="email" th:field="*{emailAddress}">
 			<p th:if="${#fields.hasErrors('emailAddress')}"
 				th:errors="*{emailAddress}"></p>
 			<p th:text="${duplicateEmailAddress}"></p>
