@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.model.Job_Clicked;
-import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.JobSeeker;
 
 public interface JobService {
 	
@@ -23,8 +23,8 @@ public interface JobService {
 	
 	public List<Job_Clicked> findJob_ClickedsbyJobId(int id);
 	
-	public List<Job> listRecommendedJobsByClickHistory(User user);
+	public List<Job> listRecommendedJobsByClickHistory(JobSeeker user);
 	
-	public List<Job> listRecommendedJobsBySurvey(User user);
+	public List<Job> listRecommendedJobsBySurvey(JobSeeker user);
 
 }

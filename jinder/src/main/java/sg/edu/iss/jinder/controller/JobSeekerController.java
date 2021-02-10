@@ -24,54 +24,54 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.JobSeeker;
 import sg.edu.iss.jinder.model.User_Graph;
 import sg.edu.iss.jinder.model.User_Preference;
-import sg.edu.iss.jinder.service.UserService;
-import sg.edu.iss.jinder.service.UserServiceImpl;
+import sg.edu.iss.jinder.service.JobSeekerService;
+import sg.edu.iss.jinder.service.JobSeekerServiceImpl;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/jobseeker")
+public class JobSeekerController {
 
 	@Autowired
-	private UserService userService;
+	private JobSeekerService jsService;
 
 	@Autowired
-	private void setUserService(UserServiceImpl userServiceImpl) {
-		this.userService=userServiceImpl;
+	private void setJobSeekerService(JobSeekerServiceImpl jobSeekerServiceImpl) {
+		this.jsService=jobSeekerServiceImpl;
 	}
 
 //....................LOGIN PAGE....................
 	@RequestMapping(value="/login")
 	public String login(Model model) {
-		model.addAttribute("user",new User());
+		model.addAttribute("jobseeker",new JobSeeker());
 
 		return "login";
 	}
 
 	@RequestMapping(value="/authenticate",method = RequestMethod.POST)
-	public String authenticate(@ModelAttribute("user") User user, Model model, HttpSession session) {		
-		if (userService.login(user.getUserName(), user.getPassword()) != null) {
-			User authUser = userService.login(user.getUserName(), user.getPassword());
-			String au_username = authUser.getUserName();
-			String au_password= authUser.getPassword();
-			if (au_username.equals(user.getUserName()) && au_password.equals(user.getPassword())) {
-				session.setAttribute("usession", authUser);
+	public String authenticate(@ModelAttribute("jobseeker") JobSeeker jobSeeker, Model model, HttpSession session) {		
+		if (jsService.login(jobSeeker.getUserName(), jobSeeker.getPassword()) != null) {
+			JobSeeker authJobSeeker = jsService.login(jobSeeker.getUserName(), jobSeeker.getPassword());
+			String au_username = authJobSeeker.getUserName();
+			String au_password= authJobSeeker.getPassword();
+			if (au_username.equals(jobSeeker.getUserName()) && au_password.equals(jobSeeker.getPassword())) {
+				session.setAttribute("usession", authJobSeeker);
 
 				return "forward:/job/recommendedjobs";
 			}
 			else {
 				model.addAttribute("error","Please enter correct username and password");
 
-				return "forward:/user/login";
+				return "forward:/jobseeker/login";
 			}
 
 		}
 		else {
 			model.addAttribute("error","Please enter correct username and password");
 
-			return "forward:/user/login";
+			return "forward:/jobseeker/login";
 		}
 	}
 
@@ -85,93 +85,93 @@ public class UserController {
 
 //....................SIGN UP PAGE....................
 	@RequestMapping(value = "/signup")
-	public String addUser(Model model) {
-		model.addAttribute("user", new User());
+	public String addJobSeeker(Model model) {
+		model.addAttribute("jobseeker", new JobSeeker());
 		
 		return "signup";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("user") @Valid User user,
+	public String savejobSeeker(@ModelAttribute("jobseeker") @Valid JobSeeker jobSeeker,
 			BindingResult bindingResult,  Model model) {   
 		if (bindingResult.hasErrors()) {
 			
 			return "signup";
 		}
-		if (userService.findUserbyUserName(user.getUserName()) != null) {   
+		if (jsService.findJobSeekerByUserName(jobSeeker.getUserName()) != null) {   
 			model.addAttribute("duplicateUserName", "The username already exists");
 
 			return "signup";
 		}
-		if (userService.findUserbyEmailAddress(user.getEmailAddress()) != null) {
+		if (jsService.findJobSeekerByEmailAddress(jobSeeker.getEmailAddress()) != null) {
 			model.addAttribute("duplicateEmailAddress", "The email already exists");
 
 			return "signup";
 		}
 		else {
-			user.setRegistrationDate(LocalDate.now());
-			userService.saveUser(user);
+			jobSeeker.setRegistrationDate(LocalDate.now());
+			jsService.saveJobSeeker(jobSeeker);
 
-			return "forward:/user/login";
+			return "forward:/jobseeker/login";
 		}
 	}
 
 //....................EDIT USER PAGE....................
 	@RequestMapping(value = "/edit")
-	public String editUser(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("usession");
-		model.addAttribute("user", userService.findUserbyId(user.getId()));
+	public String editJobSeeker(Model model, HttpSession session) {
+		JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
+		model.addAttribute("jobseeker", jsService.findJobSeekerById(jobSeeker.getId()));
 
 		return "edituser";
 	}
 
 	@RequestMapping(value = "/save1", method = RequestMethod.POST)
-	public String saveEditedUser(@ModelAttribute("user") @Valid User user,BindingResult bindingResult,  Model model, HttpSession session) {   
-		User previousUser = userService.findUserbyId(user.getId());
-		User newUser = (User) model.getAttribute("user");
+	public String saveEditedJobSeeker(@ModelAttribute("jobseeker") @Valid JobSeeker jobSeeker, BindingResult bindingResult,  Model model, HttpSession session) {   
+		JobSeeker previousUser = jsService.findJobSeekerById(jobSeeker.getId());
+		JobSeeker newUser = (JobSeeker) model.getAttribute("jobseeker");
 		if (bindingResult.hasErrors()) {
 
 			return "edituser";
 		}
 		if (!previousUser.getEmailAddress().equalsIgnoreCase(newUser.getEmailAddress())) {
-			if (userService.findUserbyEmailAddress(user.getEmailAddress())!=null) {
+			if (jsService.findJobSeekerByEmailAddress(jobSeeker.getEmailAddress())!=null) {
 				model.addAttribute("duplicateEmailAddress", "The email address already exists");
 
 				return "edituser";
 			}
 			else {
-				userService.saveUser(user);
-				session.setAttribute("usession", user);
+				jsService.saveJobSeeker(jobSeeker);
+				session.setAttribute("usession", jobSeeker);
 
-				return "forward:/user/userdetails";
+				return "forward:/jobseeker/userdetails";
 			}
 		}
 		if (!previousUser.getUserName().equalsIgnoreCase(newUser.getUserName())) {
-			if (userService.findUserbyUserName(user.getUserName())!=null) {
+			if (jsService.findJobSeekerByUserName(jobSeeker.getUserName())!=null) {
 				model.addAttribute("duplicateUserName", "The username already exists");
 
 				return "edituser";
 			}
 			else {	
-				userService.saveUser(user);
-				session.setAttribute("usession", user);
+				jsService.saveJobSeeker(jobSeeker);
+				session.setAttribute("usession", jobSeeker);
 
-				return "forward:/user/userdetails";
+				return "forward:/jobseeker/userdetails";
 			}
 		}
 		else {
-			userService.saveUser(user);
-			session.setAttribute("usession", user);
+			jsService.saveJobSeeker(jobSeeker);
+			session.setAttribute("usession", jobSeeker);
 
-			return "forward:/user/userdetails";
+			return "forward:/jobSeeker/userdetails";
 		}
 	}
 
 //....................USER DETAILS PAGE....................
 	@RequestMapping(value="/userdetails")
 	public String userDetails(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("usession");
-		model.addAttribute("user", userService.findUserbyId(user.getId()));
+		JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
+		model.addAttribute("jobseeker", jsService.findJobSeekerById(jobSeeker.getId()));
 
 		return "userdetails";
 	}
@@ -179,8 +179,8 @@ public class UserController {
 //....................UPLOAD RESUME PAGE....................
 	@RequestMapping(value="/uploadfile")
 	public String uploadFile(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("usession");
-		model.addAttribute("user", userService.findUserbyId(user.getId()));
+		JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
+		model.addAttribute("jobseeker", jsService.findJobSeekerById(jobSeeker.getId()));
 		
 		return "uploadresume";
 	}
@@ -188,9 +188,9 @@ public class UserController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/springUpload", method = RequestMethod.POST)
     public String springUpload(HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
-		User user = (User) session.getAttribute("usession");
+		JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
 		
-        long  startTime=System.currentTimeMillis(); //for debugging
+        long startTime=System.currentTimeMillis(); //for debugging
         
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
                 request.getSession().getServletContext());
@@ -204,7 +204,7 @@ public class UserController {
                 if(file != null) {
                     String path="DIRECTORY " + file.getOriginalFilename();
                     file.transferTo(new File(path));
-                    userService.uploadResume(path, user);
+                    jsService.uploadResume(path, jobSeeker);
                 }
             }
         }
@@ -222,9 +222,9 @@ public class UserController {
 	public String save(Model model,HttpSession session)
 			
 	{     
-		   User user = (User) session.getAttribute("usession");
-		   System.out.print(userService.findUserPrefByUserId(user.getId()));
-		   if(userService.findUserPrefByUserId(user.getId())==true)
+		   JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
+		   System.out.print(jsService.findUserPrefById(jobSeeker.getId()));
+		   if(jsService.findUserPrefById(jobSeeker.getId())==true)
 		   {
 			  
 			   return "surveyconfirmation";
@@ -304,12 +304,12 @@ public class UserController {
 				LocalDate now=LocalDate.now();
 				userPrefToSave.setSurveyDate(now);  
 				
-				User user = (User) session.getAttribute("usession");
-				userPrefToSave.setUser(user);
+				JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
+				userPrefToSave.setUser(jobSeeker);
 				
-				userService.saveUserPref(userPrefToSave);
+				jsService.saveUserPref(userPrefToSave);
 
-				return "forward:/user/userdetails";
+				return "forward:/jobseeker/userdetails";
 			}
 			
 		}
@@ -320,14 +320,14 @@ public class UserController {
 		public String saveagain(Model model,HttpSession session,@RequestParam("yes_no") String yes_or_no)
 				
 		{     
-			   User user = (User) session.getAttribute("usession");
+			   JobSeeker jobSeeker = (JobSeeker) session.getAttribute("usession");
 			   
-			   if(userService.findUserPrefByUserId(user.getId())==true)
+			   if(jsService.findUserPrefById(jobSeeker.getId())==true)
 			   {
 				  if (yes_or_no.contains("Yes"))
 				  {
-                        User_Preference uPreference=userService.getUserPrefByUserId(user.getId());
-                        userService.deleteUserPreference(uPreference);
+                        User_Preference uPreference=jsService.getUserPrefById(jobSeeker.getId());
+                        jsService.deleteUserPreference(uPreference);
 						
                         
                         User_Preference upref1= new User_Preference();
@@ -359,14 +359,14 @@ public class UserController {
 				  }
 			   }
 			 
-				   return "forward:/user/userdetails";	
+				   return "forward:/jobseeker/userdetails";	
 
 		}
 
 //....................DASHBOARD PAGE....................
 	@RequestMapping(value = "/data")
 	public String viewDashboard(Model model) {
-		List<User_Graph> glist = userService.findAllGraphs();
+		List<User_Graph> glist = jsService.findAllGraphs();
 		model.addAttribute("glist", glist);
 		
 		return "dashboard";
@@ -381,7 +381,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/resetpassword")
 	public String passwordReset(@Param("emailAddress") String emailAddress, Model model) {
-		if (userService.forgetPassword(emailAddress)) {
+		if (jsService.forgetPassword(emailAddress)) {
 			model.addAttribute("emailaddress", emailAddress);
 			
 			return "approvedresetpw"; 

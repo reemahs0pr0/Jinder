@@ -16,7 +16,7 @@ public class Job_Clicked {
 	private int id;	
 	
 	@ManyToOne
-	private User user;
+	private JobSeeker user;
 	
 	@ManyToOne
 	private Job job;
@@ -25,7 +25,7 @@ public class Job_Clicked {
 		super();
 	}
 
-	public Job_Clicked(int id, User user, Job job) {
+	public Job_Clicked(int id, JobSeeker user, Job job) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -34,7 +34,7 @@ public class Job_Clicked {
 
 
 
-	public Job_Clicked(User user, Job job) {
+	public Job_Clicked(JobSeeker user, Job job) {
 		super();
 		this.user = user;
 		this.job = job;
@@ -49,11 +49,11 @@ public class Job_Clicked {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public JobSeeker getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(JobSeeker user) {
 		this.user = user;
 	}
 

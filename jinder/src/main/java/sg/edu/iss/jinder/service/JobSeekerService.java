@@ -3,32 +3,31 @@ package sg.edu.iss.jinder.service;
 import java.util.List;
 
 import sg.edu.iss.jinder.model.Job_Clicked;
-
-import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.JobSeeker;
 import sg.edu.iss.jinder.model.User_Preference;
 import sg.edu.iss.jinder.model.User_Graph;
 
-public interface UserService {
+public interface JobSeekerService {
 
 	public boolean resumeUploaded(int id);
 
-	public boolean saveUser(User user);
+	public boolean saveJobSeeker(JobSeeker jobSeeker);
 	
-	public User findUserbyId(Integer id);
+	public JobSeeker findJobSeekerById(Integer id);
 	
-	public User findUserbyUserName(String username);
+	public JobSeeker findJobSeekerByUserName(String userName);
 	
-	public User findUserbyEmailAddress (String emailAddress);
+	public JobSeeker findJobSeekerByEmailAddress (String emailAddress);
 	
-	public User login(String username,String password);
+	public JobSeeker login(String userName,String password);
 	
-	public void uploadResume(String resumeUrl, User user);
+	public void uploadResume(String resumeUrl, JobSeeker jobSeeker);
 	
 	public void saveUserPref(User_Preference upref);
 	
-	public Boolean findUserPrefByUserId (int id);
+	public Boolean findUserPrefById (int id);
 	
-	public User_Preference getUserPrefByUserId (int id);
+	public User_Preference getUserPrefById (int id);
 	
 	public void deleteUserPreference (User_Preference upref);
 	

@@ -27,8 +27,8 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><span th:if="${session.usession != null}" class="glyphicon glyphicon-user"></span><p th:if="${session.usession != null}" th:text=${session.usession.userName}>User name</li>
 					<li>
-						<a th:if="${session.usession == null}" href="Login" th:href="@{/user/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-						<a th:if="${session.usession != null}" href="Logout" th:href="@{/user/logout}"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
+						<a th:if="${session.usession == null}" href="Login" th:href="@{/jobseeker/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+						<a th:if="${session.usession != null}" href="Logout" th:href="@{/jobseeker/logout}"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
 					</li>
 				</ul>
 			</div>

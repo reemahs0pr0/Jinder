@@ -16,7 +16,7 @@ public class User_Graph {
 	private String code;
 	
 	@OneToOne
-	private User user;
+	private JobSeeker user;
 	
 	public User_Graph() {
 		super();

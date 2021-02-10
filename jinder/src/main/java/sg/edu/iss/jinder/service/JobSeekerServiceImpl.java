@@ -9,19 +9,19 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jinder.model.Job_Clicked;
-import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.JobSeeker;
 import sg.edu.iss.jinder.model.User_Graph;
 import sg.edu.iss.jinder.model.User_Preference;
 import sg.edu.iss.jinder.repo.Job_ClickedRepository;
 import sg.edu.iss.jinder.repo.UserGraphRepository;
 import sg.edu.iss.jinder.repo.UserPreferenceRepository;
-import sg.edu.iss.jinder.repo.UserRepository;
+import sg.edu.iss.jinder.repo.JobSeekerRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class JobSeekerServiceImpl implements JobSeekerService {
 	
 	@Autowired
-	UserRepository urepo;
+	JobSeekerRepository jsrepo;
 	
 	@Autowired
 	UserPreferenceRepository uprefrepo;
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
 	private JavaMailSender emailSender;
 	
 	@Override
-	public boolean saveUser(User user) {
-		if(urepo.save(user)!=null) 
+	public boolean saveJobSeeker(JobSeeker jobSeeker) {
+		if(jsrepo.save(jobSeeker)!=null) 
 			return true; 
 		else {
 			return false;	
@@ -45,29 +45,29 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User findUserbyId(Integer id) {
-		return urepo.findById(id).get();
+	public JobSeeker findJobSeekerById(Integer id) {
+		return jsrepo.findById(id).get();
 	}
 	
 	@Override
-	public User findUserbyUserName(String username) {
-		return urepo.findByUserName(username);
+	public JobSeeker findJobSeekerByUserName(String userName) {
+		return jsrepo.findByUserName(userName);
 	}
 	
 	@Override
-	public User findUserbyEmailAddress(String emailAddress) {
-		return urepo.findByEmail(emailAddress);
+	public JobSeeker findJobSeekerByEmailAddress(String emailAddress) {
+		return jsrepo.findByEmail(emailAddress);
 	}
 	
 	@Override
-	public User login(String username, String password) {
-		User user = urepo.findByUsernameAndPassword(username,password);
-		return user;
+	public JobSeeker login(String userName, String password) {
+		JobSeeker jobSeeker = jsrepo.findByUsernameAndPassword(userName,password);
+		return jobSeeker;
 	}
 
 	@Override
 	public boolean resumeUploaded(int id) {
-		if(urepo.getResumeById(id) != null) {
+		if(jsrepo.getResumeById(id) != null) {
 			return true;
 		}
 		
@@ -75,8 +75,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void uploadResume(String resumeUrl, User user) {
-		urepo.updateUserResume(resumeUrl, user.getId());
+	public void uploadResume(String resumeUrl, JobSeeker jobSeeker) {
+		jsrepo.updateResume(resumeUrl, jobSeeker.getId());
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean findUserPrefByUserId(int id) {
+	public Boolean findUserPrefById(int id) {
 		if(uprefrepo.finduserprefByUserId(id)==null )
 		{return false;}
 		else {
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User_Preference getUserPrefByUserId(int id) {
+	public User_Preference getUserPrefById(int id) {
 		return uprefrepo.finduserprefByUserId(id);
 	}
 
@@ -119,24 +119,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean forgetPassword(String emailAddress) {
 		boolean isValidReq = false;
-		List<User> userList = urepo.findAll();
-		for(User user: userList) {
-			if(user.getEmailAddress().equalsIgnoreCase(emailAddress)) {
+		List<JobSeeker> jobSeekerList = jsrepo.findAll();
+		for(JobSeeker jobSeeker: jobSeekerList) {
+			if(jobSeeker.getEmailAddress().equalsIgnoreCase(emailAddress)) {
 				// generating a random alphanumeric password 
 				String newPassword = generateRandomAlphanumericString();
 				
 				System.out.println(newPassword); // for debugging
 				
 				// retrieving user object and setting generated password to it
-				User forgetfulUser = findUserbyEmailAddress(emailAddress);
-				forgetfulUser.setPassword(newPassword);
-				urepo.flush();
+				JobSeeker forgetfulJobSeeker = findJobSeekerByEmailAddress(emailAddress);
+				forgetfulJobSeeker.setPassword(newPassword);
+				jsrepo.flush();
 				// sending email to user 
 				SimpleMailMessage message = new SimpleMailMessage(); 
 				message.setTo(emailAddress);
 				message.setSubject("Jinder - Forget Password");
-				message.setText(" Dear " + forgetfulUser.getFullName() + 
-								",\n\n Your password reset request for Jinder account " + forgetfulUser.getUserName() + " has been approved." +
+				message.setText(" Dear " + forgetfulJobSeeker.getFullName() + 
+								",\n\n Your password reset request for Jinder account " + forgetfulJobSeeker.getUserName() + " has been approved." +
 								"\n Your new temporary password is: " + 
 								"\n" + newPassword + 
 								"\n Please login to Jinder immediately and change your password. " + 

@@ -13,15 +13,42 @@
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br>
 	<div align="center">
+		<span th:if="${session.usession == 'authJobSeeker'}">
 		<input type="button" value="Edit User"
-			onclick="window.location.href='/user/userdetails'; return false"
+			onclick="window.location.href='/jobseeker/userdetails'; return false"
 			class="btn btn-info btn-lg" /> 
+		</span>
+		<span th:if="${session.usession == 'authJobSeeker'}">
 		<input type="button" value="Jobs Dashboard"
-			onclick="window.location.href='/user/data'; return false"
+			onclick="window.location.href='/jobseeker/data'; return false"
 			class="btn btn-info btn-lg" /> 
+		</span>
+		<span th:if="${session.usession == 'authJobSeeker'}">
 		<input type="button" value="Log Out"
-			onclick="window.location.href='/user/logout'; return false"
+			onclick="window.location.href='/jobseeker/logout'; return false"
 			class="btn btn-info btn-lg" /> 
+		</span>
+		
+		<span th:if="${session.usession == 'authAdmin'}">
+		<input type="button" value="Post Jobs"
+			onclick="window.location.href='/admin/postjobs'; return false"
+			class="btn btn-info btn-lg" /> 
+		</span>
+		<span th:if="${session.usession == 'authAdmin'}">
+		<input type="button" value="Edit User"
+			onclick="window.location.href='/admin/userdetails'; return false"
+			class="btn btn-info btn-lg" /> 
+		</span>
+		<span th:if="${session.usession == 'authAdmin'}">
+		<input type="button" value="Log Out"
+			onclick="window.location.href='/admin/logout'; return false"
+			class="btn btn-info btn-lg" /> 
+		</span>
+		<span th:if="${session.usession == 'authAdmin'}">
+		<input type="button" value="Sign Up"
+			onclick="window.location.href='/admin/signup'; return false"
+			class="btn btn-info btn-lg" />
+		</span>
 	</div>
 	<br>
 	<table width="100%" class="center">
@@ -127,5 +154,7 @@
 			th:href="@{/job/list(size=${jobs.size}, page=${jobs.totalPages}, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="Last"></a>
 	</div>
+	<br>
+	<div th:replace="fragments/general.html :: footer"></div>
 </body>
 </html>
