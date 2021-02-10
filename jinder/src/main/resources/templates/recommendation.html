@@ -31,14 +31,14 @@
 		th:if="${not #lists.isEmpty(recommendedJobsBySurvey)}">
 		<thead>
 			<tr>
-				<th>Job ID</th>
+				<th th:style="'display:none'">Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tr th:each="j: ${recommendedJobsBySurvey}" class="table-row">
-			<td th:text=${j.id+1}>Id</td>
+			<td th:style="'display:none'" th:text=${j.id+1}>Id</td>
 			<td th:text=${j.companyName}>Name</td>
 			<td th:text=${j.jobTitle}>Title</td>
 		</tr>
@@ -51,14 +51,14 @@
 		th:if="${not #lists.isEmpty(recommendedJobsByClickHistory)}">
 		<thead>
 			<tr>
-				<th>Job ID</th>
+				<th th:style="'display:none'">Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tr th:each="j: ${recommendedJobsByClickHistory}" class="table-row">
-			<td th:text=${j.id+1}>Id</td>
+			<td th:style="'display:none'" th:text=${j.id+1}>Id</td>
 			<td th:text=${j.companyName}>Name</td>
 			<td th:text=${j.jobTitle}>Title</td>
 		</tr>
