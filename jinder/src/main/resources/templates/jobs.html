@@ -37,7 +37,7 @@
 	<form th:action="@{/job/list}">
 		Search: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required /> &nbsp; 
 				<input type="submit" value="Search" /> &nbsp; 
-				<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" /> 
+				<input type="button" value="Clear" id="btnClear" th:onclick="'window.location.href = \'' + @{/job/list(progLang=${lastSelected},size=${jobs.size})} + '\''" /> 
 		Records per page: 
 		<select name="size" onchange="this.form.submit()">
 			<option th:unless="${jobs.size == 5}" value="5">5</option>
@@ -62,13 +62,6 @@
 			</option>
 		</select>
 	</form>
-
-	<!-- Clear fields -->
-	<script type="text/javascript">
-    function clearSearch() {
-        window.location = "[[@{/job/list(progLang=${lastSelected})}]]";
-    }
-	</script>
 
 	<!-- Jobs List view -->
 	<table class="table table-striped table-hover"
