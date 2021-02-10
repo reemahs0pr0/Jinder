@@ -75,7 +75,7 @@
 		th:if="${not #lists.isEmpty(jobs)}">
 		<thead>
 			<tr>
-				<th>Job ID</th>
+				<th th:style="'display:none'">Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th>Job Description</th>
@@ -83,7 +83,7 @@
 			</tr>
 		</thead>
 		<tr th:each="job: ${jobs}" class="table-row">
-			<td th:text=${job.id+1}>Id</td>
+			<td th:style="'display:none'" th:text=${job.id+1}>Id</td>
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
 			<td th:if="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
