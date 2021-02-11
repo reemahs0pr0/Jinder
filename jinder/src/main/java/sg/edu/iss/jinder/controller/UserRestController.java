@@ -48,6 +48,25 @@ public class UserRestController {
 			return null;
 		}
 	}
+	@RequestMapping(path = "/edit/{userName}&{password}&{fullName}&{emailAddress}&{address}&{phoneNo}&{id}", method = RequestMethod.POST)
+	public void editUser(@PathVariable("userName") String userName, @PathVariable("password") String password,
+										@PathVariable("fullName") String fullName, @PathVariable("emailAddress") String emailAddress,
+										@PathVariable("address") String address, @PathVariable("phoneNo") String phoneNo, @PathVariable("id") String id){ 
+		System.out.println("edit user has been called");
+		User user = uservice.findUserbyId(Integer.parseInt(id));
+		
+		if (user != null)
+		{
+			user.setUserName(userName);
+			user.setPassword(password);
+			user.setFullName(fullName);
+			user.setEmailAddress(emailAddress);
+			user.setAddress(address);
+			user.setPhoneNo(Integer.parseInt(phoneNo));
+			uservice.saveUser(user);
+		}
+		
+	}
 	@RequestMapping(path = "{userName}/uploadResume", method = RequestMethod.POST)
     public User springUpload(@RequestParam("file") MultipartFile file, 
     		@PathVariable("userName") String username) throws IllegalStateException, IOException {
