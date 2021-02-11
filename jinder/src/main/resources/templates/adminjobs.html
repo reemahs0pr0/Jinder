@@ -13,15 +13,18 @@
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br>
 	<div align="center">
-		<span th:if="${session.usession != null}">
-		<input type="button" value="Edit User"
-			onclick="window.location.href='/jobseeker/userdetails'; return false"
+		<span th:if="${session.asession != null}">
+		<input type="button" value="Post Jobs"
+			onclick="window.location.href='/admin/postjobs'; return false"
 			class="btn btn-info btn-lg" /> 
-		<input type="button" value="Jobs Dashboard"
-			onclick="window.location.href='/jobseeker/data'; return false"
+		<input type="button" value="Edit User"
+			onclick="window.location.href='/admin/userdetails'; return false"
 			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Log Out"
-			onclick="window.location.href='/jobseeker/logout'; return false"
+			onclick="window.location.href='/admin/logout'; return false"
+			class="btn btn-info btn-lg" /> 
+		<input type="button" value="Sign Up"
+			onclick="window.location.href='/admin/signup'; return false"
 			class="btn btn-info btn-lg" />
 		</span>
 	</div>
@@ -36,7 +39,7 @@
 	</table>
 	
 	<!-- search bar -->
-	<form th:action="@{/job/list}">
+	<form th:action="@{/job/adminlist}">
 		Search: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required /> &nbsp; 
 				<input type="submit" value="Search" /> &nbsp; 
 				<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" /> 
@@ -68,7 +71,7 @@
 	<!-- Clear fields -->
 	<script type="text/javascript">
     function clearSearch() {
-        window.location = "[[@{/job/list(progLang=${lastSelected})}]]";
+        window.location = "[[@{/job/adminlist(progLang=${lastSelected})}]]";
     }
 	</script>
 
@@ -103,37 +106,37 @@
 	</table>
 	<div th:if="${jobs.totalPages > 0}" class="pagination">
 		<a
-			th:href="@{/job/list(size=${jobs.size}, page=1, keyword=${keyword}, progLang=${lastSelected})}"
+			th:href="@{/job/adminlist(size=${jobs.size}, page=1, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="First"></a>
 		<a
 			th:if="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${pageNumbers}"
-			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
+			th:href="@{/job/adminlist(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
 			th:if="${jobs.number < 2}"
 			th:unless="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${#numbers.sequence(1, 5)}"
-			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
+			th:href="@{/job/adminlist(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
 			th:if="${jobs.number >= 2 && jobs.number <= jobs.totalPages-3}"
 			th:unless="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${#numbers.sequence(jobs.number-1, jobs.number+3)}"
-			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
+			th:href="@{/job/adminlist(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
 			th:if="${jobs.number > jobs.totalPages-3}"
 			th:unless="${jobs.totalPages < 5}"
 			th:each="pageNumber : ${#numbers.sequence(jobs.totalPages-4, jobs.totalPages)}"
-			th:href="@{/job/list(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
+			th:href="@{/job/adminlist(size=${jobs.size}, page=${pageNumber}, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="' | ' + ${pageNumber} + ' | '"
 			th:class="${pageNumber==jobs.number + 1} ? active"></a>
 		<a
-			th:href="@{/job/list(size=${jobs.size}, page=${jobs.totalPages}, keyword=${keyword}, progLang=${lastSelected})}"
+			th:href="@{/job/adminlist(size=${jobs.size}, page=${jobs.totalPages}, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="Last"></a>
 	</div>
 	<br>

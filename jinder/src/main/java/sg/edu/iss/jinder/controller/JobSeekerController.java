@@ -41,6 +41,8 @@ public class JobSeekerController {
 	private void setJobSeekerService(JobSeekerServiceImpl jobSeekerServiceImpl) {
 		this.jsService=jobSeekerServiceImpl;
 	}
+	
+	private String localDirectory = "DIRECTORY ";
 
 //....................LOGIN PAGE....................
 	@RequestMapping(value="/login")
@@ -163,7 +165,7 @@ public class JobSeekerController {
 			jsService.saveJobSeeker(jobSeeker);
 			session.setAttribute("usession", jobSeeker);
 
-			return "forward:/jobSeeker/userdetails";
+			return "forward:/jobseeker/userdetails";
 		}
 	}
 
@@ -202,7 +204,7 @@ public class JobSeekerController {
             while(iter.hasNext()) {
                 MultipartFile file = multiRequest.getFile(iter.next().toString());
                 if(file != null) {
-                    String path="DIRECTORY " + file.getOriginalFilename();
+                    String path=localDirectory + file.getOriginalFilename();
                     file.transferTo(new File(path));
                     jsService.uploadResume(path, jobSeeker);
                 }

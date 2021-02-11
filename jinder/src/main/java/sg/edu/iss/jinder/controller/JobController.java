@@ -52,7 +52,8 @@ public class JobController {
 //....................JOB LISTING PAGE....................
 	@RequestMapping(value="/list")
 	public String jobListings(Model model,@Param("keyword")String keyword, 
-			@RequestParam("progLang") Optional<String> progLang, @RequestParam("page") Optional<Integer> page, 
+			@RequestParam("progLang") Optional<String> progLang, 
+			@RequestParam("page") Optional<Integer> page, 
 			@RequestParam("size") Optional<Integer> size, HttpSession session) {
 		List<Job> jobs;
 		JobSeeker user = (JobSeeker) session.getAttribute("usession");
@@ -129,7 +130,7 @@ public class JobController {
 		model.addAttribute("jobs", jobPage);
 		model.addAttribute("keyword", keyword);
 		
-		return "jobs";
+		return "adminjobs";
 	}
 
 //....................VIEW JOB DETAILS PAGE....................
@@ -144,6 +145,13 @@ public class JobController {
 		
 		model.addAttribute("job", jobService.findJobById(id));
     
+		return "jobdetail";	
+	}
+	
+	@RequestMapping(value = "/admindetail/{id}")
+	public String adminShowJob(@PathVariable("id") Integer id, Model model,HttpSession session) {
+		model.addAttribute("job", jobService.findJobById(id));
+		
 		return "jobdetail";	
 	}
 	

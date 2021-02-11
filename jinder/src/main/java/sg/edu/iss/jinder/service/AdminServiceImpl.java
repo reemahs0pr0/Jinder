@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
 				message.setText(" Dear " + forgetfulAdmin.getFullName() + 
 								",\n\n Your password reset request for Jinder account " + forgetfulAdmin.getUserName() + " has been approved." +
 								"\n Your new temporary password is: " + 
-								"\n" + newPassword + 
+								"\n " + newPassword + 
 								"\n Please login to Jinder immediately and change your password. " + 
 								"\n\n Thank you " + 
 								"\n\n Cheers, " + 
@@ -129,7 +129,6 @@ public class AdminServiceImpl implements AdminService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Not posted jobs"); // for debugging
 	}
 	
 }

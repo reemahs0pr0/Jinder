@@ -45,7 +45,7 @@ public class AdminController {
 			String au_username = authAdmin.getUserName();
 			String au_password= authAdmin.getPassword();
 			if (au_username.equals(admin.getUserName()) && au_password.equals(admin.getPassword())) {
-				session.setAttribute("usession", authAdmin);
+				session.setAttribute("asession", authAdmin);
 
 				return "forward:/job/adminlist";
 			}
@@ -107,7 +107,7 @@ public class AdminController {
 //....................EDIT USER PAGE....................
 	@RequestMapping(value = "/edit")
 	public String editAdmin(Model model, HttpSession session) {
-		Admin admin = (Admin) session.getAttribute("usession");
+		Admin admin = (Admin) session.getAttribute("asession");
 		model.addAttribute("admin", aService.findAdminById(admin.getId()));
 
 		return "adminedit";
@@ -142,14 +142,14 @@ public class AdminController {
 			}
 			else {	
 				aService.saveAdmin(admin);
-				session.setAttribute("usession", admin);
+				session.setAttribute("asession", admin);
 
 				return "forward:/admin/userdetails";
 			}
 		}
 		else {
 			aService.saveAdmin(admin);
-			session.setAttribute("usession", admin);
+			session.setAttribute("asession", admin);
 
 			return "forward:/admin/userdetails";
 		}
@@ -158,7 +158,7 @@ public class AdminController {
 //....................USER DETAILS PAGE....................
 	@RequestMapping(value="/userdetails")
 	public String userDetails(Model model, HttpSession session) {
-		Admin admin = (Admin) session.getAttribute("usession");
+		Admin admin = (Admin) session.getAttribute("asession");
 		model.addAttribute("admin", aService.findAdminById(admin.getId()));
 
 		return "admindetails";

@@ -138,7 +138,7 @@ public class JobSeekerServiceImpl implements JobSeekerService {
 				message.setText(" Dear " + forgetfulJobSeeker.getFullName() + 
 								",\n\n Your password reset request for Jinder account " + forgetfulJobSeeker.getUserName() + " has been approved." +
 								"\n Your new temporary password is: " + 
-								"\n" + newPassword + 
+								"\n " + newPassword + 
 								"\n Please login to Jinder immediately and change your password. " + 
 								"\n\n Thank you " + 
 								"\n\n Cheers, " + 
