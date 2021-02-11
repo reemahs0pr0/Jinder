@@ -55,7 +55,7 @@ public class UserRestController {
 		User user = uservice.findUserbyUserName(username);
         
 		if(file != null) {
-            String path="C:\\Users\\shame\\Desktop\\" + file.getOriginalFilename();
+            String path="DIRECTORY " + file.getOriginalFilename();
             file.transferTo(new File(path));
             uservice.uploadResume(path, user);
         }
