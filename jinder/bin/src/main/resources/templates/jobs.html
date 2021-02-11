@@ -15,13 +15,16 @@
 	<div align="center">
 		<input type="button" value="Edit User"
 			onclick="window.location.href='/user/userdetails'; return false"
-			class="btn btn-info btn-lg" /> 
+			class="btn btn-success btn-lg" /> 
+		<input type="button" value="Recommended Jobs"
+			onclick="window.location.href='/job/recommendedjobs'; return false"
+			class="btn btn-warning btn-lg" /> 			
 		<input type="button" value="Jobs Dashboard"
 			onclick="window.location.href='/user/data'; return false"
-			class="btn btn-info btn-lg" /> 
+			class="btn btn-primary btn-lg" /> 
 		<input type="button" value="Log Out"
 			onclick="window.location.href='/user/logout'; return false"
-			class="btn btn-info btn-lg" /> 
+			class="btn btn-danger btn-lg" /> 
 	</div>
 	<br>
 	<table width="100%" class="center">
@@ -37,7 +40,7 @@
 	<form th:action="@{/job/list}">
 		Search: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required /> &nbsp; 
 				<input type="submit" value="Search" /> &nbsp; 
-				<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" /> 
+				<input type="button" value="Clear" id="btnClear" th:onclick="'window.location.href = \'' + @{/job/list(progLang=${lastSelected},size=${jobs.size})} + '\''" /> 
 		Records per page: 
 		<select name="size" onchange="this.form.submit()">
 			<option th:unless="${jobs.size == 5}" value="5">5</option>
@@ -63,19 +66,12 @@
 		</select>
 	</form>
 
-	<!-- Clear fields -->
-	<script type="text/javascript">
-    function clearSearch() {
-        window.location = "[[@{/job/list(progLang=${lastSelected})}]]";
-    }
-	</script>
-
 	<!-- Jobs List view -->
 	<table class="table table-striped table-hover"
 		th:if="${not #lists.isEmpty(jobs)}">
 		<thead>
 			<tr>
-				<th>Job ID</th>
+				<th th:style="'display:none'">Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th>Job Description</th>
@@ -83,7 +79,7 @@
 			</tr>
 		</thead>
 		<tr th:each="job: ${jobs}" class="table-row">
-			<td th:text=${job.id+1}>Id</td>
+			<td th:style="'display:none'" th:text=${job.id+1}>Id</td>
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
 			<td th:if="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>

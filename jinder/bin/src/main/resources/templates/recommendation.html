@@ -15,30 +15,30 @@
 	<div align="center">
 		<input type="button" value="Edit User"
 			onclick="window.location.href='/user/userdetails'; return false"
-			class="btn btn-info btn-lg" />
+			class="btn btn-success btn-lg" />
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Log Out"
 			onclick="window.location.href='/user/logout'; return false"
-			class="btn btn-info btn-lg" /> 
+			class="btn btn-danger btn-lg" /> 
 	</div>
 	<br>
 	
 	<!-- list jobs based on Job Preference Survey -->
-	<h1 th:text=${recommendBySurveyText}></h1>
+	<h2 th:text=${recommendBySurveyText}></h2>
 	<table
 		th:if="${not #lists.isEmpty(recommendedJobsBySurvey)}">
 		<thead>
 			<tr>
-				<th>Job ID</th>
+				<th th:style="'display:none'">Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tr th:each="j: ${recommendedJobsBySurvey}" class="table-row">
-			<td th:text=${j.id+1}>Id</td>
+			<td th:style="'display:none'" th:text=${j.id+1}>Id</td>
 			<td th:text=${j.companyName}>Name</td>
 			<td th:text=${j.jobTitle}>Title</td>
 		</tr>
@@ -46,19 +46,19 @@
     <br>
 	
 	<!-- list jobs based on click history -->
-	<h1 th:text=${recommendByClickHistoryText}></h1>
+	<h2 th:text=${recommendByClickHistoryText}></h2>
 	<table
 		th:if="${not #lists.isEmpty(recommendedJobsByClickHistory)}">
 		<thead>
 			<tr>
-				<th>Job ID</th>
+				<th th:style="'display:none'">Job ID</th>
 				<th>Company Name</th>
 				<th>Job Title</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tr th:each="j: ${recommendedJobsByClickHistory}" class="table-row">
-			<td th:text=${j.id+1}>Id</td>
+			<td th:style="'display:none'" th:text=${j.id+1}>Id</td>
 			<td th:text=${j.companyName}>Name</td>
 			<td th:text=${j.jobTitle}>Title</td>
 		</tr>
