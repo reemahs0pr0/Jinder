@@ -41,6 +41,8 @@ public class UserController {
 	private void setUserService(UserServiceImpl userServiceImpl) {
 		this.userService=userServiceImpl;
 	}
+	
+	private String localDirectory = "DIRECTORY ";
 
 //....................LOGIN PAGE....................
 	@RequestMapping(value="/login")
@@ -202,7 +204,7 @@ public class UserController {
             while(iter.hasNext()) {
                 MultipartFile file = multiRequest.getFile(iter.next().toString());
                 if(file != null) {
-                    String path="DIRECTORY " + file.getOriginalFilename();
+                    String path=localDirectory + file.getOriginalFilename();
                     file.transferTo(new File(path));
                     userService.uploadResume(path, user);
                 }
