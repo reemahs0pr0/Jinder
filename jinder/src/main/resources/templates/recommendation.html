@@ -66,23 +66,6 @@
 			</table>
 		</div>
 	</div>
-	
-	<!--<table
-		th:if="${not #lists.isEmpty(recommendedJobsByClickHistory)}">
-		<thead>
-			<tr>
-				<th th:style="'display:none'">Job ID</th>
-				<th>Company Name</th>
-				<th>Job Title</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tr th:each="j: ${recommendedJobsByClickHistory}" class="table-row">
-			<td th:style="'display:none'" th:text=${j.id+1}>Id</td>
-			<td th:text=${j.companyName}>Name</td>
-			<td th:text=${j.jobTitle}>Title</td>
-		</tr>
-	</table>  -->
     <br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>
