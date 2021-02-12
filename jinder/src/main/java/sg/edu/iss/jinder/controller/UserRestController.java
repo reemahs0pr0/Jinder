@@ -62,7 +62,7 @@ public class UserRestController {
 			user.setFullName(fullName);
 			user.setEmailAddress(emailAddress);
 			user.setAddress(address);
-			user.setPhoneNo(Integer.parseInt(phoneNo));
+			user.setPhoneNo(phoneNo);
 			uservice.saveUser(user);
 		}
 		

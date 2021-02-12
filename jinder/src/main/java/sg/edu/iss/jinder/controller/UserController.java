@@ -42,7 +42,7 @@ public class UserController {
 		this.userService=userServiceImpl;
 	}
 	
-	private String localDirectory = "DIRECTORY ";
+	private String localDirectory = "C:\\Gdipsa\\AD Project\\Discussion\\(Submitted)Sprint2_Deliverables";
 
 //....................LOGIN PAGE....................
 	@RequestMapping(value="/login")

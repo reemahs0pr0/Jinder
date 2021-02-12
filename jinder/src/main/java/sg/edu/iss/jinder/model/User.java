@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -43,9 +45,9 @@ public class User {
 	@Size(min = 2, message = "Address must be more than 2 characters")
 	@Size(max = 50, message = "Address cannot be more than 50 characters")
 	private String address; 
-	@NotNull(message = "Please fill in phone number")
-	@Min(value = 5, message = "PhoneNo must be more than 5 digits")
-	private int phoneNo; 
+	@NotNull(message="Please fill in contact number")
+	@Pattern(regexp = "^[0-9]{8}$",  message="Please enter valid phone number")
+	private String  phoneNo; 
 	private String pictureUrl; 
 	private LocalDate registrationDate; 
 	private String resumeUrl;
@@ -62,7 +64,7 @@ public class User {
 		super();
 	}
 
-	public User(String fullName, String userName, String password, String emailAddress, String address, int phoneNo) {
+	public User(String fullName, String userName, String password, String emailAddress, String address, String phoneNo) {
 		super();
 		this.fullName = fullName;
 		this.userName = userName;
@@ -120,11 +122,11 @@ public class User {
 		this.address = address;
 	}
 
-	public int getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(String  phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 

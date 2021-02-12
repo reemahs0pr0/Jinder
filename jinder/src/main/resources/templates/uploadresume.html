@@ -12,6 +12,24 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" media="all" type="text/css"
 	th:href="@{/css/style.css}" />
+	
+<style>
+.buttonupload{
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+</style>
+
 </head>
 <body>
 	<header th:insert="fragments/general.html :: header"> </header>
@@ -37,17 +55,16 @@
 			<td th:text=${user.userName}>userName</td>
 		</tr>
 		<tr>
-			<td>Uploaded Resume: </td>
-			<td th:if="${user.resumeUrl != null}">YES</td>
-			<td th:if="${user.resumeUrl == null}">NO</td>
+			<td>Resume Uploaded? </td>
+			<td th:if="${user.resumeUrl != null}" style="color:green;">Yes</td>
+			<td th:if="${user.resumeUrl == null}" style="color:red;">No</td>
 		</tr>
 	</table>
 		<div id="haha">
 			<form name="Form2" th:action="@{/user/springUpload}" method="post"
 				enctype="multipart/form-data">
-
-				Resume<input type="file" name="file"> <input type="submit"
-					value="Upload" />
+				<input type="file" id="myFile" name="file" required> 
+				<input class="buttonupload" type="submit" value="Upload" onclick="myFunction()"/>
 			</form>
 		</div>
 		<br>
