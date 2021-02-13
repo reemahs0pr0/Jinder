@@ -53,7 +53,7 @@ public class JobSeekerRestController {
 										@PathVariable("fullName") String fullName, @PathVariable("emailAddress") String emailAddress,
 										@PathVariable("address") String address, @PathVariable("phoneNo") String phoneNo, @PathVariable("id") String id){ 
 		System.out.println("edit user has been called");
-		User user = uservice.findUserbyId(Integer.parseInt(id));
+		JobSeeker user = jsservice.findJobSeekerById(Integer.parseInt(id));
 		
 		if (user != null)
 		{
@@ -63,20 +63,20 @@ public class JobSeekerRestController {
 			user.setEmailAddress(emailAddress);
 			user.setAddress(address);
 			user.setPhoneNo(phoneNo);
-			uservice.saveUser(user);
+			jsservice.saveJobSeeker(user);
 		}
 		
 	}
 	@RequestMapping(path = "{userName}/uploadResume", method = RequestMethod.POST)
-    public User springUpload(@RequestParam("file") MultipartFile file, 
+    public JobSeeker springUpload(@RequestParam("file") MultipartFile file, 
     		@PathVariable("userName") String username) throws IllegalStateException, IOException {
 		
-		User user = uservice.findUserbyUserName(username);
+		JobSeeker user = jsservice.findJobSeekerByUserName(username);
         
 		if(file != null) {
             String path="DIRECTORY " + file.getOriginalFilename();
             file.transferTo(new File(path));
-            uservice.uploadResume(path, user);
+            jsservice.uploadResume(path, user);
         }
 		
 		return user;

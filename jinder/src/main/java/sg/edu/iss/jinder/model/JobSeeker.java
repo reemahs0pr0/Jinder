@@ -24,7 +24,7 @@ public class JobSeeker extends User {
 		super();
 	}
 	
-	public JobSeeker(String fullName, String userName, String password, String emailAddress, String address, int phoneNo) {
+	public JobSeeker(String fullName, String userName, String password, String emailAddress, String address, String phoneNo) {
 		super(fullName, userName, password, emailAddress, address, phoneNo);
 	}
 
