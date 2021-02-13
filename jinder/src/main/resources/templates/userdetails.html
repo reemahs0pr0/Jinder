@@ -25,32 +25,32 @@
 			onclick="window.location.href='/jobseeker/logout'; return false"
 			class="btn btn-danger btn-lg" /> 
 	</div>
-	<table width="100%" class="center">
-		<tr align="center">
+	<table class="center" width="100%">
+		<tr>
 			<td width="30%"></td>
-			<td align="center" width="40%"><h1>User Account</h1></td>
+			<th width="40%"><h1>User Account</h1></th>
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table th:object="${jobseeker}">
+	<table class="center" th:object="${jobseeker}" width="80%">
 		<tr>
-			<td>Full Name</td>
-			<td th:text=${jobseeker.fullName}>fullName</td>
+			<td width="30%" align="right">Full Name</td>
+			<td width="50%" th:text=${jobseeker.fullName}>fullName</td>
 		</tr>
 		<tr>
-			<td>User Name</td>
-			<td th:text=${jobseeker.userName}>userName</td>
+			<td width="30%" align="right">User Name</td>
+			<td width="50%" th:text=${jobseeker.userName}>userName</td>
 		</tr>
 		<tr>
-			<td>Email Address</td>
-			<td th:text=${jobseeker.emailAddress}>emailAddress</td>
+			<td width="30%" align="right">Email Address</td>
+			<td width="50%" th:text=${jobseeker.emailAddress}>emailAddress</td>
 		</tr>
 		<tr>
-			<td>PhoneNo</td>
-			<td th:text=${jobseeker.phoneNo}>phoneNo</td>
+			<td width="30%" align="right">PhoneNo</td>
+			<td width="50%" th:text=${jobseeker.phoneNo}>phoneNo</td>
 		</tr>
 		<tr>
-			<td><a href="edituser.html" class="btn btn-success"
+			<td colspan="2" align="center"><a href="edituser.html" class="btn btn-success"
 				th:href="@{/jobseeker/edit}">Edit User</a></td>
 		</tr>
 	</table>

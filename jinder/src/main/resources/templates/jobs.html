@@ -15,10 +15,10 @@
 	<div align="center">
 		<span th:if="${session.usession != null}">
 		<input type="button" value="Edit User"
-			onclick="window.location.href='/user/userdetails'; return false"
+			onclick="window.location.href='/jobseeker/userdetails'; return false"
 			class="btn btn-success btn-lg" /> 
 		<input type="button" value="Recommended Jobs"
-			onclick="window.location.href='/jobseeker/recommendedjobs'; return false"
+			onclick="window.location.href='/job/recommendedjobs'; return false"
 			class="btn btn-warning btn-lg" /> 			
 		<input type="button" value="Jobs Dashboard"
 			onclick="window.location.href='/jobseeker/data'; return false"
@@ -26,19 +26,20 @@
 		<input type="button" value="Log Out"
 			onclick="window.location.href='/jobseeker/logout'; return false"
 			class="btn btn-danger btn-lg" /> 
+		</span>
 	</div>
 	<br>
 	<table width="100%" class="center">
 		<tr align="center">
 			<td width="30%"></td>
-			<td align="center" width="40%"><h1
-					th:if="${not #lists.isEmpty(jobs)}">Jobs Listing</h1></td>
+			<td width="40%"><h1
+					th:if="${jobs.totalPages > 0}">Jobs Listing</h1></td>
 			<td width="30%"></td>
 		</tr>
 	</table>
 	
 	<!-- search bar -->
-	<form th:action="@{/job/list}">
+	<form th:action="@{/job/list}" th:if="${jobs.totalPages > 0}">
 		Search: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required /> &nbsp; 
 				<input type="submit" value="Search" /> &nbsp; 
 				<input type="button" value="Clear" id="btnClear" th:onclick="'window.location.href = \'' + @{/job/list(progLang=${lastSelected},size=${jobs.size})} + '\''" /> 
@@ -55,6 +56,7 @@
 			<option th:unless="${jobs.size == 25}" value="25">25</option>
 			<option th:if="${jobs.size == 25}" value="25" selected>25</option>
 		</select>
+		<br>
 		Programming Language: 
 		<select name="progLang" onchange="this.form.submit()" >
 			<option th:if="${lastSelected == ''}" value="" selected>All</option>
@@ -68,8 +70,11 @@
 	</form>
 
 	<!-- Jobs List view -->
+	<div th:unless="${jobs.totalPages > 0}">
+		<h2>No jobs available for viewing</h2>
+	</div>
 	<table class="table table-striped table-hover"
-		th:if="${not #lists.isEmpty(jobs)}">
+		th:if="${jobs.totalPages > 0}">
 		<thead>
 			<tr>
 				<th th:style="'display:none'">Job ID</th>
@@ -96,7 +101,7 @@
 			</td>
 		</tr>
 	</table>
-	<div th:if="${jobs.totalPages > 0}" class="pagination">
+	<div th:if="${jobs.totalPages > 0}" class="pagination" align="center">
 		<a
 			th:href="@{/job/list(size=${jobs.size}, page=1, keyword=${keyword}, progLang=${lastSelected})}"
 			th:text="First"></a>
