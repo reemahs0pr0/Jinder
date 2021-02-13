@@ -12,15 +12,15 @@
 	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
 	<div align="center">
-		<input type="button" value="Log Out"
-			onclick="window.location.href='/jobseeker/logout'; return false"
-			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Upload File"
 			onclick="window.location.href='/jobseeker/uploadfile'; return false"
-			class="btn btn-info btn-lg" /> 
+			class="btn btn-success btn-lg" /> 
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
+		<input type="button" value="Log Out"
+			onclick="window.location.href='/jobseeker/logout'; return false"
+			class="btn btn-danger btn-lg" /> 
 	</div>
 	<table width="100%" class="center">
 		<tr align="center">
@@ -58,7 +58,7 @@
 			<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
 		</fieldset>
 		<fieldset>
-			PhoneNo: <input type="text" th:field="*{phoneNo}">
+			PhoneNo: <input type="text" th:field="*{phoneNo}" th:placeholder="88018201">
 			<p th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}"></p>
 		</fieldset>
 		<fieldset>

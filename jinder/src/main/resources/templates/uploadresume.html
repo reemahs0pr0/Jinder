@@ -12,17 +12,35 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" media="all" type="text/css"
 	th:href="@{/css/style.css}" />
+	
+<style>
+.buttonupload{
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+</style>
+
 </head>
 <body>
 	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
-	<div align="center">
-		<input type="button" value="Log Out"
-			onclick="window.location.href='/jobseeker/logout'; return false"
-			class="btn btn-info btn-lg" /> 
+	<div align="center"> 
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
+		<input type="button" value="Log Out"
+			onclick="window.location.href='/jobseeker/logout'; return false"
+			class="btn btn-danger btn-lg" /> 
 	</div>
 	<table width="100%" class="center">
 		<tr align="center">
@@ -37,17 +55,16 @@
 			<td th:text=${jobseeker.userName}>userName</td>
 		</tr>
 		<tr>
-			<td>Uploaded Resume: </td>
-			<td th:if="${jobseeker.resumeUrl != null}">YES</td>
-			<td th:if="${jobseeker.resumeUrl == null}">NO</td>
+			<td>Resume Uploaded? </td>
+			<td th:if="${jobseeker.resumeUrl != null}" style="color:green;">Yes</td>
+			<td th:if="${jobseeker.resumeUrl == null}" style="color:red;">No</td>
 		</tr>
 	</table>
 		<div id="haha">
 			<form name="Form2" th:action="@{/jobseeker/springUpload}" method="post"
 				enctype="multipart/form-data">
-
-				Resume<input type="file" name="file"> <input type="submit"
-					value="Upload" />
+				<input type="file" id="myFile" name="file" required> 
+				<input class="buttonupload" type="submit" value="Upload" onclick="myFunction()"/>
 			</form>
 		</div>
 		<br>

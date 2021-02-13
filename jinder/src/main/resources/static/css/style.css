@@ -123,6 +123,16 @@ td
 	padding: 9px 8px 0px 8px;
 	
 }
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.card {
+  display: inline-block;
+}
+
 tbody tr:hover td
 {
 	color: #009;

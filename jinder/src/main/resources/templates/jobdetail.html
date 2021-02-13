@@ -18,7 +18,7 @@
 	<table class="table1 table-striped table-hover">
 		<thead>
 			<tr>
-				<th th:text="${job.jobTitle}">Job Title</th>
+				<th colspan="2" th:text="${job.jobTitle}">Job Title</th>
 			</tr>
 		</thead>
 		<tr>
@@ -37,18 +37,6 @@
 			<td><a th:href=${job.jobAppUrl}>Apply Here</a></td>
 		</tr>
 	</table>
-
-	<p><span th:if="${session.usession != null}">
-			<input type="button" value="Back to Jobs Listing"
-				onclick="window.location.href='/job/list'; return false"
-				class="btn btn-info" />
-		</span>
-		<span th:if="${session.asession != null}">
-			<input type="button" value="Back to Jobs Listing"
-				onclick="window.location.href='/job/adminlist'; return false"
-				class="btn btn-info" />
-		</span>
-	</p>
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>

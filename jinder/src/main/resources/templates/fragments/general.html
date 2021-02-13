@@ -42,9 +42,9 @@
 		</nav> 
 	</div>
 	<footer th:fragment="footer">
-		<span th:if="${session.usession != null}"><a href="Jobs Listing" th:href="@{/job/list}">Jobs Listing</a></span>
-		
-		<span th:if="${session.asession != null}"><a href="Jobs Listing" th:href="@{/job/adminlist}">Jobs Listing</a></span>
+		<span th:if="${session.usession == null}"><a href="Home" class="btn btn-success btn-sm" th:href="@{/}">Back to Home</a></span>
+		<span th:if="${session.usession != null}"><a href="Jobs Listing" class="btn btn-info btn-sm" th:href="@{/job/list}">Back to Jobs Listing</a></span>
+		<span th:if="${session.asession != null}"><a href="Jobs Listing" class="btn btn-info btn-sm" th:href="@{/job/adminlist}">Back to Jobs Listing</a></span>
 		<br> 
 		<small>Now is: <b th:text="${execInfo.now.time}"></b></small> 
 		<br> 

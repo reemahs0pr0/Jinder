@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
-<meta charset="UTF-8" />
+<meta charset="UTF-8" content="width=device-width, initial-scale=1"/>
 <title>Recommendations</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -15,54 +15,60 @@
 	<div align="center">
 		<input type="button" value="Edit User"
 			onclick="window.location.href='/jobseeker/userdetails'; return false"
-			class="btn btn-info btn-lg" />
+			class="btn btn-success btn-lg" />
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Log Out"
 			onclick="window.location.href='/jobseeker/logout'; return false"
-			class="btn btn-info btn-lg" /> 
+			class="btn btn-danger btn-lg" /> 
 	</div>
 	<br>
 	
 	<!-- list jobs based on Job Preference Survey -->
-	<h1 th:text=${recommendBySurveyText}></h1>
-	<table
-		th:if="${not #lists.isEmpty(recommendedJobsBySurvey)}">
-		<thead>
-			<tr>
-				<th>Job ID</th>
-				<th>Company Name</th>
-				<th>Job Title</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tr th:each="j: ${recommendedJobsBySurvey}" class="table-row">
-			<td th:text=${j.id+1}>Id</td>
-			<td th:text=${j.companyName}>Name</td>
-			<td th:text=${j.jobTitle}>Title</td>
-		</tr>
-	</table>
-    <br>
+	<h2 th:text=${recommendBySurveyText}></h2>
+	<a th:text=${takesurvey} th:href="@{/user/survey/}"></a>
 	
+	<div class="scrolling-wrapper" th:if="${not #lists.isEmpty(recommendedJobsBySurvey)}">
+		<div class="card" th:each="j: ${recommendedJobsBySurvey}">
+			<table border="4px" bordercolor="#009999">
+				<tr>
+					<td th:style="'display:none'" th:text=${j.id+1}>Id
+				</tr>
+				<tr>
+					<th th:text=${j.companyName}>Name</th>
+				</tr>
+				<tr>
+					<th class="td1" th:text=${j.jobTitle}>Title</th>
+				</tr>
+				<tr>
+					<th><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+    <br>
 	<!-- list jobs based on click history -->
-	<h1 th:text=${recommendByClickHistoryText}></h1>
-	<table
-		th:if="${not #lists.isEmpty(recommendedJobsByClickHistory)}">
-		<thead>
-			<tr>
-				<th>Job ID</th>
-				<th>Company Name</th>
-				<th>Job Title</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tr th:each="j: ${recommendedJobsByClickHistory}" class="table-row">
-			<td th:text=${j.id+1}>Id</td>
-			<td th:text=${j.companyName}>Name</td>
-			<td th:text=${j.jobTitle}>Title</td>
-		</tr>
-	</table>
+	<h2 th:text=${recommendByClickHistoryText}></h2>
+	<p th:text=${message}></p>
+	<div class="scrolling-wrapper" th:if="${not #lists.isEmpty(recommendedJobsByClickHistory)}">
+		<div class="card" th:each="j: ${recommendedJobsByClickHistory}">
+			<table  border="4px" bordercolor="coral">
+				<tr>
+					<td th:style="'display:none'" th:text=${j.id+1}>Id
+				</tr>
+				<tr>
+					<th th:text=${j.companyName}>Name</th>
+				</tr>
+				<tr>
+					<th class="td1" th:text=${j.jobTitle}>Title</th>
+				</tr>
+				<tr>
+					<th><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></th>
+				</tr>
+			</table>
+		</div>
+	</div>
     <br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>

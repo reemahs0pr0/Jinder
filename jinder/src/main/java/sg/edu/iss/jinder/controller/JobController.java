@@ -176,6 +176,7 @@ public class JobController {
 			
 			model.addAttribute("recommendBySurveyText", "No Job Preference Survey submitted");
 			model.addAttribute("recommendedJobsBySurvey", emptyJobs);
+			model.addAttribute("takesurvey","Click here to take survey");
 		}
 		//----- list jobs based on click history -----
 		if( !jobService.findJob_ClickedsbyUserId(user.getId()).isEmpty()) {
@@ -193,6 +194,7 @@ public class JobController {
 			System.out.println("Empty:" + emptyJobs.isEmpty());
 			
 			model.addAttribute("recommendByClickHistoryText", "No click history present");
+			model.addAttribute("message","Please check out jobs in the listing page for us to recommend to you");
 			model.addAttribute("recommendedJobsByClickHistory", emptyJobs);
 		}
 		
