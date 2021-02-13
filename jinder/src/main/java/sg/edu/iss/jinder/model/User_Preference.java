@@ -32,7 +32,7 @@ public class User_Preference {
 	private String preferredTechnologies;
 	
 	@OneToOne
-	private User user;
+	private JobSeeker user;
 	
 	
 	public User_Preference() {
@@ -41,7 +41,7 @@ public class User_Preference {
   
 
 	public User_Preference(LocalDate surveyDate, List<String> preferredJobRole, List<String> preferredJobTitle,
-			String preferredTechnologies, User user) {
+			String preferredTechnologies, JobSeeker user) {
 		super();
 		this.surveyDate = surveyDate;
 		this.preferredJobRole = preferredJobRole;
@@ -113,12 +113,12 @@ public class User_Preference {
 	}
 
 
-	public User getUser() {
+	public JobSeeker getUser() {
 		return user;
 	}
 
 
-	public void setUser(User user) {
+	public void setUser(JobSeeker user) {
 		this.user = user;
 	}
 

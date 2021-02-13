@@ -39,7 +39,7 @@
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Log Out"
-			onclick="window.location.href='/user/logout'; return false"
+			onclick="window.location.href='/jobseeker/logout'; return false"
 			class="btn btn-danger btn-lg" /> 
 	</div>
 	<table width="100%" class="center">
@@ -49,19 +49,19 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table th:object="${user}">
+	<table th:object="${jobseeker}">
 		<tr>
 			<td>User Name: </td>
-			<td th:text=${user.userName}>userName</td>
+			<td th:text=${jobseeker.userName}>userName</td>
 		</tr>
 		<tr>
 			<td>Resume Uploaded? </td>
-			<td th:if="${user.resumeUrl != null}" style="color:green;">Yes</td>
-			<td th:if="${user.resumeUrl == null}" style="color:red;">No</td>
+			<td th:if="${jobseeker.resumeUrl != null}" style="color:green;">Yes</td>
+			<td th:if="${jobseeker.resumeUrl == null}" style="color:red;">No</td>
 		</tr>
 	</table>
 		<div id="haha">
-			<form name="Form2" th:action="@{/user/springUpload}" method="post"
+			<form name="Form2" th:action="@{/jobseeker/springUpload}" method="post"
 				enctype="multipart/form-data">
 				<input type="file" id="myFile" name="file" required> 
 				<input class="buttonupload" type="submit" value="Upload" onclick="myFunction()"/>

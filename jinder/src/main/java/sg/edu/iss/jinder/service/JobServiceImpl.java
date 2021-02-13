@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.model.Job_Clicked;
-import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.JobSeeker;
 import sg.edu.iss.jinder.repo.JobRepository;
 import sg.edu.iss.jinder.repo.Job_ClickedRepository;
 import sg.edu.iss.jinder.repo.UserPreferenceRepository;
@@ -195,7 +195,7 @@ public class JobServiceImpl implements JobService {
 	}
 		
 	@Override
-	public List<Job> listRecommendedJobsByClickHistory(User user) {
+	public List<Job> listRecommendedJobsByClickHistory(JobSeeker user) {
 		List<Job_Clicked> job_ClickedsbyUserClickeds = findJob_ClickedsbyUserId(user.getId());
 		try {
 			  String jobid_1 = String.valueOf(job_ClickedsbyUserClickeds.get(job_ClickedsbyUserClickeds.size()-1).getJob().getId()).replace(" ", "+");
@@ -234,7 +234,7 @@ public class JobServiceImpl implements JobService {
 	}
 	
 	@Override
-	public List<Job> listRecommendedJobsBySurvey(User user) {
+	public List<Job> listRecommendedJobsBySurvey(JobSeeker user) {
 		try {
 			String userId = String.valueOf(user.getId());
 			URL url = new URL("http://127.0.0.1:5000/prefsurvey/?id=" + userId); 

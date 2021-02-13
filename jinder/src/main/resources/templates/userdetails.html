@@ -13,16 +13,16 @@
 	<div th:replace="fragments/general.html :: menu"></div>
 	<div align="center">
 		<input type="button" value="Upload File"
-			onclick="window.location.href='/user/uploadfile'; return false"
+			onclick="window.location.href='/jobseeker/uploadfile'; return false"
 			class="btn btn-success btn-lg" /> 
 		<input type="button" value="Take Survey"
-			onclick="window.location.href='/user/survey'; return false"
+			onclick="window.location.href='/jobseeker/survey'; return false"
 			class="btn btn-primary btn-lg" /> 
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
 		<input type="button" value="Log Out"
-			onclick="window.location.href='/user/logout'; return false"
+			onclick="window.location.href='/jobseeker/logout'; return false"
 			class="btn btn-danger btn-lg" /> 
 	</div>
 	<table width="100%" class="center">
@@ -32,26 +32,26 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table th:object="${user}">
+	<table th:object="${jobseeker}">
 		<tr>
 			<td>Full Name</td>
-			<td th:text=${user.fullName}>fullName</td>
+			<td th:text=${jobseeker.fullName}>fullName</td>
 		</tr>
 		<tr>
 			<td>User Name</td>
-			<td th:text=${user.userName}>userName</td>
+			<td th:text=${jobseeker.userName}>userName</td>
 		</tr>
 		<tr>
 			<td>Email Address</td>
-			<td th:text=${user.emailAddress}>emailAddress</td>
+			<td th:text=${jobseeker.emailAddress}>emailAddress</td>
 		</tr>
 		<tr>
 			<td>PhoneNo</td>
-			<td th:text=${user.phoneNo}>phoneNo</td>
+			<td th:text=${jobseeker.phoneNo}>phoneNo</td>
 		</tr>
 		<tr>
 			<td><a href="edituser.html" class="btn btn-success"
-				th:href="@{/user/edit}">Edit User</a></td>
+				th:href="@{/jobseeker/edit}">Edit User</a></td>
 		</tr>
 	</table>
 

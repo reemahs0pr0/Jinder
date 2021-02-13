@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.model.Job_Clicked;
 
-import sg.edu.iss.jinder.model.User;
+import sg.edu.iss.jinder.model.JobSeeker;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
-import sg.edu.iss.jinder.service.UserService;
-import sg.edu.iss.jinder.service.UserServiceImpl;
+import sg.edu.iss.jinder.service.JobSeekerService;
+import sg.edu.iss.jinder.service.JobSeekerServiceImpl;
 
 @Controller
 @RequestMapping("/job")
@@ -37,7 +37,7 @@ public class JobController {
 	private JobService jobService;
     
 	@Autowired
-	private UserService userService;
+	private JobSeekerService jsService;
 	
 	@Autowired
 	private void setJobService(JobServiceImpl jobServiceImpl) {
@@ -45,19 +45,20 @@ public class JobController {
 	}
 	
 	@Autowired
-	private void setUserService(UserServiceImpl userServiceImpl) {
-		this.userService=userServiceImpl;
+	private void setJobSeekerService(JobSeekerServiceImpl jobSeekerServiceImpl) {
+		this.jsService=jobSeekerServiceImpl;
 	}
 	
 //....................JOB LISTING PAGE....................
 	@RequestMapping(value="/list")
 	public String jobListings(Model model,@Param("keyword")String keyword, 
-			@RequestParam("progLang") Optional<String> progLang, @RequestParam("page") Optional<Integer> page, 
+			@RequestParam("progLang") Optional<String> progLang, 
+			@RequestParam("page") Optional<Integer> page, 
 			@RequestParam("size") Optional<Integer> size, HttpSession session) {
 		List<Job> jobs;
-		User user = (User) session.getAttribute("usession");
+		JobSeeker user = (JobSeeker) session.getAttribute("usession");
 		int id = user.getId();
-		if(userService.resumeUploaded(id)) {
+		if(jsService.resumeUploaded(id)) {
 			jobs = jobService.listResult(keyword, id);
 		}
 		else {
@@ -94,30 +95,74 @@ public class JobController {
 	
 		return "jobs";
 	}
+	
+	@RequestMapping(value = "/adminlist")
+	public String adminJobListing(Model model,@Param("keyword")String keyword, 
+			@RequestParam("progLang") Optional<String> progLang, @RequestParam("page") Optional<Integer> page, 
+			@RequestParam("size") Optional<Integer> size, HttpSession session) {
+		List<Job> jobList; 
+		jobList = jobService.listAll(keyword);
+		if(progLang.isPresent()) {
+			ListIterator<Job> iter = jobList.listIterator();
+			while(iter.hasNext()){
+			    if(!iter.next().toString().contains(progLang.get())){
+			        iter.remove();
+			    }
+			}
+			model.addAttribute("lastSelected", progLang.get());
+		}
+		else {
+			model.addAttribute("lastSelected", "");
+		}
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(10);
+	
+		Page<Job> jobPage=jobService.findPaginated(jobList, PageRequest.of(currentPage-1, pageSize));
+	
+		int totalPages= jobPage.getTotalPages();
+		if(totalPages>0) {
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+	                .boxed()
+	                .collect(Collectors.toList());
+	            model.addAttribute("pageNumbers", pageNumbers);
+		}
+		model.addAttribute("jobs", jobPage);
+		model.addAttribute("keyword", keyword);
+		
+		return "adminjobs";
+	}
 
 //....................VIEW JOB DETAILS PAGE....................
 	@RequestMapping(value = "/detail/{id}")
 	public String showJob(@PathVariable("id") Integer id, Model model,HttpSession session) {
-		User user = (User) session.getAttribute("usession");
+		JobSeeker user = (JobSeeker) session.getAttribute("usession");
 		//---- to add user click history -------------------------
 		Job_Clicked job_ClickedToSave= new Job_Clicked();
 		job_ClickedToSave.setUser(user);
 		job_ClickedToSave.setJob(jobService.findJobById(id));
-		userService.saveJob_Clicked(job_ClickedToSave);
+		jsService.saveJob_Clicked(job_ClickedToSave);
 		
 		model.addAttribute("job", jobService.findJobById(id));
     
 		return "jobdetail";	
 	}
 	
+	@RequestMapping(value = "/admindetail/{id}")
+	public String adminShowJob(@PathVariable("id") Integer id, Model model,HttpSession session) {
+		model.addAttribute("job", jobService.findJobById(id));
+		
+		return "jobdetail";	
+	}
+	
 //....................VIEW RECOMMENDATION PAGE....................
 	@RequestMapping(value = "/recommendedjobs")
 	public String recommendationJobs (Model model, HttpSession session) {
-		User user = (User) session.getAttribute("usession");
+		JobSeeker user = (JobSeeker) session.getAttribute("usession");
 		//----- list jobs based on User Preference Survey -----
-		if (userService.findUserPrefByUserId(user.getId())) {
+		if (jsService.findUserPrefById(user.getId())) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			String lastSurveySubmittedDate = userService.getUserPrefByUserId(user.getId()).getSurveyDate().format(formatter);
+			String lastSurveySubmittedDate = jsService.getUserPrefById(user.getId()).getSurveyDate().format(formatter);
 			
 			model.addAttribute("recommendBySurveyText", "Based on your Job Preference Survey submitted on " + lastSurveySubmittedDate + ", below are recommended jobs:");
 			model.addAttribute("recommendedJobsBySurvey", jobService.listRecommendedJobsBySurvey(user));
