@@ -142,7 +142,7 @@ public class JobSeekerController {
 				return "edituser";
 			}
 			else {
-				jsService.saveJobSeeker(jobSeeker);
+				jsService.saveEditedJobSeeker(previousUser, newUser);
 				session.setAttribute("usession", jobSeeker);
 
 				return "forward:/jobseeker/userdetails";
@@ -154,15 +154,15 @@ public class JobSeekerController {
 
 				return "edituser";
 			}
-			else {	
-				jsService.saveJobSeeker(jobSeeker);
+			else {
+				jsService.saveEditedJobSeeker(previousUser, newUser);
 				session.setAttribute("usession", jobSeeker);
 
 				return "forward:/jobseeker/userdetails";
 			}
 		}
 		else {
-			jsService.saveJobSeeker(jobSeeker);
+			jsService.saveEditedJobSeeker(previousUser, newUser);
 			session.setAttribute("usession", jobSeeker);
 
 			return "forward:/jobseeker/userdetails";

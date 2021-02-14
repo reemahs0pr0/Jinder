@@ -32,30 +32,32 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table class="center" th:object="${jobseeker}" width="80%">
+	<table class="center" th:object="${jobseeker}" width="40%">
+		
 		<tr>
 			<td width="30%" align="right">Full Name</td>
-			<td width="50%" th:text=${jobseeker.fullName}>fullName</td>
+			<td width="50%" th:text="*{fullName}">fullName</td>
 		</tr>
 		<tr>
 			<td width="30%" align="right">User Name</td>
-			<td width="50%" th:text=${jobseeker.userName}>userName</td>
+			<td width="50%" th:text="*{userName}">userName</td>
 		</tr>
 		<tr>
 			<td width="30%" align="right">Email Address</td>
-			<td width="50%" th:text=${jobseeker.emailAddress}>emailAddress</td>
+			<td width="50%" th:text="*{emailAddress}">emailAddress</td>
 		</tr>
 		<tr>
 			<td width="30%" align="right">PhoneNo</td>
-			<td width="50%" th:text=${jobseeker.phoneNo}>phoneNo</td>
+			<td width="50%" th:text="*{phoneNo}">phoneNo</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><a href="edituser.html" class="btn btn-success"
 				th:href="@{/jobseeker/edit}">Edit User</a></td>
 		</tr>
+		<tr>
+			<td><input type="hidden" th:field="*{id}"></td>
+		</tr>
 	</table>
-
-
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>

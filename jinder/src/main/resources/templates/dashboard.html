@@ -15,7 +15,7 @@
 	<div align="center">
 		<input type="button" value="Edit User"
 
-			onclick="window.location.href='/user/userdetails'; return false"
+			onclick="window.location.href='/jobseeker/userdetails'; return false"
 			class="btn btn-success btn-lg" />
 		<input type="button" value="Recommended Jobs"
 			onclick="window.location.href='/job/recommendedjobs'; return false"
@@ -35,7 +35,7 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table>
+	<table class="center">
 		<tr>
 			<td th:each="graph: ${glist}">
 				<img width="500" height="500" 

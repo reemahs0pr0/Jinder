@@ -25,14 +25,14 @@
 	<table width="100%" class="center">
 		<tr align="center">
 			<td width="30%"></td>
-			<td align="center" width="40%"><h1>Edit User</h1></td>
+			<td width="40%"><h1>Edit User</h1></td>
 			<td width="30%"></td>
 		</tr>
 	</table>
 	<form action="#" th:object="${jobseeker}" th:action="@{/jobseeker/save1}" method="post">
-		<table class="center" width="80%">
+		<table class="center" width="40%">
 			<tr>
-				<td width="30%" align="right">Full Name:</td>
+				<td width="30%" align="right">Full Name: </td>
 				<td width="50%">
 					<input type="text" th:field="*{fullName}">
 					<p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
@@ -80,6 +80,9 @@
 					<input type="submit" class="btn btn-success" value="Save changes" /> &nbsp; &nbsp; 
 					<input type="reset" class="btn btn-danger" value="Reset" />
 				</td>
+			</tr>
+			<tr>
+				<td><input type="hidden" th:field="*{id}"></td>
 			</tr>
 		</table>
 	</form>

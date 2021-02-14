@@ -131,4 +131,15 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 	
+	@Override
+	public void saveEditedAdmin(Admin previousAdmin, Admin editedAdmin) {
+		previousAdmin.setFullName(editedAdmin.getUserName());
+		previousAdmin.setUserName(editedAdmin.getUserName());
+		previousAdmin.setPassword(editedAdmin.getPassword());
+		previousAdmin.setEmailAddress(editedAdmin.getEmailAddress());
+		previousAdmin.setAddress(editedAdmin.getAddress());
+		previousAdmin.setPhoneNo(editedAdmin.getPhoneNo());
+		arepo.flush();
+	}
+	
 }

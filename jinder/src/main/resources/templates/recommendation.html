@@ -27,11 +27,11 @@
 	
 	<!-- list jobs based on Job Preference Survey -->
 	<h2 th:text=${recommendBySurveyText}></h2>
-	<p align="center"><a th:text=${takesurvey} th:href="@{/user/survey/}"></a></p>
+	<h3><a th:text=${takesurvey} th:href="@{/user/survey/}"></a></h3>
 	
 	<div class="scrolling-wrapper" th:if="${not #lists.isEmpty(recommendedJobsBySurvey)}">
 		<div class="card" th:each="j: ${recommendedJobsBySurvey}">
-			<table border="4px" bordercolor="#009999">
+			<table border="4px" border-color="#009999">
 				<tr>
 					<td th:style="'display:none'" th:text=${j.id+1}>Id
 				</tr>
@@ -39,10 +39,10 @@
 					<th th:text=${j.companyName}>Name</th>
 				</tr>
 				<tr>
-					<th class="td1" th:text=${j.jobTitle}>Title</th>
+					<td class="td1" th:text=${j.jobTitle}>Title</td>
 				</tr>
 				<tr>
-					<th><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></th>
+					<td><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></td>
 				</tr>
 			</table>
 		</div>
@@ -61,10 +61,10 @@
 					<th th:text=${j.companyName}>Name</th>
 				</tr>
 				<tr>
-					<th class="td1" th:text=${j.jobTitle}>Title</th>
+					<td class="td1" th:text=${j.jobTitle}>Title</td>
 				</tr>
 				<tr>
-					<th><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></th>
+					<td><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></td>
 				</tr>
 			</table>
 		</div>

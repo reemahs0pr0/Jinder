@@ -20,4 +20,6 @@ public interface AdminService {
 	
 	public void postJobs();
 	
+	public void saveEditedAdmin(Admin previousAdmin, Admin editedAdmin);
+	
 }

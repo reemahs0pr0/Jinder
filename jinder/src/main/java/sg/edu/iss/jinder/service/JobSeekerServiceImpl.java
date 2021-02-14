@@ -169,4 +169,15 @@ public class JobSeekerServiceImpl implements JobSeekerService {
 		
 		return generatedStr;
 	}
+	
+	@Override
+	public void saveEditedJobSeeker(JobSeeker previousJobSeeker, JobSeeker editedJobSeeker) {
+		previousJobSeeker.setFullName(editedJobSeeker.getUserName());
+		previousJobSeeker.setUserName(editedJobSeeker.getUserName());
+		previousJobSeeker.setPassword(editedJobSeeker.getPassword());
+		previousJobSeeker.setEmailAddress(editedJobSeeker.getEmailAddress());
+		previousJobSeeker.setAddress(editedJobSeeker.getAddress());
+		previousJobSeeker.setPhoneNo(editedJobSeeker.getPhoneNo());
+		jsrepo.flush();
+	}
 }

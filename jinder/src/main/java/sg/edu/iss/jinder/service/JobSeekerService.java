@@ -38,5 +38,7 @@ public interface JobSeekerService {
 	public boolean forgetPassword(String emailAddress);
 	
 	public String generateRandomAlphanumericString();
+	
+	public void saveEditedJobSeeker(JobSeeker previousJobSeeker, JobSeeker editedJobSeeker);
 
 }

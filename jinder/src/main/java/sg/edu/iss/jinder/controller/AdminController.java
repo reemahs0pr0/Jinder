@@ -128,8 +128,8 @@ public class AdminController {
 				return "adminedit";
 			}
 			else {
-				aService.saveAdmin(admin);
-				session.setAttribute("usession", admin);
+				aService.saveEditedAdmin(previousUser, newUser);
+				session.setAttribute("asession", admin);
 
 				return "forward:/admin/userdetails";
 			}
@@ -141,14 +141,14 @@ public class AdminController {
 				return "adminedit";
 			}
 			else {	
-				aService.saveAdmin(admin);
+				aService.saveEditedAdmin(previousUser, newUser);
 				session.setAttribute("asession", admin);
 
 				return "forward:/admin/userdetails";
 			}
 		}
 		else {
-			aService.saveAdmin(admin);
+			aService.saveEditedAdmin(previousUser, newUser);
 			session.setAttribute("asession", admin);
 
 			return "forward:/admin/userdetails";

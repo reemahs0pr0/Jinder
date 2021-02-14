@@ -27,26 +27,29 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table th:object="${admin}" class="center">
+	<table th:object="${admin}" class="center" width="40%">
 		<tr>
-			<td>Full Name</td>
-			<td th:text="*{fullName}">fullName</td>
+			<td width="30%" align="right">Full Name</td>
+			<td width="50%" th:text="*{fullName}">fullName</td>
 		</tr>
 		<tr>
-			<td>User Name</td>
-			<td th:text="*{userName}">userName</td>
+			<td width="30%" align="right">User Name</td>
+			<td width="50%" th:text="*{userName}">userName</td>
 		</tr>
 		<tr>
-			<td>Email Address</td>
-			<td th:text="*{emailAddress}">emailAddress</td>
+			<td width="30%" align="right">Email Address</td>
+			<td width="50%" th:text="*{emailAddress}">emailAddress</td>
 		</tr>
 		<tr>
-			<td>PhoneNo</td>
-			<td th:text="*{phoneNo}">phoneNo</td>
+			<td width="30%" align="right">PhoneNo</td>
+			<td width="50%" th:text="*{phoneNo}">phoneNo</td>
 		</tr>
 		<tr>
-			<td><a href="editadmin.html" class="btn btn-success"
+			<td colspan="2" align="center"><a href="editadmin.html" class="btn btn-success"
 				th:href="@{/admin/edit}">Edit User</a></td>
+		</tr>
+		<tr>
+			<td><input type="hidden" th:field="*{id}"></td>
 		</tr>
 	</table>
 
