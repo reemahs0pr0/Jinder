@@ -114,7 +114,7 @@ public class AdminServiceImpl implements AdminService {
 			
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
 			
-			conn.setRequestMethod("GET");
+			conn.setRequestMethod("POST");
 		    conn.connect();
 		    BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		    StringBuilder sb = new StringBuilder();
@@ -125,7 +125,6 @@ public class AdminServiceImpl implements AdminService {
 	        rd.close();
 	        conn.disconnect();
 	        
-	        System.out.println("Posted jobs"); // for debugging
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

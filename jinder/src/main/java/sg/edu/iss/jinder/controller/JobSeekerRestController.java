@@ -49,21 +49,14 @@ public class JobSeekerRestController {
 		}
 	}
 	@RequestMapping(path = "/edit/{userName}&{password}&{fullName}&{emailAddress}&{address}&{phoneNo}&{id}", method = RequestMethod.POST)
-	public void editUser(@PathVariable("userName") String userName, @PathVariable("password") String password,
-										@PathVariable("fullName") String fullName, @PathVariable("emailAddress") String emailAddress,
-										@PathVariable("address") String address, @PathVariable("phoneNo") String phoneNo, @PathVariable("id") String id){ 
-		System.out.println("edit user has been called");
-		JobSeeker user = jsservice.findJobSeekerById(Integer.parseInt(id));
-		
-		if (user != null)
-		{
-			user.setUserName(userName);
-			user.setPassword(password);
-			user.setFullName(fullName);
-			user.setEmailAddress(emailAddress);
-			user.setAddress(address);
-			user.setPhoneNo(phoneNo);
+	public List<ObjectError> editUser(@ModelAttribute("user") @Valid JobSeeker user,
+			BindingResult bindingResult,  Model model){ 
+		if (bindingResult.hasErrors()) {
+			return bindingResult.getAllErrors();
+		}
+		else {
 			jsservice.saveJobSeeker(user);
+			return null;
 		}
 		
 	}
