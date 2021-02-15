@@ -195,11 +195,9 @@ public class JobServiceImpl implements JobService {
 	}
 		
 	@Override
-	public List<Job> listRecommendedJobsByClickHistory(JobSeeker user) {
-		List<Job_Clicked> job_ClickedsbyUserClickeds = findJob_ClickedsbyUserId(user.getId());
+	public List<Job> listRecommendedJobsByClickHistory(String jobid) {
 		try {
-			  String jobid_1 = String.valueOf(job_ClickedsbyUserClickeds.get(job_ClickedsbyUserClickeds.size()-1).getJob().getId()).replace(" ", "+");
-			  URL url = new URL("http://127.0.0.1:5000/similarjobs/?jobid=" + jobid_1); 
+			  URL url = new URL("http://127.0.0.1:5000/similarjobs/?jobid=" + jobid); 
 			  
 			  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			  

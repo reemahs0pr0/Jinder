@@ -23,7 +23,7 @@ public interface JobService {
 	
 	public List<Job_Clicked> findJob_ClickedsbyJobId(int id);
 	
-	public List<Job> listRecommendedJobsByClickHistory(JobSeeker user);
+	public List<Job> listRecommendedJobsByClickHistory(String jobid);
 	
 	public List<Job> listRecommendedJobsBySurvey(JobSeeker user);
 

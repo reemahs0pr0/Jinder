@@ -27,7 +27,7 @@
 	
 	<!-- list jobs based on Job Preference Survey -->
 	<h2 th:text=${recommendBySurveyText}></h2>
-	<h3><a th:text=${takesurvey} th:href="@{/user/survey/}"></a></h3>
+	<h3><a th:text=${takesurvey} th:href="@{/jobseeker/survey/}"></a></h3>
 	
 	<div class="scrolling-wrapper" th:if="${not #lists.isEmpty(recommendedJobsBySurvey)}">
 		<div class="card" th:each="j: ${recommendedJobsBySurvey}">
@@ -53,6 +53,25 @@
 	<p align="center" th:text=${message}></p>
 	<div class="scrolling-wrapper" th:if="${not #lists.isEmpty(recommendedJobsByClickHistory)}">
 		<div class="card" th:each="j: ${recommendedJobsByClickHistory}">
+			<table  border="4px" bordercolor="coral">
+				<tr>
+					<td th:style="'display:none'" th:text=${j.id+1}>Id
+				</tr>
+				<tr>
+					<th th:text=${j.companyName}>Name</th>
+				</tr>
+				<tr>
+					<td class="td1" th:text=${j.jobTitle}>Title</td>
+				</tr>
+				<tr>
+					<td><a th:href=${j.jobAppUrl} class="btn btn-success">Apply Here</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="scrolling-wrapper" th:if="${not #lists.isEmpty(recommendedJobsByClickHistory2)}">
+		<h2 th:text=${recommendByClickHistoryText2}></h2>
+		<div class="card" th:each="j: ${recommendedJobsByClickHistory2}">
 			<table  border="4px" bordercolor="coral">
 				<tr>
 					<td th:style="'display:none'" th:text=${j.id+1}>Id

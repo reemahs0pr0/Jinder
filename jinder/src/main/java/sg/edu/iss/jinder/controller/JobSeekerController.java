@@ -111,7 +111,6 @@ public class JobSeekerController {
 			return "signup";
 		}
 		else {
-			jobSeeker.setRegistrationDate(LocalDate.now());
 			jsService.saveJobSeeker(jobSeeker);
 
 			return "forward:/jobseeker/login";
