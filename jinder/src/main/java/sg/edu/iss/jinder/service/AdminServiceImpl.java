@@ -133,7 +133,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void saveEditedAdmin(Admin previousAdmin, Admin editedAdmin) {
-		previousAdmin.setFullName(editedAdmin.getUserName());
+		previousAdmin.setFullName(editedAdmin.getFullName());
 		previousAdmin.setUserName(editedAdmin.getUserName());
 		previousAdmin.setPassword(editedAdmin.getPassword());
 		previousAdmin.setEmailAddress(editedAdmin.getEmailAddress());
