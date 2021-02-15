@@ -125,7 +125,6 @@ public class AdminServiceImpl implements AdminService {
 	        rd.close();
 	        conn.disconnect();
 	        
-	        System.out.println("Posted jobs"); // for debugging
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
