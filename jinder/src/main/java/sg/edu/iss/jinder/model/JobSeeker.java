@@ -1,6 +1,5 @@
 package sg.edu.iss.jinder.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,8 +8,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class JobSeeker extends User {
-	private String pictureUrl; 
-	private LocalDate registrationDate; 
 	private String resumeUrl;
 
 	@OneToOne(mappedBy = "user")
@@ -26,22 +23,6 @@ public class JobSeeker extends User {
 	
 	public JobSeeker(String fullName, String userName, String password, String emailAddress, String address, String phoneNo) {
 		super(fullName, userName, password, emailAddress, address, phoneNo);
-	}
-
-	public String getPictureUrl() {
-		return pictureUrl;
-	}
-
-	public void setPictureUrl(String pictureUrl) {
-		this.pictureUrl = pictureUrl;
-	}
-
-	public LocalDate getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(LocalDate registrationDate) {
-		this.registrationDate = registrationDate;
 	}
 
 	public String getResumeUrl() {

@@ -181,12 +181,17 @@ public class JobController {
 		//----- list jobs based on click history -----
 		if( !jobService.findJob_ClickedsbyUserId(user.getId()).isEmpty()) {
 			List<Job_Clicked> jobs_clickedByUser = jobService.findJob_ClickedsbyJobId(user.getId());
-			String lastJobClicked = jobs_clickedByUser.get(jobs_clickedByUser.size() - 1).getJob().getJobTitle();
 			
-			model.addAttribute("recommendByClickHistoryText", "Since you last clicked on " + lastJobClicked + ", below are recommended jobs:");
-			model.addAttribute("recommendedJobsByClickHistory", jobService.listRecommendedJobsByClickHistory(user));
-			for (Job j:jobService.listRecommendedJobsByClickHistory(user)) {
-				System.out.println(j.getJobTitle());
+			String jobid_1 = String.valueOf(jobs_clickedByUser.get(jobs_clickedByUser.size()-1).getJob().getId()).replace(" ", "+");
+			String lastJobClicked = jobs_clickedByUser.get(jobs_clickedByUser.size()-1).getJob().getJobTitle();
+			model.addAttribute("recommendByClickHistoryText", "Since you last clicked on " + lastJobClicked + ", below are some recommended jobs:");
+			model.addAttribute("recommendedJobsByClickHistory", jobService.listRecommendedJobsByClickHistory(jobid_1));
+			
+			if (jobs_clickedByUser.size()-2 >= 0) {
+				String jobid_2 = String.valueOf(jobs_clickedByUser.get(jobs_clickedByUser.size()-2).getJob().getId()).replace(" ", "+");
+				String lastSecondJobClicked = jobs_clickedByUser.get(jobs_clickedByUser.size() - 2).getJob().getJobTitle();
+				model.addAttribute("recommendByClickHistoryText2", "Since you last clicked on " + lastSecondJobClicked + ", below are some recommended jobs:");
+				model.addAttribute("recommendedJobsByClickHistory2", jobService.listRecommendedJobsByClickHistory(jobid_2));
 			}
 		}
 		else {

@@ -1,7 +1,5 @@
 package sg.edu.iss.jinder.controller;
 
-import java.time.LocalDate;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -97,7 +95,6 @@ public class AdminController {
 			return "adminsignup";
 		}
 		else {
-			admin.setEmploymentDate(LocalDate.now());
 			aService.saveAdmin(admin);
 
 			return "forward:/admin/login";
