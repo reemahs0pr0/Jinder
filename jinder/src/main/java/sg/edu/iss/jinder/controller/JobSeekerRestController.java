@@ -33,6 +33,9 @@ public class JobSeekerRestController {
 	public void setUserService(JobSeekerServiceImpl jsserviceimpl) {
 		this.jsservice = jsserviceimpl;
 	}
+	private String localDirectory = "DIRECTORY ";
+	
+	
 	@RequestMapping(path = "{username}", method = RequestMethod.GET)
 	public JobSeeker login(@PathVariable("username") String username, Model model) { 
 		return jsservice.findJobSeekerByUserName(username);
@@ -74,7 +77,7 @@ public class JobSeekerRestController {
 		JobSeeker user = jsservice.findJobSeekerByUserName(username);
         
 		if(file != null) {
-            String path="DIRECTORY " + file.getOriginalFilename();
+            String path=localDirectory + file.getOriginalFilename();
             file.transferTo(new File(path));
             jsservice.uploadResume(path, user);
         }

@@ -56,6 +56,20 @@ button {
 	width : auto;
 }
 
+.buttonupload{
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
 frame	{
 	margin : 0px 0px 0px 0px;
 	border : none;
@@ -118,6 +132,22 @@ td
 	font-weight: normal;
 	color: #669;
 	padding: 10px;
+}
+
+.user-details-header{
+	text-align: right;
+	font-size: 15px;
+	font-weight: normal;
+	color: #669;
+	padding: 10px;	
+}
+
+.user-details{
+	text-align: left;
+	font-size: 15px;
+	font-weight: normal;
+	color: #669;
+	padding: 10px;		
 }
 
 .scrolling-wrapper {

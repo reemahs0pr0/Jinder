@@ -18,45 +18,65 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<form action="#" th:object="${jobseeker}" th:action="@{/jobseeker/save}"
-		method="post">
-		<input type="hidden" th:field="*{id}">
-		<fieldset>
-			Full Name: <input type="text" th:field="*{fullName}">
-			<p class="error-list" th:if="${#fields.hasErrors('fullName')}"
-				th:errors="*{fullName}"></p>
-		</fieldset>
-		<fieldset>
-			User Name: <input type="text" th:field="*{userName}">
-			<p class="error-list" th:if="${#fields.hasErrors('userName')}"
-				th:errors="*{userName}"></p>
-			<p th:text="${duplicateUserName}"></p>
-		</fieldset>
-		<fieldset>
-			Password: <input type="password" th:field="*{password}">
-			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-		</fieldset>
-		<fieldset>
-			Email Address: <input type="text" th:field="*{emailAddress}">
-			<p th:if="${#fields.hasErrors('emailAddress')}"
-				th:errors="*{emailAddress}"></p>
-			<p th:text="${duplicateEmailAddress}"></p>
-		</fieldset>
-		<fieldset>
-			Address: <input type="text" th:field="*{address}">
-			<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
-		</fieldset>
-		<fieldset>
-			PhoneNo: <input type="text" th:field="*{phoneNo}">
+	<form action="#" th:object="${jobseeker}" th:action="@{/jobseeker/save}" method="post">
+		<table width="40%" class="center">
+			<tr>
+				<td width="10%" class="user-details-header">Full Name: </td>
+				<td width="30%" class="user-details">
+					<input type="text" th:field="*{fullName}">
+					<p class="error-list" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
+				</td>
+			</tr>
+			<tr>
+				<td width="10%" class="user-details-header">User Name: </td>
+				<td width="30%" class="user-details">
+					<input type="text" th:field="*{userName}">
+					<p class="error-list" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
+					<p th:text="${duplicateUserName}"></p>
+				</td>
+			</tr>
+			<tr>
+				<td width="10%" class="user-details-header">Password: </td>
+				<td width="30%" class="user-details">
+					<input type="password" th:field="*{password}">
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+				</td>
+			</tr>
+			<tr>
+				<td width="10%" class="user-details-header">Email Address: </td>
+				<td width="30%" class="user-details">
+					<input type="text" th:field="*{emailAddress}">
+					<p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></p>
+					<p th:text="${duplicateEmailAddress}"></p>
+				</td>
+			</tr>
+			<tr>
+				<td width="10%" class="user-details-header">Address: </td>
+				<td width="30%" class="user-details">
+					<input type="text" th:field="*{address}">
+					<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+				</td>
+			</tr>
+			<tr>
+				<td width="10%" class="user-details-header">PhoneNo: </td>
+				<td width="30%" class="user-details">
+					<input type="text" th:field="*{phoneNo}">
 			<p th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}"></p>
-		</fieldset>
-		<fieldset>
-			<input type="hidden" th:field="*{registrationDate}">
-		</fieldset>
-		<fieldset>
-			<input type="submit" class="btn btn-success" value="Save" /> &nbsp;
-			&nbsp; <input type="reset" class="btn btn-danger" value="Reset" />
-		</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="hidden" th:field="*{id}"></td>
+			</tr>
+			<tr>
+				<td><input type="hidden" th:field="*{registrationDate}"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" class="btn btn-success" value="Save" /> &nbsp; &nbsp; 
+					<input type="reset" class="btn btn-danger" value="Reset" />
+				</td>
+			</tr>
+		</table>
 	</form>
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
