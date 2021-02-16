@@ -115,6 +115,7 @@ public class AdminServiceImpl implements AdminService {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
 			
 			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Authorization", "Jinder");
 		    conn.connect();
 		    BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		    StringBuilder sb = new StringBuilder();
