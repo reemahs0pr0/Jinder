@@ -149,7 +149,7 @@ public class JobController {
 	}
 	
 	@RequestMapping(value = "/admindetail/{id}")
-	public String adminShowJob(@PathVariable("id") Integer id, Model model,HttpSession session) {
+	public String adminShowJob(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("job", jobService.findJobById(id));
 		
 		return "jobdetail";	

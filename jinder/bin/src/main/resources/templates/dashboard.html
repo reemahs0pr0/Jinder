@@ -9,22 +9,15 @@
 	th:href="@{/css/style.css}" />
 </head>
 <body>
-	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br> 
 	<div align="center">
-		<input type="button" value="Edit User"
-			onclick="window.location.href='/user/userdetails'; return false"
-			class="btn btn-success btn-lg" />
 		<input type="button" value="Recommended Jobs"
 			onclick="window.location.href='/job/recommendedjobs'; return false"
-			class="btn btn-warning btn-lg" /> 	
+			class="btn btn-warning btn-lg" />
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" /> 
-		<input type="button" value="Log Out"
-			onclick="window.location.href='/user/logout'; return false"
-			class="btn btn-danger btn-lg" /> 
 	</div>
 	<br>
 	<table width="100%" class="center">
@@ -34,7 +27,7 @@
 			<td width="30%"></td>
 		</tr>
 	</table>
-	<table>
+	<table class="center">
 		<tr>
 			<td th:each="graph: ${glist}">
 				<img width="500" height="500" 

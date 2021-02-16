@@ -9,7 +9,6 @@
 	th:href="@{/css/style.css}" />
 </head>
 <body>
-	<header th:insert="fragments/general.html :: header"></header>
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br>
 	<h1>Job details</h1>
@@ -37,7 +36,6 @@
 			<td><a th:href=${job.jobAppUrl}>Apply Here</a></td>
 		</tr>
 	</table>
-
 	<br>
 	<div th:replace="fragments/general.html :: footer"></div>
 </body>
