@@ -69,37 +69,6 @@ public class AdminController {
 		return "logout";
 	}
 
-//....................SIGN UP PAGE....................
-	@RequestMapping(value = "/signup")
-	public String addAdmin(Model model) {
-		model.addAttribute("admin", new Admin());
-		
-		return "adminsignup";
-	}
-
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveAdmin(@ModelAttribute("admin") @Valid Admin admin,
-			BindingResult bindingResult, Model model) {   
-		if (bindingResult.hasErrors()) {
-			
-			return "adminsignup";
-		}
-		if (aService.findAdminByUsername(admin.getUserName()) != null) {   
-			model.addAttribute("duplicateUserName", "The username already exists");
-
-			return "adminsignup";
-		}
-		if (aService.findAdminByEmailAddress(admin.getEmailAddress()) != null) {
-			model.addAttribute("duplicateEmailAddress", "The email already exists");
-
-			return "adminsignup";
-		}
-		else {
-			aService.saveAdmin(admin);
-
-			return "forward:/admin/login";
-		}
-	}
 
 //....................EDIT USER PAGE....................
 	@RequestMapping(value = "/edit")

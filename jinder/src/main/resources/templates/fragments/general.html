@@ -18,7 +18,7 @@
 		        	<span th:if="${session.usession != null}" class="glyphicon glyphicon-user"></span>
 					<span th:if="${session.usession != null}" th:text=${session.usession.userName}>User name </span>
 					<span th:if="${session.asession != null}" class="glyphicon glyphicon-user"></span>
-					<span th:if="${session.asession != null}" th:text=${session.asession.userName}>Admin User name </span></li>
+					<span th:if="${session.asession != null}" th:text=${session.asession.userName}>Admin User name </span>
 		        	<a th:if="${session.usession != null}"><img th:src="@{/image/seeker.png}" width="80" height="80"/></a>						
 					<a th:if="${session.asession != null}"><img th:src="@{/image/admin.png}"/></a>
 						

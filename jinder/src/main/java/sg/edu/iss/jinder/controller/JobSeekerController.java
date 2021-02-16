@@ -42,7 +42,7 @@ public class JobSeekerController {
 		this.jsService=jobSeekerServiceImpl;
 	}
 	
-	private String localDirectory = "D:\\GDipSA\\SA4106 Application Development Project ";
+	private String localDirectory = "DIRECTORY ";
 
 //....................LOGIN PAGE....................
 	@RequestMapping(value="/login")
