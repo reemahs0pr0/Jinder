@@ -1,6 +1,7 @@
 BODY {
 	font-family : calbiri ;
 	font-size : 10pt;
+	margin: 0;
 	
 }
 
@@ -220,4 +221,57 @@ label {
     margin: .4rem 0;
 }
 
+/* DROP DOWN MENU */
+ .right{
+     float: right;
+ }
 
+ .pg-header{
+     height: 48px;
+     line-height: 48px;
+     background-color: #303a40;
+     color: white;
+ }
+
+ .pg-header .user{
+     padding: 0 20px;
+     height: 48px;
+     position: relative;
+ }
+
+ .pg-header .user:hover{
+     background-color: #425a66;
+ }
+
+ .pg-header .user .a{
+     height: 48px;
+ }
+
+ .pg-header .user .a img{
+     width: 40px;
+     height: 40px;
+     margin-top: 4px;
+     border-radius: 50%;
+ }
+
+ .pg-header .user .more{
+     width: 200px;
+     position: absolute;
+     top: 48px;
+     right: 20px;
+     background-color: #C0C0C0;
+     display: none;
+     z-index: 9999;
+ }
+
+ .pg-header .user:hover .more{
+     display: block;
+ }
+
+ .pg-header .user .more a{
+     display: block;
+ }
+ 
+ .pg-header .user .more a:link {
+ 	text-decoration: none;
+ }

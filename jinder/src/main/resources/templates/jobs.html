@@ -9,23 +9,16 @@
 	th:href="@{/css/style.css}" />
 </head>
 <body>
-	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br>
 	<div align="center">
 		<span th:if="${session.usession != null}">
-		<input type="button" value="Edit User"
-			onclick="window.location.href='/jobseeker/userdetails'; return false"
-			class="btn btn-success btn-lg" /> 
 		<input type="button" value="Recommended Jobs"
 			onclick="window.location.href='/job/recommendedjobs'; return false"
 			class="btn btn-warning btn-lg" /> 			
 		<input type="button" value="Jobs Dashboard"
 			onclick="window.location.href='/jobseeker/data'; return false"
 			class="btn btn-primary btn-lg" /> 
-		<input type="button" value="Log Out"
-			onclick="window.location.href='/jobseeker/logout'; return false"
-			class="btn btn-danger btn-lg" /> 
 		</span>
 	</div>
 	<br>

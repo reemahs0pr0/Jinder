@@ -8,24 +8,33 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 <body>
-	<header th:insert="fragments/general.html :: header"> </header>
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br>
-	<h1>Welcome!</h1>
+	<table style="margin-left:auto;margin-right:auto;">
+		<tr>
+			<td>
+				<div align="center">
+					<img alt="" th:src="@{/image/welcome.png}" width="800" height="800"/>
+				</div>
+			</td>
+			<td>
+				<div align="center">
+					<img alt="" th:src="@{/image/jinderinverse.png}" width="200" height="100"/>
+					<br>
+					<br>
+					<br>
+					<input type="button" value="Admin"
+						onclick="window.location.href='/admin/login'; return false"
+						class="btn btn-primary btn-lg" /> <input type="button"
+						value="Job Seeker"
+						onclick="window.location.href='/jobseeker/login'; return false"
+						class="btn btn-warning btn-lg" />
+				</div>
+			</td>
+		</tr>
+	</table>
 	<br>
-	<div align="center">
-		<input type="button" value="Admin" 
-			onclick="window.location.href='/admin/login'; return false" 
-			class="btn btn-info btn-lg" />
-		<input type="button" value="Job Seeker"
-			onclick="window.location.href='/jobseeker/login'; return false"
-			class="btn btn-info btn-lg" /> 
-	</div>
 	<br>
-	<div align="center">
-		<img alt="" th:src="@{/image/image.png}" />
-	</div>
 	<br>
-	<div th:replace="fragments/general.html :: footer"></div>
 </body>
 </html>
