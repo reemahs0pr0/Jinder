@@ -19,7 +19,7 @@
 					<span th:if="${session.usession != null}" th:text=${session.usession.userName}>User name </span>
 					<span th:if="${session.asession != null}" class="glyphicon glyphicon-user"></span>
 					<span th:if="${session.asession != null}" th:text=${session.asession.userName}>Admin User name </span></li>
-		        	<a th:if="${session.usession != null}" href="seeker"><img th:src="@{/image/seeker.png}" width="100" height="100"/></a>						
+		        	<a th:if="${session.usession != null}" href="seeker"><img th:src="@{/image/seeker.png}" width="80" height="80"/></a>						
 					<a th:if="${session.asession != null}" href="admin"><img th:src="@{/image/admin.png}"/></a>
 						
 		        </div>
@@ -32,7 +32,7 @@
 		    </div>
 	</div>
 	</div>
-	<footer th:fragment="footer">
+	<footer th:fragment="footer" style=position:fixed>
 		<span th:if="${session.usession == null}"><a href="Home" class="btn btn-success btn-sm" th:href="@{/}">Back to Home</a></span>
 		<span th:if="${session.usession != null}"><a href="Jobs Listing" class="btn btn-info btn-sm" th:href="@{/job/list}">Back to Jobs Listing</a></span>
 		<span th:if="${session.asession != null}"><a href="Jobs Listing" class="btn btn-info btn-sm" th:href="@{/job/adminlist}">Back to Jobs Listing</a></span>
