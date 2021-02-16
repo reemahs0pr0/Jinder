@@ -1,5 +1,6 @@
 package sg.edu.iss.jinder.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,7 +8,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class JobSeeker extends User {
+public class JobSeeker extends User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String resumeUrl;
 
 	@OneToOne(mappedBy = "user")
