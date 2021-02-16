@@ -39,7 +39,7 @@ public abstract class User {
 	@Size(max = 50, message = "Address cannot be more than 50 characters")
 	private String address; 
 	@NotNull(message="Please fill in contact number")
-	@Pattern(regexp = "^[0-9]{8}$",  message="Please enter valid phone number")
+	@Pattern(regexp = "^[0-9]{8}$",  message="Please enter a valid phone number of 8 numbers")
 	private String phoneNo; 
 
 	
