@@ -44,6 +44,7 @@ public class JobServiceImpl implements JobService {
 				  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				  
 				  conn.setRequestMethod("GET");
+				  conn.setRequestProperty("Authorization", "Jinder");
 			      conn.connect();
 			      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			      StringBuilder sb = new StringBuilder();
@@ -86,6 +87,7 @@ public class JobServiceImpl implements JobService {
 				  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				  
 				  conn.setRequestMethod("GET");
+				  conn.setRequestProperty("Authorization", "Jinder");
 			      conn.connect();
 			      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			      StringBuilder sb = new StringBuilder();
@@ -118,6 +120,7 @@ public class JobServiceImpl implements JobService {
 				  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				  
 				  conn.setRequestMethod("GET");
+				  conn.setRequestProperty("Authorization", "Jinder");
 			      conn.connect();
 			      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			      StringBuilder sb = new StringBuilder();
@@ -202,6 +205,7 @@ public class JobServiceImpl implements JobService {
 			  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			  
 			  conn.setRequestMethod("GET");
+			  conn.setRequestProperty("Authorization", "Jinder");
 		      conn.connect();
 		      BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		      StringBuilder sb = new StringBuilder();
@@ -240,6 +244,7 @@ public class JobServiceImpl implements JobService {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			  
 			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Authorization", "Jinder");
 		    conn.connect();
 		    BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		    StringBuilder sb = new StringBuilder();
