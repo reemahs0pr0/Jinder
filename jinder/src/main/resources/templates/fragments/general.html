@@ -33,7 +33,7 @@
 	</div>
 	</div>
 	<footer th:fragment="footer" style=position:fixed>
-		<span th:if="${session.usession == null}"><a href="Home" class="btn btn-success btn-sm" th:href="@{/}">Back to Home</a></span>
+		<span th:if="${session.usession == null AND session.asession == null}"><a href="Home" class="btn btn-success btn-sm" th:href="@{/}">Back to Home</a></span>
 		<span th:if="${session.usession != null}"><a href="Jobs Listing" class="btn btn-info btn-sm" th:href="@{/job/list}">Back to Jobs Listing</a></span>
 		<span th:if="${session.asession != null}"><a href="Jobs Listing" class="btn btn-info btn-sm" th:href="@{/job/adminlist}">Back to Jobs Listing</a></span>
 		<br> 
