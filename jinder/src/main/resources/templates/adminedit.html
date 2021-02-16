@@ -29,7 +29,7 @@
 				<td width="10%" align="right">Full Name:</td>
 				<td width="30%">
 					<input type="text" th:field="*{fullName}">
-					<p class="error-list" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
+					<p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
 				</td>
 			</tr>
 			<tr>
@@ -37,42 +37,42 @@
 				<td width="30%">
 					<input type="text" th:field="*{userName}">
 					<p class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
-					<p th:text="${duplicateUsername}"></p>
+					<p class="error" th:text="${duplicateUserName}"></p>
 				</td>
 			</tr>
 			<tr>
 				<td width="10%" align="right">Password: </td>
 				<td width="30%">
 					<input type="password" th:field="*{password}">
-					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+					<p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 				</td>
 			</tr>
 			<tr>
 				<td width="10%" align="right">Email Address: </td>
 				<td width="30%">
 					<input type="email" th:field="*{emailAddress}">
-					<p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></p>
-					<p th:text="${duplicateEmailAddress}"></p>
+					<p class="error" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></p>
+					<p class="error" th:text="${duplicateEmailAddress}"></p>
 				</td>
 			</tr>
 			<tr>
 				<td width="10%" align="right">Address: </td>
 				<td width="30%">
 					<input type="text" th:field="*{address}">
-					<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+					<p class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
 				</td>
 			</tr>
 			<tr>
 				<td width="10%" align="right">PhoneNo: </td>
 				<td width="30%">
 					<input type="text" th:field="*{phoneNo}">
-					<p th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}"></p>
+					<p class="error" th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}"></p>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" class="btn btn-success" value="Save changes" /> &nbsp; &nbsp; 
-					<input type="reset" class="btn btn-danger" value="Reset" />
+					<input type="submit" class="btn btn-danger" value="Reset" onclick="window.location.href='/admin/edit'; return false" />
 				</td>
 			</tr>
 			<tr>
