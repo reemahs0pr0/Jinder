@@ -86,7 +86,7 @@
 		</thead>
 		<tr th:each="job: ${jobs}" class="table-row">
 			<td th:style="'display:none'" th:text=${job.id+1}>Id</td>
-			<td th:text=${job.companyName}>Name</td>
+			<td id="text" th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
 			<td th:if="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
 			<td th:unless="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription}">Description</td>
@@ -101,6 +101,7 @@
 			</td>
 		</tr>
 	</table>
+	
 	<div th:if="${jobs.totalPages > 0}" class="pagination">
 		<a style="margin-left:675px" 
 			th:href="@{/job/list(size=${jobs.size}, page=1, keyword=${keyword}, progLang=${lastSelected})}"
