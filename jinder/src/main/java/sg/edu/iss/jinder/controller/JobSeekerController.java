@@ -294,7 +294,7 @@ public class JobSeekerController {
 			    model.addAttribute("selectableTitles",selectableTitles);
 				model.addAttribute("upref",upref1);
 
-				model.addAttribute("error","Minium must be 1 and Maximum must be 2 only");
+				model.addAttribute("error","You can only choose a minimum of 1 and maximum of 2 options per question!");
 				
 				return "survey";
 			}
