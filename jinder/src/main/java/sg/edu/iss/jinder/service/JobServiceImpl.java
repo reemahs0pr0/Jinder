@@ -72,7 +72,7 @@ public class JobServiceImpl implements JobService {
 			return null;
 		}
 		else {
-			return jrepo.findAll();
+			return jrepo.findAllSortedByAsc();
 		}
 	}
 	
