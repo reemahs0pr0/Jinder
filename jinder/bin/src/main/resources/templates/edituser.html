@@ -14,6 +14,9 @@
 		<input type="button" value="Upload File"
 			onclick="window.location.href='/jobseeker/uploadfile'; return false"
 			class="btn btn-success btn-lg" /> 
+		<input type="button" value="Take Survey"
+			onclick="window.location.href='/jobseeker/survey'; return false"
+			class="btn btn-primary btn-lg" /> 
 		<input type="button" value="Jobs Listing"
 			onclick="window.location.href='/job/list'; return false"
 			class="btn btn-info btn-lg" />  
@@ -39,7 +42,7 @@
 				<td width="30%">
 					<input type="text" th:field="*{userName}">
 					<p class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
-					<p th:text="${duplicateUsername}"></p>
+					<p class="error" th:text="${duplicateUserName}"></p>
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +56,7 @@
 				<td width="10%" align="right">Email Address: </td>
 				<td width="30%">
 					<input type="email" th:field="*{emailAddress}">
-					<p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></p>
+					<p class="error" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></p>
 					<p class="error" th:text="${duplicateEmailAddress}"></p>
 				</td>
 			</tr>
@@ -67,14 +70,14 @@
 			<tr>
 				<td width="10%" align="right">PhoneNo: </td>
 				<td width="30%">
-					<input type="text" th:field="*{phoneNo}" th:placeholder="88018201">
+					<input type="text" th:field="*{phoneNo}">
 					<p class="error" th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}"></p>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" class="btn btn-success" value="Save changes" /> &nbsp; &nbsp; 
-					<input type="reset" class="btn btn-danger" value="Reset" />
+					<input type="submit" class="btn btn-danger" value="Reset" onclick="window.location.href='/jobseeker/edit'; return false" />
 				</td>
 			</tr>
 			<tr>
