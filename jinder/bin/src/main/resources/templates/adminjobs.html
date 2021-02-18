@@ -9,17 +9,6 @@
 	th:href="@{/css/style.css}" />
 </head>
 
-<script th:inline="javascript" type="text/javascript" >
-    function adminClickToShow() {
-    var selection = window.getSelection();
-    var id = document.getElementById("adminjobid").innerHTML;
-    console.log(selection);
-    if(selection.type != "Range") {
-    	window.location.href="/job/admindetail/"+id;
-    }
-}
-</script>
-
 <body>
 	<div th:replace="fragments/general.html :: menu"></div>
 	<br>
@@ -87,21 +76,16 @@
 				<th>Job Description</th>
 			</tr>
 		</thead>
-		<tr th:each="job: ${jobs}" class="table-row" onclick="adminClickToShow()" onMouseOver="this.style.cursor='pointer'">
+		<tr th:each="job: ${jobs}" class="table-row" >
 			<td th:style="'display:none'" th:text=${job.id+1} id="adminjobid">Id</td>
 			<td th:text=${job.companyName}>Name</td>
 			<td th:text=${job.jobTitle}>Title</td>
 			<td th:if="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription.substring(0, 50) + '...'}">Description</td>
 			<td th:unless="${#strings.length(job.jobDescription)>50}" th:text="${job.jobDescription}">Description</td>
-			<!--<td><span th:if="${session.usession != null}">
-					<a href="jobdetail.html" class="btn btn-success"
-					th:href="@{/job/detail/}+${job.id}">Click for more details</a>
-				</span>
-				<span th:if="${session.asession != null}">
-					<a href="jobdetail.html" class="btn btn-success"
-					th:href="@{/job/admindetail/}+${job.id}">Click for more details</a>
-				</span>
-			</td>  -->
+			<td>
+				<a href="jobdetail.html" class="btn btn-success"
+				th:href="@{/job/admindetail/}+${job.id}">Click for more details</a>
+			</td>
 		</tr>
 	</table>
 	<div th:if="${jobs.totalPages > 0}" class="pagination">
