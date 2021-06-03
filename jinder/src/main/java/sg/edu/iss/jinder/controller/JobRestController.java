@@ -3,6 +3,7 @@ package sg.edu.iss.jinder.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,7 @@ import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/api/jobs/") 
 class JobRestController {
