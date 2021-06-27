@@ -13,7 +13,7 @@ import sg.edu.iss.jinder.model.Job;
 import sg.edu.iss.jinder.service.JobService;
 import sg.edu.iss.jinder.service.JobServiceImpl;
 
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping(path = "/api/jobs/") 
 class JobRestController {
